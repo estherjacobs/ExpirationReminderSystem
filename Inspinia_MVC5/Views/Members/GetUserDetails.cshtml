@@ -1,0 +1,26 @@
+﻿@using CertificateRepository;
+@using Inspinia_MVC5.Models;
+@{
+    ViewBag.Title = "Members";
+}
+@model User
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetUserDetails</title>
+</head>
+<body>
+    <div> 
+        @Model.FullName
+        @*@{IEnumerable<Course> C = Model.Courses.ToList();
+                }
+       @foreach(Course c in Model.Courses)
+       {
+           <h1>@c.Id</h1>
+       }*@
+    </div>
+</body>
+</html>

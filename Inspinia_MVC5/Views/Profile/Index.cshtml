@@ -1,0 +1,301 @@
+﻿@using CertificateRepository;
+@using Inspinia_MVC5.Models;
+@model ProfileViewModel
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+
+        <div class="col-lg-8">
+            <div class="widget-head-color-box navy-bg p-lg text-center" style="height: 425px;">
+                <div class="m-b-md">
+                    <h2 class="m-b-md">
+                        @Model.User.FullName
+                    </h2>
+                   
+                   
+                </div>
+                <img src="~/Images/default.png" class="img-circle circle-border m-b-md" alt="profile">
+                <div>
+                    <p>Member of</p>
+                </div>
+                <div>
+                    @{
+
+                        if (Model.Organizations.Count() > 0)
+                        {
+                            <span>
+                             |   @Model.Organizations.FirstOrDefault().Organization.Name |
+                            </span>
+                        }
+                        if (Model.Organizations.Count() > 1)
+                        {
+                            <span>
+                                @Model.Organizations.Skip(1).Take(1).FirstOrDefault().Organization.Name |
+                            </span>
+                        }
+                        if (Model.Organizations.Count() > 2)
+                        {
+                            <span>
+                                @Model.Organizations.Skip(2).Take(1).FirstOrDefault().Organization.Name |
+                            </span>
+                        }
+                    }
+
+</div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="widget lazur-bg p-xl">
+                @*<h2>
+                    @Model.User.FullName
+                </h2>*@
+                <ul class="list-unstyled m-t-md">
+                    <li>
+                        <span class="fa fa-clock-o m-r-xs"></span>
+                        <label>Member Since:</label>
+                      @Model.User.DateCreated.ToLongDateString()
+                    </li>
+                    <li>
+                        <span class="fa fa-envelope m-r-xs"></span>
+                        <label>Email:</label>
+                        @Model.User.Email
+                    </li>
+                    <li>
+                        <span class="fa fa-phone m-r-xs"></span>
+                        <label>Contact:</label>
+                        @{ 
+
+                            string p = Model.User.PhoneNumber;
+                            string formattedPhoneNumber = string.Format("({0}) {1}-{2}", p.Substring(0, 3), p.Substring(3, 3), p.Substring(6, 4));
+                        }
+                            @formattedPhoneNumber
+                    </li>
+                    
+                </ul>
+
+            </div>
+            <div class="widget yellow-bg p-lg text-center">
+                <div class="m-b-md">
+                    <i class="fa fa-users fa-4x"></i>
+                    <h1 class="m-xs">@Model.Organizations.Where(i => i.UserId == (int.Parse(User.Identity.Name))).Count()</h1>
+                    <h3 class="font-bold no-margins">
+                        Relationships
+                    </h3>
+                    <small>Number of relationships with organizations</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Account Settings</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal" id="update-account-form" action="/profile/UpdateAccount" method="post">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Name</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="name" id="name" placeholder="user's full name" minlength="3" value="@Model.User.FullName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Email</label>
+                                <div class="col-lg-8"><input type="email" placeholder="user's email" id="email" value="@Model.User.Email" name="email" class="form-control"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Mobile Phone</label>
+                                <div class="col-lg-8"><input type="text" name="phone" placeholder="phone number" id="phone" value="@Model.User.PhoneNumber" class="form-control"></div>
+                            </div>
+                            <input type="hidden" value="@Model.User.Id" name="userid" id="account-userid">
+                            <div class="form-group">
+                                <div class="col-lg-offset-8 col-lg-3 text-right">
+                                    <input class="btn btn-primary account-submit" name="commit" type="submit" value="Save">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @*</div>
+                <div class="row">*@
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Password Settings</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal" id="update-password-form" action="/profile/UpdatePassword" method="post">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Current Password</label>
+                                <div class="col-lg-8"><input type="password" name="oldPassword" id="oldPassword" placeholder="old password" class="form-control"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">New Password</label>
+                                <div class="col-lg-8"><input type="password" name="newPassword" id="newPassword" placeholder="new password" class="form-control"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Confirm New Password</label>
+                                <div class="col-lg-8"><input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="confirm new password" class="form-control"></div>
+                            </div>
+                            <input type="hidden" value="@Model.User.Id" name="userid" id="userid">
+                            <div class="form-group">
+                                <div class="col-lg-offset-8 col-lg-3 text-right">
+                                    <input class="btn btn-primary password-submit" name="commit" type="submit" value="Save">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Notification Settings</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" id="update-notification-form" class="form-horizontal" action="/Profile/UpdateNotification">
+
+                            <div class="form-group" id="notification-settings">
+                                <h4 class="col-sm-2 control-label">Receive notifications</h4>
+
+                                <div class="col-sm-10">
+                                    @if (Model.User.ViaEmail == true)
+                                    {
+                                        <div class="radio i-checks"><label> <input type="radio" checked="" value="1" name="radio"> <i></i> Via Email </label></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="radio i-checks"><label> <input type="radio" value="1" name="radio"> <i></i> Via Email </label></div>
+                                    }
+                                    @if (Model.User.ViaText == true)
+                                    {
+                                        <div class="radio i-checks"><label> <input type="radio" value="2" name="radio" checked=""> <i></i> Via Text Message </label></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="radio i-checks"><label> <input type="radio" value="2" name="radio"> <i></i> Via Text Message </label></div>
+                                    }
+                                    @if (Model.User.ViaText == true && Model.User.ViaEmail == true)
+                                    {
+                                        <div class="radio i-checks"><label> <input type="radio" value="3" name="radio" checked=""> <i></i> Via Email and Text Message</label></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="radio i-checks"><label> <input type="radio" value="3" name="radio"> <i></i> Via Email and Text Message</label></div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            @if (Model.Contact == null)
+                            {
+                                <div class="form-group">
+                                    <div class="col-sm-3 control-label"><h4>Assign contact to receive notifications</h4></div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Name</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" name="name" id="name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Email</label>
+                                    <div class="col-lg-8"><input type="email" name="email" id="email" class="form-control"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">SMS Phone</label>
+                                    <div class="col-lg-8"><input type="tel" name="phone" id="phone" class="form-control"></div>
+                                </div>
+                                <input type="hidden" value="@Model.User.Id" name="userid">
+                                <div class="form-group">
+                                    <div class="col-lg-offset-8 col-lg-2 text-right">
+                                        <button class="btn btn-group-lg navy-bg" type="submit">Save</button>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    <div class="col-sm-3 col-lg-offset-0 control-label"><label> Edit contact to receive notifications </label></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Name</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" name="name" id="name" value="@Model.Contact.Name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Email</label>
+                                    <div class="col-lg-8"><input type="email" name="email" id="email" value="@Model.Contact.Email" class="form-control"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">SMS Phone</label>
+                                    <div class="col-lg-8"><input type="tel" name="phone" id="phone" value="@Model.Contact.Phone" class="form-control"></div>
+                                </div>
+                                <input type="hidden" value="@Model.User.Id" name="userid">
+                                <div class="form-group">
+                                    <div class="col-lg-offset-8 col-lg-2 text-right">
+                                        <button class="btn btn-group-lg navy-bg" type="submit">Save</button>
+                                    </div>
+                                </div>
+                            }
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Styles {
+        @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+
+    }
+    @section Scripts {
+        @Scripts.Render("~/plugins/iCheck")
+
+        <script src="~/Scripts/site-scripts/Notification-Shared.js"></script>
+        <script src="~/Scripts/site-scripts/profile-index.js"></script>
+        <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+
+            });
+        </script>
+    }
+
+

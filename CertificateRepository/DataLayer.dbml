@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CertificateRegistry" Class="DataLayerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=CertificateRegistry;Integrated Security=True" SettingsObjectName="CertificateRepository.Properties.Settings" SettingsPropertyName="CertificateRegistryConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Actions" Member="Actions">
+    <Type Name="Action">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(350) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="User_Action" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserOrganization" Member="UserOrganizations">
+    <Type Name="UserOrganization">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Permission" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Organization_UserOrganization" Member="Organization" ThisKey="OrgId" OtherKey="Id" Type="Organization" IsForeignKey="true" />
+      <Association Name="User_UserOrganization" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AddMemberTokens" Member="AddMemberTokens">
+    <Type Name="AddMemberToken">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Token" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(120) NOT NULL" CanBeNull="false" />
+      <Column Name="Permission" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Organization_AddMemberToken" Member="Organization" ThisKey="OrgId" OtherKey="Id" Type="Organization" IsForeignKey="true" />
+      <Association Name="User_AddMemberToken" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cars" Member="Cars">
+    <Type Name="Car">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Make" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Model" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="People_Car" Member="People" ThisKey="PersonId" OtherKey="Id" Type="People" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Category_ExpirationItem" Member="ExpirationItems" ThisKey="Id" OtherKey="CategoryId" Type="ExpirationItem" />
+      <Association Name="Category_Note" Member="Notes" ThisKey="Id" OtherKey="categoryId" Type="Note" />
+      <Association Name="Category_OrgRequiredItem" Member="OrgRequiredItems" ThisKey="Id" OtherKey="CatId" Type="OrgRequiredItem" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contact" Member="Contacts">
+    <Type Name="Contact">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Association Name="User_Contact" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CoreCourse" Member="CoreCourses">
+    <Type Name="CoreCourse">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="CatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="CourseCategory_CoreCourse" Member="CourseCategory" ThisKey="CatId" OtherKey="Id" Type="CourseCategory" IsForeignKey="true" />
+      <Association Name="User_CoreCourse" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Course" Member="Courses">
+    <Type Name="Course">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Credits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="User_Course" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CourseCategory" Member="CourseCategories">
+    <Type Name="CourseCategory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="CourseCategory_CoreCourse" Member="CoreCourses" ThisKey="Id" OtherKey="CatId" Type="CoreCourse" />
+      <Association Name="CourseCategory_CourseCategory" Member="CourseCategory2" ThisKey="Id" OtherKey="Id" Type="CourseCategory" Cardinality="One" />
+      <Association Name="CourseCategory_CourseCategory" Member="CourseCategory1" ThisKey="Id" OtherKey="Id" Type="CourseCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExpirationItem" Member="ExpirationItems">
+    <Type Name="ExpirationItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IssueDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ExpirationDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="ExpirationItem_Image" Member="Images" ThisKey="Id" OtherKey="ExpirationItemId" Type="Image" />
+      <Association Name="ExpirationItem_ItemShareWithCompany" Member="ItemShareWithCompanies" ThisKey="Id" OtherKey="ItemId" Type="ItemShareWithCompany" />
+      <Association Name="ExpirationItem_Reminder" Member="Reminders" ThisKey="Id" OtherKey="ExpirationItemId" Type="Reminder" />
+      <Association Name="Category_ExpirationItem" Member="Category" ThisKey="CategoryId" OtherKey="Id" Type="Category" IsForeignKey="true" />
+      <Association Name="User_ExpirationItem" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Image" Member="Images">
+    <Type Name="Image">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExpirationItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Path" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="IsBack" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Image_Organization" Member="Organizations" ThisKey="Id" OtherKey="ImageId" Type="Organization" />
+      <Association Name="ExpirationItem_Image" Member="ExpirationItem" ThisKey="ExpirationItemId" OtherKey="Id" Type="ExpirationItem" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ItemShareWithCompany" Member="ItemShareWithCompanies">
+    <Type Name="ItemShareWithCompany">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Share" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="ExpirationItem_ItemShareWithCompany" Member="ExpirationItem" ThisKey="ItemId" OtherKey="Id" Type="ExpirationItem" IsForeignKey="true" />
+      <Association Name="Organization_ItemShareWithCompany" Member="Organization" ThisKey="OrgId" OtherKey="Id" Type="Organization" IsForeignKey="true" />
+      <Association Name="User_ItemShareWithCompany" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NonExpirationItem" Member="NonExpirationItems">
+    <Type Name="NonExpirationItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Path" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Association Name="User_NonExpirationItem" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Notes" Member="Notes">
+    <Type Name="Note">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="categoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="notes" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Category_Note" Member="Category" ThisKey="categoryId" OtherKey="Id" Type="Category" IsForeignKey="true" />
+      <Association Name="User_Note" Member="User" ThisKey="userId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrgActions" Member="OrgActions">
+    <Type Name="OrgAction">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Organization_OrgAction" Member="Organization" ThisKey="OrgId" OtherKey="Id" Type="Organization" IsForeignKey="true" />
+      <Association Name="User_OrgAction" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Organization" Member="Organizations">
+    <Type Name="Organization">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="YearFounded" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Organization_UserOrganization" Member="UserOrganizations" ThisKey="Id" OtherKey="OrgId" Type="UserOrganization" />
+      <Association Name="Organization_AddMemberToken" Member="AddMemberTokens" ThisKey="Id" OtherKey="OrgId" Type="AddMemberToken" />
+      <Association Name="Organization_ItemShareWithCompany" Member="ItemShareWithCompanies" ThisKey="Id" OtherKey="OrgId" Type="ItemShareWithCompany" />
+      <Association Name="Organization_OrgAction" Member="OrgActions" ThisKey="Id" OtherKey="OrgId" Type="OrgAction" />
+      <Association Name="Organization_Organization" Member="Organization2" ThisKey="Id" OtherKey="Id" Type="Organization" Cardinality="One" />
+      <Association Name="Organization_OrgRequiredItem" Member="OrgRequiredItems" ThisKey="Id" OtherKey="OrgId" Type="OrgRequiredItem" />
+      <Association Name="Image_Organization" Member="Image" ThisKey="ImageId" OtherKey="Id" Type="Image" IsForeignKey="true" />
+      <Association Name="Organization_Organization" Member="Organization1" ThisKey="Id" OtherKey="Id" Type="Organization" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrgRequiredItems" Member="OrgRequiredItems">
+    <Type Name="OrgRequiredItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CatId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Category_OrgRequiredItem" Member="Category" ThisKey="CatId" OtherKey="Id" Type="Category" IsForeignKey="true" />
+      <Association Name="Organization_OrgRequiredItem" Member="Organization" ThisKey="OrgId" OtherKey="Id" Type="Organization" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PasswordTokens" Member="PasswordTokens">
+    <Type Name="PasswordToken">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="userid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="guid" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="User_PasswordToken" Member="User" ThisKey="userid" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.People" Member="Peoples">
+    <Type Name="People">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="People_Car" Member="Cars" ThisKey="Id" OtherKey="PersonId" Type="Car" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Reminder" Member="Reminders">
+    <Type Name="Reminder">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpirationItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Days" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="ExpirationItem_Reminder" Member="ExpirationItem" ThisKey="ExpirationItemId" OtherKey="Id" Type="ExpirationItem" IsForeignKey="true" />
+      <Association Name="User_Reminder" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="HashedPassword" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Salt" Type="System.String" DbType="VarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="DateCreated" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="ViaEmail" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ViaText" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Permission" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Action" Member="Actions" ThisKey="Id" OtherKey="UserId" Type="Action" />
+      <Association Name="User_UserOrganization" Member="UserOrganizations" ThisKey="Id" OtherKey="UserId" Type="UserOrganization" />
+      <Association Name="User_AddMemberToken" Member="AddMemberTokens" ThisKey="Id" OtherKey="UserId" Type="AddMemberToken" />
+      <Association Name="User_Contact" Member="Contacts" ThisKey="Id" OtherKey="UserId" Type="Contact" />
+      <Association Name="User_CoreCourse" Member="CoreCourses" ThisKey="Id" OtherKey="UserId" Type="CoreCourse" />
+      <Association Name="User_Course" Member="Courses" ThisKey="Id" OtherKey="UserId" Type="Course" />
+      <Association Name="User_ExpirationItem" Member="ExpirationItems" ThisKey="Id" OtherKey="UserId" Type="ExpirationItem" />
+      <Association Name="User_ItemShareWithCompany" Member="ItemShareWithCompanies" ThisKey="Id" OtherKey="UserId" Type="ItemShareWithCompany" />
+      <Association Name="User_NonExpirationItem" Member="NonExpirationItems" ThisKey="Id" OtherKey="UserId" Type="NonExpirationItem" />
+      <Association Name="User_Note" Member="Notes" ThisKey="Id" OtherKey="userId" Type="Note" />
+      <Association Name="User_OrgAction" Member="OrgActions" ThisKey="Id" OtherKey="UserId" Type="OrgAction" />
+      <Association Name="User_PasswordToken" Member="PasswordTokens" ThisKey="Id" OtherKey="userid" Type="PasswordToken" />
+      <Association Name="User_Reminder" Member="Reminders" ThisKey="Id" OtherKey="UserId" Type="Reminder" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,94 @@
+﻿@using CertificateRepository;
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" src="~/Images/profile_small.jpg" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                            @{ 
+                                var mgr = new UserPortalRepository();
+                                User u = mgr.GetUser(int.Parse(User.Identity.Name));
+
+                                <strong class="font-bold">@u.FullName</strong>
+                                <span class="text-muted text-xs block">Since @u.DateCreated.ToShortDateString()</span>
+                           
+                            }
+                            </span> 
+                        </span>
+                    </a>
+                    <!--<ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="@Url.Action("Profile", "AppViews")">Profile</a></li>
+                        <li><a href="@Url.Action("Contacts", "AppViews")">Contacts</a></li>
+                        <li><a href="@Url.Action("Inbox", "Mailbox")">Mailbox</a></li>
+                        <li class="divider"></li>
+                        <li><a href="@Url.Action("Login", "Pages")">Logout</a></li>
+                    </ul>-->
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Portal")">
+                <a href="@Url.Action("Index", "Portal")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.portal">Dashboard</span></a>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "Profile")">
+                <a href="@Url.Action("Index", "Profile" )"><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.profile">Profile</span> </a>
+            </li>
+            @{
+                IEnumerable<UserOrganization> list = mgr.GetRelationships(int.Parse(User.Identity.Name));
+                foreach (UserOrganization y in list)
+                {
+                    if (y.Permission == 2 || y.Permission == 3)
+                    {
+                        <li class="@Html.IsSelected(controller: "Members")">
+                            <a href="@Url.Action("Index", "Members" )"><i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.profile">@y.Organization.Name</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li><a href="@Url.Action("Index", "Members")">Members</a></li>
+                                <li><a href="@Url.Action("Activity", "Members")">Activity</a></li>
+                              
+                            </ul>
+                        </li>
+                    }
+                }
+
+                @*<li class="active">
+                    <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse in">
+                        <li><a href="graph_flot.html">Flot Charts</a></li>
+                        <li><a href="graph_morris.html">Morris.js Charts</a></li>
+                        <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
+                        <li><a href="graph_chartjs.html">Chart.js</a></li>
+                        <li><a href="graph_chartist.html">Chartist</a></li>
+                        <li><a href="c3.html">c3 charts</a></li>
+                        <li><a href="graph_peity.html">Peity Charts</a></li>
+                        <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
+                    </ul>
+                </li>*@
+
+
+                @*int permission = mgr.GetPermission(int.Parse(User.Identity.Name));
+
+                if (permission == 2 || permission == 3)
+                {
+                    <li class="@Html.IsSelected(controller: "Members")">
+                        <a href="@Url.Action("Index", "Members" )"><i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.profile">Members</span> </a>
+                    </li>
+                }*@
+
+            }
+            @*<li class="@Html.IsSelected(controller: "Notes")">
+                <a href="@Url.Action("Index", "Notes" )"><i class="fa fa-pencil"></i> <span class="nav-label" data-i18n="nav.profile">Notes</span> </a>
+            </li>*@
+            <li class="@Html.IsSelected(controller: "Activity")">
+                <a href="@Url.Action("Index", "Activity" )"><i class="fa fa-list"></i> <span class="nav-label" data-i18n="nav.profile">Activity</span> </a>
+            </li>
+        </ul>
+    </div>
+</nav>

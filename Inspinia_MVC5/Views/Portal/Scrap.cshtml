@@ -1,0 +1,160 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>New Item</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="ibox-content">
+                <h2>
+                    Add a new expiration Item
+                </h2>
+
+                <form id="form" action="#" class="wizard-big">
+                    <h1>Name</h1>
+                    <fieldset>
+
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <div class="form-group">
+                                    <label>Item Name *</label>
+                                    <input id="itemName" name="itemName" type="text" class="form-control required">
+                                </div>
+
+                                <br />
+                                <div class="form-group">
+                                    <label>Select Category *</label>
+                                    <select class="form-control m-b" name="account">
+                                        <option>Category 1</option>
+                                        <option>Category 2</option>
+                                        <option>Category 3</option>
+                                        <option>Category 4</option>
+                                    </select>
+                                    <div class="col-sm-">
+                                        <p style="color:#1AB394">Add New Category</p> <!--Add JQuery Here to show a form to add category-->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                    <h1>Expiration</h1>
+                    <fieldset>
+                        <h2>Expiration Information</h2>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group" id="data_1">
+                                    <label class="font-noraml">Issue Date</label>
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="data_1">
+                                    <label class="font-noraml">Expiration Date *</label>
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar required"></i></span><input type="text" class="form-control" value="03/04/2014">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <label>Reminder *</label><label class="small"> &nbsp; &nbsp; &nbsp;Setup a reminder a number of days before the item expires</label>
+                                    <input id="reminder1" name="reminder1" type="number" class="form-control required">
+                                </div>
+                                <p style="color:#1AB394">Add another reminder</p>
+                                <br />
+
+                                <div class="form-group">
+                                    <label>Add Reminder</label>
+                                    <input id="reminder2" disabled name="reminder2" type="number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Add Reminder</label>
+                                    <input id="reminder3" disabled name="reminder3" type="number" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <h1>File Upload</h1>
+                    <fieldset>
+
+                        Place the file upload piece here
+                        <div class="wrapper wrapper-content animated fadeIn">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-content">
+                                            <div id="my-awesome-dropzone" class="dropzone" action="@Url.Action("FileUploadHandler", "Forms")" method="post" enctype="multipart/form-data">
+                                                <div class="dropzone-previews"></div>
+                                            </div>
+                                            <div>
+                                                <div class="m text-justify"><small>Please submit an image of the front of the card here</small> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    $("#wizard").steps();
+    $("#form").steps({
+        bodyTag: "fieldset",
+        onStepChanging: function (event, currentIndex, newIndex) {
+            // Always allow going backward even if the current step contains invalid fields!
+            if (currentIndex > newIndex) {
+                return true;
+            }
+
+            var form = $(this);
+
+            // Clean up if user went backward before
+            if (currentIndex < newIndex) {
+                // To remove error styles
+                $(".body:eq(" + newIndex + ") label.error", form).remove();
+                $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+            }
+
+            // Disable validation on fields that are disabled or hidden.
+            form.validate().settings.ignore = ":disabled,:hidden";
+
+            // Start validation; Prevent going forward if false
+            return form.valid();
+        },
+
+        onFinishing: function (event, currentIndex) {
+            var form = $(this);
+
+            // Disable validation on fields that are disabled.
+            // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+            form.validate().settings.ignore = ":disabled";
+
+            // Start validation; Prevent form submission if false
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+            var form = $(this);
+
+            // Submit form input
+            form.submit();
+        }
+    }).validate({
+        errorPlacement: function (error, element) {
+            element.before(error);
+        },
+    });
+

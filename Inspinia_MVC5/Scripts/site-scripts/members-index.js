@@ -1,0 +1,182 @@
+﻿$(function () {
+    $(".addMember").on('click', function () {
+        var itemid = $(this).data('companyid');
+        function populateModal(itemid) {
+            $("#companyid").val(itemid);
+        }
+        $("#addMemberModal").modal();
+    });
+
+
+    $('.viewItemImage').data('bgcolor', '#23c6c8').hover(function () {
+        var $this = $(this);
+        var newBgc = $this.data('bgcolor');
+        $this.data('bgcolor', $this.css('color')).css('color', newBgc);
+    });
+
+    $("#itemTable").on('click', '.viewItemImage', function () {
+
+        var itemid = $(this).data('itemid');
+
+        $.get('/members/ViewItemImage1', { itemid: itemid }, function (path) {
+            var filePath = '/Images/' + path
+            $("#edit-image-1").attr('src', filePath)
+
+        });
+
+        $.get("/members/ViewItemImage2", { itemid: itemid }, function (path) {
+            var filePath = '/Images/' + path
+            $("#edit-image-2").attr('src', filePath)
+        });
+
+        $("#viewImageModal").modal();
+    });
+
+
+    $(".top-search").on('keyup', function () {
+        var text = $(this).val();
+        $("table tr").each(function () {
+            var tr = $(this);
+            var name = tr.find('td').text();
+            if (name.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+                tr.show();
+            } else {
+                tr.hide();
+            }
+        });
+    });
+
+    $(".disableUser").prop('disabled', true);
+
+    $(".viewMember").on('click', function () {
+        var userid = $(this).data('id');
+        var orgid = $("#orgId").val();
+        $("#courseTable").empty()
+        $("#itemTable").empty()
+        $("#itemChosenTable").empty()
+        $("#coreCourseTable").empty()
+        //$(this).closest('tr').remove();
+        var orgid = $("#orgId").val();
+        $.get('/members/getUserDetails', { userid: userid, orgid: orgid }, function (User) {
+            $("#member-first").text(User.FullName),
+            $("#member-name").val(User.FullName),
+            $("#member-email").text(User.Email),
+            $("#specific-userid").val(User.Id),
+            $("#member-number").text(User.PhoneNumber),
+            User.Courses.forEach(addCourseToTable)
+            User.RequiredItems.forEach(addItemToTable)
+            User.ExtraItems.forEach(addExtraItemToTable)
+            User.CoreCourses.forEach(addCCourseToTable)
+            $.get('/members/getdatejoined', { userid: userid, orgid: orgid }, function (date) {
+                if (date != null) {
+                    $("#member-date").text(date)
+                }
+            });
+
+            //$.get('/members/getpermission', { userid: userid, orgid: orgid }, function (permission) {
+            //    if (permission == 2) {
+            //        $(".disableUser").prop('disabled', false);
+            //    }
+            //});
+
+            $(".disableUser").prop('disabled', false);
+
+
+            if (User.Permission == 1) {
+                $("#member-permission").text("User")
+            };
+            if (User.Permission == 2) {
+                $("#member-permission").text("Admin")
+            };
+
+            if (User.Permission == 3) {
+                $("#member-permission").text("Super Administrator")
+            };
+        });
+    });
+    function addCourseToTable(Course) {
+        var row = new EJS({ url: '/content/templates/course-row.html' })
+            .render(Course);
+        $("#courseTable").append($(row));
+    }
+    function addItemToTable(RequiredItem) {
+        var row = new EJS({ url: '/content/templates/item-row.html' })
+            .render(RequiredItem);
+        $("#itemTable").append($(row));
+    }
+    function addExtraItemToTable(ExtraItem) {
+        var row = new EJS({ url: '/content/templates/item-row.html' })
+            .render(ExtraItem);
+        $("#itemChosenTable").append($(row));
+    }
+    function addCCourseToTable(CoreCourse) {
+        var row = new EJS({ url: '/content/templates/core-course-row.html' })
+            .render(CoreCourse);
+        $("#coreCourseTable").append($(row));
+    }
+    $(document).ready(function () {
+        $(".disableUser").click(function () {
+            var userid = $("#specific-userid").val();
+            var name = $("#member-name").val();
+            var orgid = $("#orgId").val();
+
+            swal({
+                title: "Are you sure?",
+                text: "You would like to disable this member from your organization",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, disable him!",
+                cancelButtonText: "No, cancel please!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+              function (isConfirm) {
+                  if (isConfirm) {
+                      $.post('/members/disableUser', { userid: userid, orgid: orgid }, function () {
+                      });
+                      swal("Disabled!", name + " has been disabled.", "success");
+                  } else {
+                      swal("Cancelled", name + " is safe", "error");
+                  }
+              });
+        });
+    });
+});
+
+//VALIDATE ADD MEMBER FORM
+$(".form-add-member").validate({
+    rules: {
+        email: {
+            required: true,
+            remote: {
+                url: '/members/CheckIfEmailExist',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    password: function () {
+                        return $('#email').val();
+                    }
+                }
+            }
+        },
+        permission: {
+            required: true,
+            range: [1, 2]
+        }
+    },
+    messages: {
+        email: {
+            required: "Enter an email address.",
+            remote: "An account with this email already exists."
+        },
+        permission: {
+            required: "Select a permission status.",
+            remote: "Select a permission status."
+        }
+    }
+});
+$('.viewMember').click(function () {
+    var trid = $(this).closest('tr').attr('id');
+});
+

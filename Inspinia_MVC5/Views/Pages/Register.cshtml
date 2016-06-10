@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Pages.cshtml";
+}
+
+<body class="gray-bg">
+
+    <div class="middle-box loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name text-center">Logo Here</h1>
+
+            </div>
+            <h3 class="text-center">Register Here</h3>
+            <form class="m-t" id="register-form" method="post" action="/Pages/SignUp">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Full Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Mobile Number">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary block full-width m-b" name="commit" type="submit" value="Register">
+                </div>
+           
+                <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Login", "Pages")">Have an account? Login here</a>
+            </form>
+           
+        </div>
+    </div>
+</body>
+@section Scripts{
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+    <script src="~/Scripts/site-scripts/pages-register.js"></script>
+}

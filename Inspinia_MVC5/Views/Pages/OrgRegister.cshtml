@@ -1,0 +1,104 @@
+﻿@using CertificateRepository;
+@model IEnumerable<Category>
+@{
+    Layout = "~/Views/Shared/_Layout_Pages.cshtml";
+}
+
+<body class="gray-bg">
+    <div class="animated fadeInDown">
+        <div>
+            <div class="middle-box">
+
+                <h2 class="text-center">Logo Here</h2>
+
+            </div>
+            <h3 class="text-center">Organization Register Here</h3>
+            <form class="m-t" id="register-form" method="post" action="/Pages/SignUp">
+                <div class="col-lg-4">
+                    <h2>Organization Info</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="oname" id="oname" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="oemail" name="oemail" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="oaddress" name="oaddress" placeholder="Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="ocity" name="ocity" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" id="ophoneNumber" name="ophoneNumber" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="oyear" name="oyear" placeholder="Year Founded">
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Company Logo/Image</label>
+                        <img id="add-image-1" src="http://placehold.it/100x100" alt="front card image" height="183" width="243" style="margin-top: 10px;" />
+                        <input type="file" name="image[0]" id="firstImage" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h2>Personal Log In</h2>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="pname" id="pname" placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="pemail" name="pemail" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" id="pphone" name="pphone" placeholder="Mobile Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="ppassword" name="ppassword" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="ppassword" name="ppassword" placeholder="Confirm Password">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h2>Required Information</h2>
+                    <p>Select the items which you would like to setup as required items for the members of your organization.</p>
+                    @foreach (Category c in Model)
+                    {
+                        <input type="checkbox" name="pcategory" value="@c.Id">
+                    }
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="year" name="year" placeholder="Year Founded">
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Company Logo/Image</label>
+                        <img id="add-image-1" src="http://placehold.it/100x100" alt="front card image" height="183" width="243" style="margin-top: 10px;" />
+                        <input type="file" name="image[0]" id="firstImage" />
+                    </div>
+                </div>
+                <div class="form-group col-lg-offset-4 col-lg-4 m-t-md" >
+                    <input class="btn btn-primary block full-width m-b" name="commit" type="submit" value="Register">
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+</body>
+@section Scripts{
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+    <script src="~/Scripts/site-scripts/pages-register.js"></script>
+}

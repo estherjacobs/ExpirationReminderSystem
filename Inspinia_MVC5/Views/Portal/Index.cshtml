@@ -1,0 +1,1014 @@
+﻿@using CertificateRepository;
+@using Inspinia_MVC5.Models;
+@model PortalViewModel
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="widget style1">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <i class="fa fa-calendar fa-5x"></i>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <span>Today's Date</span>
+                        <h2 class="font-bold">@DateTime.Now.ToShortDateString()</h2>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="widget style1 red-bg">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <i class="fa fa-bell fa-5x"></i>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <span> Expired Items </span>
+                        <h2 class="font-bold">@Model.ExpirationItems.Where(k => k.ExpirationDate <= DateTime.Now).Count()</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget style1 yellow-bg">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <i class="fa fa-warning fa-5x"></i>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <span> Expiring Soon </span>
+                        <h2 class="font-bold">@Model.ExpirationItems.Where(t => t.ExpirationDate <= DateTime.Now.AddDays(30) && t.ExpirationDate > DateTime.Now).Count()</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="widget style1 navy-bg">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <i class="fa fa-thumbs-up fa-5x"></i>
+                    </div>
+                    <div class="col-xs-8 text-right">
+                        <span> Current </span>
+                        <h2 class="font-bold">@Model.ExpirationItems.Where(r => r.ExpirationDate >= DateTime.Now.AddDays(30)).Count()</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @{ ExpirationItem item = Model.ExpirationItems.Where(i => i.CategoryId == 2).OrderByDescending(j => j.ExpirationDate).FirstOrDefault(); }
+        @if (item != null)
+        {
+            <div class="col-lg-3">
+                <div class="widget style1 p-xl navy-bg">
+                    <div class="row">
+                        @{int total = 0;}
+                        @foreach (Course c in Model.Courses)
+                        {
+                            if (c.Date > item.IssueDate && c.Date < item.ExpirationDate)
+                            {
+                                total += c.Credits;
+                            }
+                        }
+                        <div class="m-b-md m-t-sm">
+                            <h4>Percentage of EMT credits completed for this semester</h4>
+                            <h1>@total/24</h1>
+                        </div>
+                        @{
+                            double num1 = (double)total / (double)24;
+                            double num2 = (num1 * 100);
+                        }
+
+                        <div class="progress progress-mini">
+                            <div style="width: @num2%; background-color:#116353;" class="progress-bar"></div>
+                        </div>
+                        @if (Model.Courses.Count() > 0)
+                        {
+                            <div class="m-t-sm">Last class registered on @Model.Courses.Take(1).LastOrDefault().Date.ToShortDateString()</div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+                var c1 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 1);
+                var c2 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 2);
+                var c3 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 3);
+                <div class="col-lg-3">
+                    <div class="widget style1 p-l lazur-bg">
+                        <div class="row">
+                            <div>
+                                <div class="col-xs-4">
+                                    @if (c1 != null)
+                                    {
+                                        <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
+                                    }
+                                    else
+                                    {
+                                        <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
+                                    }
+                                    @if (c2 != null)
+                                    {
+                                        <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
+                                    }
+                                    else
+                                    {
+                                        <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
+                                    }
+                                    @if (c3 != null)
+                                    {
+                                        <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
+                                    }
+                                    else
+                                    {
+                                        <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
+                                    }
+                                </div>
+                                <div class="col-xs-8 text-right">
+                                    @if (c1 != null)
+                                    {
+                                        <span> @c1.Date.ToShortDateString()</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+                                    <h3 class="m-b-md">Medical</h3>
+                                    <br />
+                                    @if (c2 != null)
+                                    {
+                                        <span>@c2.Date.ToShortDateString()</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+
+                                    <h3 class="m-b-md">Airway</h3>
+                                    <br />
+                                    @if (c3 != null)
+                                    {
+                                        <span>@c3.Date.ToShortDateString()</span>
+                                    }
+                                    else
+                                    {
+                                        <span>&nbsp;</span>
+                                    }
+                                    <h3 class="m-t-lg">Trauma</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                }
+        @foreach (UserOrganization j in Model.UserOrganizations)
+        {
+            <div class="col-lg-3">
+                <div class="widget lazur-bg p-xl">
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            @*<i class="fa fa-sitemap fa-2x"></i>*@
+                            <h2>@j.Organization.Name</h2>
+                            <div class="m-t-sm">
+                                Member Since: @j.Date.Value.ToShortDateString()
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button class="m-b-md btn requiredItems" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id" style="background-color: transparent; color: #fff; border: 2px solid #fff;">Required Items</button>
+                            <button class="btn  chooseItemToShare" style="background-color: transparent; color: #fff; border: 2px solid #fff;" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id">Items to Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+    </div>
+
+    @*<button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+            Popover on right
+        </button>*@
+    @*Button with popover to show later on...*@
+    @*<button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+        </button>*@
+
+    <div class="row">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Upcoming Reminders</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up" @*style="color: #fff;" *@></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Item Name</th>
+                                        <th>Category</th>
+                                        <th>Date of Reminder</th>
+                                        <th>Item Expiration Date</th>
+                                        <th style="width: 30px;" class="alignright"></th>
+                                    </tr>
+                                    @{ int totalCounter = 1;}
+                                </thead>
+                                <tbody>
+                                    @foreach (var r in Model.Reminders.OrderBy(i => i.Date).Take(4))
+                                    {
+                                        <tr>
+                                            <td>@totalCounter</td>
+                                            <td>@r.ExpirationItem.Name</td>
+                                            <td>@r.ExpirationItem.Category.Name</td>
+                                            <td>@r.Date.ToLongDateString()</td>
+                                            <td>@r.ExpirationItem.ExpirationDate.ToLongDateString()</td>
+                                            @if (r.Date <= DateTime.Now.AddDays(10))
+                                            {
+                                                <td><span class="label label-warning">Reminding Soon</span></td>
+                                            }
+                                            <td></td>
+                                        </tr>
+                                        totalCounter++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Expiration Items</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover" id="expirationItemTable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Issue Date</th>
+                                        <th>Expiration Date</th>
+                                        <th>Status</th>
+                                        <th>Reminder</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int counter = 1;}
+                                    @foreach (ExpirationItem e in Model.ExpirationItems)
+                                    {
+                                        <tr>
+                                            <td>@counter</td>
+                                            <td>@e.Name</td>
+                                            <td>@e.Category.Name</td>
+                                            @if (e.IssueDate != null)
+                                            {
+                                                <td>@e.IssueDate.Value.ToShortDateString()</td>
+                                            }
+                                            @if (e.IssueDate == null)
+                                            {
+                                                <td></td>
+                                            }
+
+                                            <td>@e.ExpirationDate.ToShortDateString()</td>
+
+                                            @if (e.ExpirationDate > DateTime.Now.AddDays(30))
+                                            {
+                                                <td class="text-navy">Current</td>
+                                            }
+                                            else if (e.ExpirationDate > DateTime.Now || e.ExpirationDate > DateTime.Now.AddDays(30))
+                                            {
+                                                <td class="text-warning">Expiring</td>
+                                                <td></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-danger">Expired</td>
+                                                <td></td>
+                                            }
+                                            @if (e.ExpirationDate > DateTime.Now.AddDays(30))
+                                            {
+                                                <td>
+                                                    Yes
+                                                    &nbsp; &nbsp; &nbsp;<span class="col-lg-offset-1 alignright fa fa-plus addReminder" data-itemid="@e.Id"></span>
+                                                </td>
+                                            }
+
+                                            <td class="aligncenter edit-expirationitem" data-itemid="@e.Id" data-name="@e.Name" data-category="@e.CategoryId" data-issuedate="@(e.IssueDate == null ? " " : e.IssueDate.Value.ToShortDateString()) " data-expiredate="@e.ExpirationDate.Date.ToShortDateString()" data-notes="@e.Notes">&nbsp; &nbsp;<span class="fa fa-edit"></span></td>
+                                            <td class="delete-eitem" data-itemid="@e.Id"><span class="fa fa-trash"></span></td>
+                                        </tr>
+                                        counter++;
+                                    }
+                                </tbody>
+                            </table>
+                            <div>
+                                <button class="btn btn-group-lg navy-bg alignleft additem">Add Item</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Non-Expiration Items</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+
+                            <table class="table table-hover" id="NETable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Issue Date</th>
+                                        <th>Notes</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int number = 1;}
+                                    @foreach (NonExpirationItem e in Model.NonExpirationItems)
+                                    {
+                                        <tr>
+                                            <td>@number</td>
+                                            <td>@e.Name</td>
+                                            <td>@e.Date.ToShortDateString()</td>
+                                            <td>@e.Notes.Truncate(60)</td>
+
+                                            <td class="edit-neitem-modal" data-notes="@e.Notes" data-date="@e.Date.Date.ToShortDateString()" data-name="@e.Name" data-itemid="@e.Id"><span class="fa fa-edit aligncenter"></span></td>
+                                            <td class="deleteNEItem" data-itemid="@e.Id"><span class="fa fa-trash"></span></td>
+                                        </tr>
+                                        number++;
+                                    }
+                                </tbody>
+                            </table>
+                            <div>
+                                <button class="btn btn-group-lg navy-bg alignleft addNonExpirationitem" @*style="width: 20%;*@>Add Item</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (item != null)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>Courses</h5>
+
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+
+                                <table class="table table-hover" id="courseTable">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Core Category</th>
+                                            <th>Class Date</th>
+                                            <th>Credits</th>
+                                            <th>Notes</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                            <th style="width: 30px;" class="alignright"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{int num = 1; }
+                                        @foreach (Course c in Model.Courses)
+                                        {
+
+                                            <tr>
+                                                <td>@num</td>
+                                                <td>@c.Name</td>
+                                                <td></td>
+                                                <td>@c.Date.ToShortDateString()</td>
+                                                <td>@c.Credits</td>
+                                                <td>@c.Notes.Truncate(60)</td>
+                                                <td class="edit-course" data-credits="@c.Credits" data-notes="@c.Notes" data-date="@c.Date.Date.ToShortDateString()" data-name="@c.Name" data-itemid="@c.Id"><span class="fa fa-edit aligncenter"></span></td>
+                                                <td class="deleteCourse" data-itemid="@c.Id"><span class="fa fa-trash"></span></td>
+                                                @if (c.Date < item.IssueDate || c.Date > item.ExpirationDate)
+                                                {
+                                                    <td><span class="label label-info">Not Included</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                            </tr>
+                                            num++;
+                                        }
+                                        @foreach (CoreCourse c in Model.CoreCourses)
+                                        {
+
+                                            <tr>
+                                                <td>@num</td>
+                                                <td>@c.Name</td>
+                                                <td>@c.CourseCategory.Name</td>
+                                                <td>@c.Date.ToShortDateString()</td>
+                                                <td></td>
+                                                <td>@c.Notes.Truncate(60)</td>
+                                                <td class="edit-core-course" data-coursecat="@c.CourseCategory.Id" data-notes="@c.Notes" data-date="@c.Date.Date.ToShortDateString()" data-name="@c.Name" data-itemid="@c.Id"><span class="fa fa-edit aligncenter"></span></td>
+                                                <td class="deleteCoreCourse" data-itemid="@c.Id"><span class="fa fa-trash"></span></td>
+                                                @if (c.Date < item.IssueDate || c.Date > item.ExpirationDate)
+                                                {
+                                                    <td><span class="label label-info">Not Included</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                            </tr>
+                                            num++;
+                                        }
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <button class="btn btn-group-lg navy-bg alignleft addCourseitem">Add Course</button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-group-lg navy-bg alignleft addCoreCourseitem">Add Core Course</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                            }
+        </div>
+    </div>
+    <!--Add Course-->
+    <div class="modal inmodal" id="addCourseModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-caret-square-o-down modal-icon"></i>
+                    <h4 class="modal-title">Add Course</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-signin" method="post" action="/portal/AddCourse" id="add-course-form">
+
+                        <div class="form-group">
+                            <label>Course Name *</label>
+                            <input name="courseName" id="courseName" placeholder="name" type="text" class="form-control add-itemName">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Credits</label>
+                            <input type="number" id="courseCredit" placeholder="credits" name="courseCredits" class="form-control">
+                        </div>
+
+                        <div class="form-group" id="data_1">
+                            <label>Course Date *</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar required"></i></span><input type="text" class="form-control" name="courseDate" placeholder="course date" id="courseDate">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea placeholder="notes" class="form-control" row="4" column="9" name="courseNotes" id="courseNotes"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" name="commit" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Add Core Course-->
+    <div class="modal inmodal" id="addCoreCourseModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-caret-square-o-down modal-icon"></i>
+                    <h4 class="modal-title">Add Core Course</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-signin" method="post" action="/portal/AddCoreCourse" id="add-core-course-form">
+
+                        <div class="form-group">
+                            <label>Course Name *</label>
+                            <input name="courseName" id="courseName" placeholder="name" type="text" class="form-control add-itemName">
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display:block">Select Category</label>
+                            <p>If course is a core select from one of the categories below</p>
+                            <select class="form-control" name="coreCategory" id="corecategory">
+                                <option type="number" value="0"></option>
+                                <option type="number" id="courseCategory" value="1">Medical</option>
+                                <option type="number" id="courseCategory" value="2">Airway</option>
+                                <option type="number" id="courseCategory" value="3">Trauma</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="data_1">
+                            <label>Course Date *</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar required"></i></span><input type="text" class="form-control" name="courseDate" placeholder="course date" id="courseDate">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea placeholder="notes" class="form-control" row="4" column="9" name="courseNotes" id="courseNotes"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" name="commit" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Add Reminder Modal-->
+    <div class="modal inmodal" id="addReminderModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-calendar-o modal-icon"></i>
+                    <h4 class="modal-title">Add Reminder</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-signin" method="post" action="/portal/AddReminder" id="add-reminder-form">
+
+                        <div class="form-group">
+                            <label>Reminder *</label>
+                            <p>Notify me a number of days before</p>
+                            <input name="addReminder" id="addReminder" type="number" class="form-control">
+                        </div>
+                        <input type="hidden" name="expirationItemId" id="expirationItemId">
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" name="commit" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add Non Expiration Item-->
+    <div class="modal inmodal" id="addNonExpirationModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-file-text-o modal-icon"></i>
+                    <br />
+                    <h4 class="modal-title">Add Item</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-signin" method="POST" action="/portal/AddNonExpirationItem" enctype="multipart/form-data" id="add-neitem-form">
+
+                        <div class="form-group">
+                            <label>Item Name *</label>
+                            <input name="NEName" id="NEName" placeholder="name" type="text" class="form-control required add-itemName">
+                        </div>
+                        <div class="form-group" id="data_1">
+                            <label>Date *</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="NEDate" id="NEDate">
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                <label class="font-noraml required">Image</label>
+                                <input type="file" name="NEimage" class="required" />
+                            </div>*@<div class="form-group">
+                            <label class="font-noraml required"></label>
+                            <input type="file" name="NEimage" class="required" />
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea class="form-control" row="4" column="9" id="NENotes" name="NENotes"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Non Expiration Item-->
+    <div class="modal inmodal" id="editNEItemModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInLeft">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-file-text-o modal-icon"></i>
+                    <br />
+                    <h4 class="modal-title">Edit Item</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-signin" method="POST" action="/portal/UpdateNEItem" enctype="multipart/form-data" id="edit-neitem-form">
+
+                        <div class="form-group">
+                            <label>Item Name *</label>
+                            <input name="ENEName" id="ENEName" placeholder="name" type="text" class="form-control required add-itemName">
+                        </div>
+                        <div class="form-group" id="data_1">
+                            <label>Date *</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar required"></i></span><input type="text" class="form-control" name="ENEDate" id="ENEDate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea class="form-control" row="4" column="9" id="ENENotes" name="ENENotes"></textarea>
+                        </div>
+                        <input type="hidden" name="ENEitemid" id="ENEitemid">
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Course Item-->
+    <div class="modal inmodal" id="edit-course-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInLeft">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-file-text-o modal-icon"></i>
+                    <br />
+                    <h4 class="modal-title">Edit Course</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-signin" method="POST" action="/portal/UpdateCourse" id="edit-course-form">
+
+                        <div class="form-group">
+                            <label>Course Name *</label>
+                            <input name="name" id="name" placeholder="name" type="text" class="form-control required add-itemName">
+                        </div>
+                        <div class="form-group">
+                            <label>Credits *</label>
+                            <input type="number" id="credits" placeholder="credits" name="credits" class="form-control">
+                        </div>
+                        <div class="form-group" id="data_1">
+                            <label>Course Date *</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar required"></i></span><input type="text" class="form-control" name="date" placeholder="course date" id="date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea class="form-control" row="4" column="9" id="notes" name="notes"></textarea>
+                        </div>
+                        <input type="hidden" name="itemid" id="itemid">
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Core Course Item-->
+    <div class="modal inmodal" id="edit-core-course-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInLeft">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-file-text-o modal-icon"></i>
+                    <br />
+                    <h4 class="modal-title">Edit Core Course</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-signin" method="POST" action="/portal/UpdateCoreCourse" id="edit-core-course-form">
+
+                        <div class="form-group">
+                            <label>Course Name *</label>
+                            <input name="name" id="ccname" placeholder="name" type="text" class="form-control required add-itemName">
+                        </div>
+                        <div class="form-group">
+                            <label style="display:block">Select Category</label>
+                            <p>If course is a core select from one of the categories below</p>
+                            <select class="form-control" name="category" id="cccategory">
+                                <option type="number" value="0"></option>
+                                <option type="number" id="courseCategory" value="1">Medical</option>
+                                <option type="number" id="courseCategory" value="2">Airway</option>
+                                <option type="number" id="courseCategory" value="3">Trauma</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="data_1">
+                            <label>Course Date *</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar required"></i></span><input type="text" class="form-control" name="date" placeholder="course date" id="ccdate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea class="form-control" row="4" column="9" id="ccnotes" name="notes"></textarea>
+                        </div>
+                        <input type="hidden" name="itemid" id="ccitemid">
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Edit Expiration Item-->
+    <div class="modal inmodal" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInLeft">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-credit-card modal-icon"></i>
+                    <h4 class="modal-title">Edit Item</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="update-item" method="POST" action="/portal/UpdateItem" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Item Name *</label>
+                            <input name="EIname" id="EIname" placeholder="name" type="text" class="form-control required add-itemName">
+                        </div>
+                        <div class="form-group">
+                            <label>Select Category *</label>
+                            <select class="form-control required" name="EIcategory" id="EIcategory">
+                                <option type="number" value="0">    </option>
+                                @foreach (Category c in Model.Categories)
+                                {
+                                    <option type="number" id="editCategory" value="@c.Id">@c.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="data_1">
+                            <label>Issue Date<span style="display: none;" id="star1">*</span></label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" id="EIissuedate" name="EIissuedate">
+                            </div>
+                        </div>
+                        <div class="form-group" id="data_1">
+                            <label>Expiration Date *</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" id="EIexpiredate" name="EIexpiredate">
+                            </div>
+                        </div>
+                        <div class="form-group editImageGroup">
+                            <div class="col-lg-6">
+                                <label style="display: block;">Front of Card &nbsp;</label>
+
+                                <img id="edit-image-1" alt="front of card" height="102" width="142" style="margin-top: 10px;">
+                                <input type="file" name="image[0]" id="editImage1Click" />
+                            </div>
+
+                            <div class="col-lg-6 backGroup">
+                                <label style="display: block;">Back of Card &nbsp;</label>
+                                <img id="edit-image-2" alt="back of card" height="102" width="142" style="margin-top: 10px;">
+                                <input type="file" name="image[1]" id="editImage2Click" />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <label style="display: block;">Notes</label>
+                            <textarea class="form-control" row="4" column="9" id="EInotes" name="EInotes"></textarea>
+                        </div>
+                        <input type="hidden" name="EIitemid" id="EIitemid">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Add Expiration Item-->
+    <div class="modal inmodal" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-credit-card modal-icon"></i>
+                    <h4 class="modal-title">Add Item</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-add-item" method="POST" action="/portal/AddItem" enctype="multipart/form-data">
+
+                        <div class="form-group">
+                            <label>Item Name *</label>
+                            <input name="name" id="name" placeholder="name" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select Category *</label>
+                            <select class="form-control required" name="category" id="category">
+                                <option type="number" value="0">Select a category</option>
+                                @foreach (Category c in Model.Categories)
+                                {
+                                    <option type="number" value="@c.Id">@c.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Reminder *</label>
+                            <p>Notify me a number of days before</p>
+                            <input name="reminder" type="number" class="form-control">
+                        </div>
+                        <div class="form-group" id="data_1">
+                            <label>Issue Date<span style="display: none;" class="star1">*</span></label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="issuedate">
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="data_1">
+                            <label>Expiration Date *</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="expiredate" id="expiredate">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-6 frontCard" style="display: none;">
+                                <label>Front of Card &nbsp;<span style="display: none;" class="star2">*</span></label>
+                                <img id="add-image-1" src="http://placehold.it/100x100" alt="front card image" height="122" width="162" style="margin-top: 10px;" />
+                                <input type="file" name="image[0]" id="firstImage" />
+                            </div>
+
+                            <div class="col-lg-6 backCard" style="display: none;">
+                                <label>Back of Card&nbsp;<span style="display: none;" class="star3">*</span></label>
+                                <img id="image_upload_preview2" src="http://placehold.it/100x100" alt="back card image" height="122" width="162" style="margin-top: 10px;" />
+                                <input type="file" name="image[1]" id="secondImage" />
+
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: block">
+                            <label>Notes</label>
+                            <textarea class="form-control" row="4" column="9" name="notes"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Required Items Modal-->
+    <div class="modal inmodal" id="requiredItemsModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-calendar-o modal-icon"></i>
+                    <h4 class="modal-title">List of Required Items</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <h3>Required Files for Organization</h3>
+                                <ul class="todo-list m-t" id="RequiredItemsList">
+
+                                    @*li><span class="m-l-xs todo-completed">Buy a milk</span></li>
+                                        <li><span class="m-l-xs  todo-completed">Go to shop and find some products.</span> </li>
+                                        <li><span class="m-l-xs  todo-completed">Send documents to Mike</span></li>
+                                        <li><span class="m-l-xs">Go to the doctor Dr Smith</span></li>
+                                        <li><span class="m-l-xs todo-completed">Buy a milk</span></li>
+                                        <li><span class="m-l-xs">Go to the doctor Dr Smith</span></li>*@
+                                    <span class="m-l-xs todo-completed"></span>
+                                    <li><span class="m-l-xs  todo-completed"></span></li>
+                                    <li><span class="m-l-xs  todo-completed"></span></li>
+                                    <li><span class="m-l-xs"></span></li>
+                                    <li><span class="m-l-xs todo-completed"></span></li>
+                                    <li><span class="m-l-xs"></span></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Choose Items to Share Modal-->
+    <div class="modal inmodal" id="chooseItemToShareModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-calendar-o modal-icon"></i>
+                    <h4 class="modal-title">Choose Extra Items to Share</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-add-item" method="POST" action="/portal/UpdateItemsToShare">
+                        <ul class="todo-list m-t" id="extraItemList">
+                            @*<li>
+                                    <input type="checkbox" value="" name="" class="i-checks" />
+                                    <span class="m-l-xs">Buy a milk</span>
+                                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
+                                </li>*@
+                            <li>
+                                <input type="checkbox" value="" name="" class="i-checks" />
+                                <span class="m-l-xs"></span>
+                                <small class="label label-primary"><i class="fa fa-clock-o"></i></small>
+                            </li>
+
+                        </ul>
+                        <input type="hidden" id="item-shared-user" name="userId" />
+                        <input type="hidden" id="item-shared-org" name="orgId" />
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/Content/plugins/dropzone/dropZoneStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/plugins/wizardStepsStyles")
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/plugins/dropZone")
+    @Scripts.Render("~/plugins/wizardSteps")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/validate")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/chartJs")
+    @Scripts.Render("~/plugins/peity")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/sparkline")
+    <script src="~/Scripts/site-scripts/portal-index.js" type="text/javascript"></script>
+
+}

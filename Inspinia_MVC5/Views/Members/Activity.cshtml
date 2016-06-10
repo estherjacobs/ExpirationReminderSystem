@@ -1,0 +1,47 @@
+﻿@using CertificateRepository;
+@using Inspinia_MVC5.Models;
+@model IEnumerable<OrgAction>
+
+<div class="row">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="full-height-scroll">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+
+                            <h5>All Activity</h5>
+
+                        </div>
+                        <div class="ibox-content">
+
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    @{ int totalCounter = 1;}
+                                </thead>
+                                <tbody>
+                                    @foreach (var r in Model)
+                                    {
+                                        <tr>
+                                            <td>@totalCounter</td>
+                                            <td>@r.User.FullName</td>
+                                            <td>@r.Name</td>
+                                            <td>@r.Date</td>
+                                        </tr>
+                                        totalCounter++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
