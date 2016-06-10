@@ -74,14 +74,14 @@ namespace Inspinia_MVC5.Controllers
 
         public ActionResult Register()
         {
-            OrgRegisterRepository mgr = new OrgRegisterRepository();
-            var cats = mgr.GetAllCategories();
-            return View(cats);
+            return View();
         }
 
         public ActionResult OrgRegister()
         {
-            return View();
+            OrgRegisterRepository mgr = new OrgRegisterRepository();
+            var cats = mgr.GetAllCategories();
+            return View(cats);
         }
 
         public ActionResult NotFoundError()
