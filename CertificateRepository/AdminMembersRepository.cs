@@ -45,7 +45,7 @@ namespace CertificateRepository
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
                 var items = db.OrgRequiredItems.Where(i => i.OrgId == companyid);
-                var expirationItems = db.ExpirationItems.Where(o => o.UserId == userid).OrderBy(r => r.ExpirationDate);
+                var expirationItems = db.ExpirationItems.Where(o => o.UserId == userid);
                 int number = expirationItems.Count();
                 if (number <= 2)
                 {
@@ -54,7 +54,7 @@ namespace CertificateRepository
                 List<ExpirationItem> eitems = new List<ExpirationItem>();
                 foreach (OrgRequiredItem o in items)
                 {
-                    ExpirationItem e = expirationItems.FirstOrDefault(i => i.CategoryId == o.Id);
+                    ExpirationItem e = expirationItems.FirstOrDefault(i => i.CategoryId == o.CatId);
                     if (e != null)
                     {
                         eitems.Add(e);
@@ -161,7 +161,7 @@ namespace CertificateRepository
                 AddOrgAction(orgid, currentUserId, "Disabled relationship with " + u.FullName, DateTime.Now);
                 db.UserOrganizations.DeleteOnSubmit(item);
                 db.SubmitChanges();
-            
+
             }
         }
         public IEnumerable<OrgRequiredItem> GetRequiredItems(int userid)
@@ -364,7 +364,7 @@ namespace CertificateRepository
                 db.LoadOptions = loadOptions;
                 return db.OrgActions.Where(u => u.OrgId == orgid).ToList();
             }
-       }
+        }
         public IEnumerable<ExpirationItem> GetRequiredItems(int userid, int orgid)
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
@@ -377,13 +377,13 @@ namespace CertificateRepository
                 List<ExpirationItem> eitems = new List<ExpirationItem>();
                 foreach (OrgRequiredItem o in items)
                 {
-                    ExpirationItem e = expirationItems.FirstOrDefault(i => i.CategoryId == o.Id);
+                    ExpirationItem e = expirationItems.FirstOrDefault(i => i.CategoryId == o.CatId);
                     if (e != null)
                     {
                         eitems.Add(e);
                     }
                 }
-                
+
                 return eitems;
             }
         }
@@ -400,7 +400,7 @@ namespace CertificateRepository
                 List<ExpirationItem> eitems = new List<ExpirationItem>();
                 foreach (ExpirationItem i in expirationItems)
                 {
-                    foreach(ItemShareWithCompany j in items)
+                    foreach (ItemShareWithCompany j in items)
                     {
                         if (i.Id == j.ItemId)
                         {
@@ -426,7 +426,14 @@ namespace CertificateRepository
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
                 var item = db.Images.FirstOrDefault(i => i.ExpirationItemId == itemid && i.IsBack == false);
-                return item.Path;
+                if (item != null)
+                {
+                    return item.Path;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         public string GetItemImage2(int itemid)
@@ -434,8 +441,72 @@ namespace CertificateRepository
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
                 var item = db.Images.FirstOrDefault(i => i.ExpirationItemId == itemid && i.IsBack == true);
-                return item.Path;
+                if (item != null)
+                {
+                    return item.Path;
+                }
+                else
+                {
+                    return null;
+                }
+
             }
+        }
+
+        public bool CheckIfImage(int itemid)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                var item = db.Images.FirstOrDefault(i => i.ExpirationItemId == itemid && i.IsBack == false);
+                if (item == null)
+                {
+                    //There is no image with this item id 
+                    return false;
+                }
+                else
+                {
+                    //There is a image with this item id
+                    return true;
+                }
+            }
+        }
+        public Organization GetOrgForProfile(int userid)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                var item = db.UserOrganizations.FirstOrDefault(i => i.UserId == userid && i.Permission == 3);
+                return db.Organizations.FirstOrDefault(i => i.Id == item.OrgId);
+            }
+        }
+        public void UpdateOrganization(int userid, int orgid, string name, string email, string phone, string address, string city, string state, string zip, int year)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                var j = db.Organizations.FirstOrDefault(i => i.Id == orgid);
+                j.Name = name;
+                j.Email = email;
+                j.PhoneNumber = phone;
+                j.Address = address;
+                j.City = city;
+                j.State = state;
+                j.Zip = zip;
+                j.YearFounded = year;
+                db.SubmitChanges();
+                AddOrgAction(j.Id, userid, " Updated company profile", DateTime.Now);
+            }
+        }
+        public IEnumerable<UserOrganization> GetRelationships(int userid)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                var loadOptions = new DataLoadOptions();
+                loadOptions.LoadWith<UserOrganization>(p => p.User);
+                db.LoadOptions = loadOptions;
+                var item = db.UserOrganizations.FirstOrDefault(i => i.UserId == userid && i.Permission != 1);
+                var list = db.UserOrganizations.Where(i => i.OrgId == item.OrgId);
+                return list.ToList();
+            }
+
         }
     }
 }

@@ -96,30 +96,30 @@
         })
 
         //SHOW AND REMOVE STARS BASED ON CHOOSEN CATEGORY
-     
-
-       
 
         $('.form-add-item').on('change', function () {
             categorySelected = $('#category :selected').val();
 
-            if (categorySelected == "1"||categorySelected == "2"||categorySelected == "3") {
+            if (categorySelected == "2" || categorySelected == "3") {
+               
                 $(".star1").show();
                 $(".star2").show();
                 $(".star3").show();
                 $(".frontCard").show();
                 $(".backCard").show();
             }
-            else
-            {
+            else if (categorySelected == "1") {
+                
+                $(".star1").show();
+                $(".star2").show();
+                $(".frontCard").show();
+            }
+            else {
                 $(".star1").hide();
                 $(".star2").hide();
                 $(".star3").hide();
-                $(".frontCard").hide();
                 $(".backCard").hide();
             }
-
-            
         });
 
 
@@ -217,10 +217,20 @@
                 });
             }
             if (cat == "5" || cat == "4" || cat == "6" || cat == "7") {
-                $(".editImageGroup").hide();
-                $(".backGroup").show();
-            }
 
+                $.get("/portal/CheckIfImage", { itemid: itemid }, function (exist) {
+                    if (exist) {
+                        $.get("/portal/EditImageOne", { itemid: itemid }, function (path) {
+                            var filePath = '/Images/' + path
+                            $("#edit-image-1").attr('src', filePath)
+                            $(".backGroup").hide();
+                        });
+                    } else {
+                        $(".editImageGroup").hide();
+                        $(".backGroup").show();
+                    }
+                });
+            }
 
             populateModal(itemid, name, cat, issuedate, expiredate, notes);
             function populateModal(itemid, name, cat, issuedate, expiredate, notes) {
@@ -412,8 +422,8 @@
             }
         });
 
-       
-        
+
+
         //Add core course validate
 
         $("#add-core-course-form").validate({
@@ -424,7 +434,7 @@
                 },
                 coreCategory: {
                     required: true,
-                    range: [1,4]
+                    range: [1, 4]
                 },
                 courseDate: {
                     required: true
@@ -539,7 +549,7 @@
                 },
                 category: {
                     required: true,
-                    range: [1,4]
+                    range: [1, 4]
                 },
                 date: {
                     required: true
@@ -682,9 +692,9 @@
         });
 
         function addExtraItems(Item) {
-         
-            if(Item.Shared == true){
-                $("#extraItemList").append('<li><input type="checkbox" checked value="' + Item.ItemId +'" name="item" class="i-checks" /> <span class="m-l-xs">' + Item.Name + ' - ' + Item.CategoryName + '</span></li>')
+
+            if (Item.Shared == true) {
+                $("#extraItemList").append('<li><input type="checkbox" checked value="' + Item.ItemId + '" name="item" class="i-checks" /> <span class="m-l-xs">' + Item.Name + ' - ' + Item.CategoryName + '</span></li>')
             }
             else {
                 $("#extraItemList").append('<li><input type="checkbox" value="' + Item.ItemId + '" name="item" class="i-checks" /> <span class="m-l-xs">' + Item.Name + ' - ' + Item.CategoryName + '</span></li>')

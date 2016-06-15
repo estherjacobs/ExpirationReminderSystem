@@ -3808,15 +3808,23 @@ namespace CertificateRepository
 		
 		private string _Name;
 		
+		private string _Email;
+		
 		private string _Address;
 		
 		private string _City;
+		
+		private string _State;
+		
+		private string _Zip;
 		
 		private string _PhoneNumber;
 		
 		private int _YearFounded;
 		
 		private System.Nullable<int> _ImageId;
+		
+		private System.Nullable<System.DateTime> _Date;
 		
 		private EntitySet<UserOrganization> _UserOrganizations;
 		
@@ -3842,16 +3850,24 @@ namespace CertificateRepository
     partial void OnIdChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
     partial void OnAddressChanging(string value);
     partial void OnAddressChanged();
     partial void OnCityChanging(string value);
     partial void OnCityChanged();
+    partial void OnStateChanging(string value);
+    partial void OnStateChanged();
+    partial void OnZipChanging(string value);
+    partial void OnZipChanged();
     partial void OnPhoneNumberChanging(string value);
     partial void OnPhoneNumberChanged();
     partial void OnYearFoundedChanging(int value);
     partial void OnYearFoundedChanged();
     partial void OnImageIdChanging(System.Nullable<int> value);
     partial void OnImageIdChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
     #endregion
 		
 		public Organization()
@@ -3911,6 +3927,26 @@ namespace CertificateRepository
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(100)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
 		public string Address
 		{
@@ -3947,6 +3983,46 @@ namespace CertificateRepository
 					this._City = value;
 					this.SendPropertyChanged("City");
 					this.OnCityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="VarChar(15)")]
+		public string State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this.OnStateChanging(value);
+					this.SendPropertyChanging();
+					this._State = value;
+					this.SendPropertyChanged("State");
+					this.OnStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zip", DbType="VarChar(20)")]
+		public string Zip
+		{
+			get
+			{
+				return this._Zip;
+			}
+			set
+			{
+				if ((this._Zip != value))
+				{
+					this.OnZipChanging(value);
+					this.SendPropertyChanging();
+					this._Zip = value;
+					this.SendPropertyChanged("Zip");
+					this.OnZipChanged();
 				}
 			}
 		}
@@ -4011,6 +4087,26 @@ namespace CertificateRepository
 					this._ImageId = value;
 					this.SendPropertyChanged("ImageId");
 					this.OnImageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
 				}
 			}
 		}

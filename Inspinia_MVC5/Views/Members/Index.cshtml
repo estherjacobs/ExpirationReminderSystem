@@ -168,11 +168,6 @@
                                     <h2 class="cm-strong"><strong id="member-first">Member Name</strong></h2>
                                     <p class="m-b-lg"></p>
                                     <ul class="list-unstyled m-t-md">
-                                        @*<li>
-                                                <span class="fa fa-envelope m-r-xs"></span>
-                                                <label>Email:</label>
-                                                <span id="member-email">Member Email</span>
-                                            </li>*@
                                         <li>
                                             <span class="fa fa-calendar-o m-r-xs"></span>
                                             <label>Date Joined:</label>
@@ -190,7 +185,7 @@
                                     <p class="m-b-lg"></p>
                                     <input type="hidden" id="specific-userid" />
                                     <input type="hidden" id="member-name" />
-                                   
+            
                                     <button class="btn btn-warning btn-sm btn-block disableUser" type="submit" name="submit">
                                         Disable User
                                     </button>
@@ -264,7 +259,7 @@
                             </div>
                          }
                         }
-                    <input type="hidden" name="companyid" id="companyid" value="1">
+                    <input type="hidden" name="companyid" id="companyid" value="@Model.Organization.Id">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                         <input class="btn btn-primary" name="commit" type="submit" value="Send Invite">
@@ -285,15 +280,15 @@
             </div>
             <div class="modal-body">
 
-                <div class="form-group">
+                <div class="form-group" id="bothImages">
                     <div class="col-lg-6 firstImage">
                         <label style="display: block;">Front of Card &nbsp;</label>
-                        <img id="edit-image-1" alt="front of card" height="153" width="213" style="margin-top: 10px;">
+                        <img id="edit-image-1" alt="no image" height="153" width="213" style="margin-top: 10px;">
                     </div>
 
                     <div class="col-lg-6 m-b-md secondImage">
                         <label style="display: block;">Back of Card &nbsp;</label>
-                        <img id="edit-image-2" alt="back of card" height="153" width="213" style="margin-top: 10px;">
+                        <img id="edit-image-2" alt="no image" height="153" width="213" style="margin-top: 10px;">
                     </div>
                 </div>
                     <div class="modal-footer">

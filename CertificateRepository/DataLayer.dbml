@@ -169,11 +169,15 @@
     <Type Name="Organization">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="Address" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
       <Column Name="City" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
       <Column Name="YearFounded" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ImageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="Organization_UserOrganization" Member="UserOrganizations" ThisKey="Id" OtherKey="OrgId" Type="UserOrganization" />
       <Association Name="Organization_AddMemberToken" Member="AddMemberTokens" ThisKey="Id" OtherKey="OrgId" Type="AddMemberToken" />
       <Association Name="Organization_ItemShareWithCompany" Member="ItemShareWithCompanies" ThisKey="Id" OtherKey="OrgId" Type="ItemShareWithCompany" />

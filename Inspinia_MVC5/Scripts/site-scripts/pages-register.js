@@ -1,7 +1,7 @@
 ﻿$(function () {
- 
+
     $(document).ready(function () {
-     
+
         $("#register-form").validate({
             rules: {
                 name: {
@@ -14,7 +14,7 @@
                     remote: {
                         url: '/Pages/CheckIfEmailExist',
                         type: 'post',
-                        dataType : 'json',
+                        dataType: 'json',
                         data: {
                             password: function () {
                                 return $('#email').val();
@@ -25,6 +25,9 @@
                 password: {
                     required: true,
                     minlength: 6
+                },
+                cpassword: {
+                    equalTo: "#password"
                 },
                 phone: {
                     required: true,
@@ -44,6 +47,9 @@
                 password: {
                     required: "Please create a password",
                     minlength: "Password must have a minimum of 6 characters"
+                },
+                cpassword: {
+                    equalTo: "Does not match"
                 },
                 phone: {
                     required: "Please enter your mobile phone number",

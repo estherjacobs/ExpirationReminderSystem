@@ -5,7 +5,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-circle" src="~/Images/profile_small.jpg" />
+                        <img alt="image" class="img-circle" src="~/Images/profile-icon-sm-w.png" />
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
@@ -52,7 +52,10 @@
                             <ul class="nav nav-second-level collapse">
                                 <li><a href="@Url.Action("Index", "Members")">Members</a></li>
                                 <li><a href="@Url.Action("Activity", "Members")">Activity</a></li>
-                              
+                                @if (y.Permission == 3)
+                                {
+                                    <li><a href="@Url.Action("Profile", "Members")">Profile</a></li>
+                                }
                             </ul>
                         </li>
                     }

@@ -15,23 +15,51 @@
     });
 
     $("#itemTable").on('click', '.viewItemImage', function () {
-
+        $("#edit-image-1").attr('src', "")
+        $("#edit-image-2").attr('src', "")
         var itemid = $(this).data('itemid');
 
         $.get('/members/ViewItemImage1', { itemid: itemid }, function (path) {
-            var filePath = '/Images/' + path
-            $("#edit-image-1").attr('src', filePath)
-
+            if (path != null) {
+                var filePath = '/Images/' + path
+                $("#edit-image-1").attr('src', filePath)
+            }
+            if (path == null) {
+               
+            }
         });
 
         $.get("/members/ViewItemImage2", { itemid: itemid }, function (path) {
-            var filePath = '/Images/' + path
-            $("#edit-image-2").attr('src', filePath)
+            if (path != null) {
+                var filePath = '/Images/' + path
+                $("#edit-image-2").attr('src', filePath)
+            }
         });
 
         $("#viewImageModal").modal();
     });
 
+    $("#itemChosenTable").on('click', '.viewItemImage', function () {
+
+        var itemid = $(this).data('itemid');
+
+        $.get('/members/ViewItemImage1', { itemid: itemid }, function (path) {
+            if (path != null) {
+                var filePath = '/Images/' + path
+                $("#edit-image-1").attr('src', filePath)
+            }
+
+        });
+
+        $.get("/members/ViewItemImage2", { itemid: itemid }, function (path) {
+            if (path != null) {
+                var filePath = '/Images/' + path
+                $("#edit-image-2").attr('src', filePath)
+            }
+        });
+
+        $("#viewImageModal").modal();
+    });
 
     $(".top-search").on('keyup', function () {
         var text = $(this).val();
@@ -47,7 +75,7 @@
     });
 
     $(".disableUser").prop('disabled', true);
-
+    //$(".stooltip").hide();
     $(".viewMember").on('click', function () {
         var userid = $(this).data('id');
         var orgid = $("#orgId").val();
@@ -63,35 +91,56 @@
             $("#member-email").text(User.Email),
             $("#specific-userid").val(User.Id),
             $("#member-number").text(User.PhoneNumber),
-            User.Courses.forEach(addCourseToTable)
-            User.RequiredItems.forEach(addItemToTable)
-            User.ExtraItems.forEach(addExtraItemToTable)
+            User.Courses.forEach(addCourseToTable),
+            User.RequiredItems.forEach(addItemToTable),
+            User.ExtraItems.forEach(addExtraItemToTable),
             User.CoreCourses.forEach(addCCourseToTable)
+
+            if (User.Permission == 1) {
+
+                $("#member-permission").text("User")
+
+                $(".disableUser").prop('disabled', false);
+            };
+
+            if (User.Permission == 2) {
+
+                $("#member-permission").text("Admin")
+
+                $.get('/members/getmypermission', {
+                    orgid: orgid
+                }, function (MyPer) {
+                    if (MyPer == 2) {
+                        $(".disableUser").prop('disabled', true);
+                    }
+                    if (MyPer == 3) {
+                        $(".disableUser").prop('disabled', false);
+                        //$(".disableUser").attr({
+                        //    "data-toggle": "tooltip",
+                        //    "data-placement": "bottom",
+                        //    "title": "You can't disable a super administrator"
+                        //});
+                
+                    }
+                });
+            };
+
+            if (User.Permission == 3) {
+                $("#member-permission").text("Super Administrator")
+                $.get('/members/getmypermission', {orgid: orgid }, function (MyPer) {
+                    if (MyPer == 3) {
+                        $(".disableUser").prop('disabled', true);
+                    }
+                });
+            };
+
             $.get('/members/getdatejoined', { userid: userid, orgid: orgid }, function (date) {
                 if (date != null) {
                     $("#member-date").text(date)
                 }
             });
-
-            //$.get('/members/getpermission', { userid: userid, orgid: orgid }, function (permission) {
-            //    if (permission == 2) {
-            //        $(".disableUser").prop('disabled', false);
-            //    }
-            //});
-
-            $(".disableUser").prop('disabled', false);
-
-
-            if (User.Permission == 1) {
-                $("#member-permission").text("User")
-            };
-            if (User.Permission == 2) {
-                $("#member-permission").text("Admin")
-            };
-
-            if (User.Permission == 3) {
-                $("#member-permission").text("Super Administrator")
-            };
+           
+            //$(".disableUser").prop('disabled', false);
         });
     });
     function addCourseToTable(Course) {
@@ -100,6 +149,26 @@
         $("#courseTable").append($(row));
     }
     function addItemToTable(RequiredItem) {
+        var ExpirationItemId = RequiredItem.Id;
+        //var request = $.ajax({
+        //    url: '/members/checkifimage',
+        //    async: false,
+        //    type: 'POST',
+        //    dataType: 'JSON',
+        //    success: function (data) {
+        //        if (data) {
+        //            var row = new EJS({ url: '/content/templates/item-row.html' })
+        //                 .render(RequiredItem);
+        //            $("#itemTable").append($(row));
+        //        } else {
+        //            var row = new EJS({ url: '/content/templates/item-row-x.html' })
+        //                 .render(RequiredItem);
+        //            $("#itemTable").append($(row));
+        //        }
+        //    }
+        //})
+
+
         var row = new EJS({ url: '/content/templates/item-row.html' })
             .render(RequiredItem);
         $("#itemTable").append($(row));

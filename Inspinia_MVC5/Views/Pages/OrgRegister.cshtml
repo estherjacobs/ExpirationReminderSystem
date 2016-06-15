@@ -1,311 +1,212 @@
 ﻿@using CertificateRepository;
 @model IEnumerable<Category>
-@{
-    Layout = "~/Views/Shared/_Layout_Pages.cshtml";
-}
+    @{
+            ViewBag.Title = "Organization Register";
+            Layout = "~/Views/Shared/_Layout_Pages.cshtml";
+    }
 
-<body class="gray-bg">
-    <div class="animated fadeInDown">
+    <body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
         <div>
-            <div class="middle-box">
 
-                <h2 class="text-center">Logo Here</h2>
+            <h1 class="logo-name text-center">Logo Here</h1>
 
-            </div>
-            <h3 class="text-center">Organization Register Here</h3>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>Wizard with Validation</h5>
-                            <div class="ibox-tools">
-                                <a class="collapse-link">
-                                    <i class="fa fa-chevron-up"></i>
-                                </a>
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-wrench"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li>
-                                        <a href="#">Config option 1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Config option 2</a>
-                                    </li>
-                                </ul>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-                            <h2>
-                                Validation Wizard Form
-                            </h2>
-                            <p>
-                                This example show how to use Steps with jQuery Validation plugin.
-                            </p>
-
-                            <form id="form" action="#" class="wizard-big">
-                                <h1>Org Info</h1>
-                                <fieldset>
-                                    <h2>Organization Info</h2>
-                                    <div class="row">
-                                        <div class="col-lg-8">
-                                     
-                                            <p>Specific information for the organization which will be shared with all its members as a method of contact etc.</p>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="oname" id="oname" placeholder="Name">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control" id="oemail" name="oemail" placeholder="Email">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="oaddress" name="oaddress" placeholder="Address">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="ocity" name="ocity" placeholder="City">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="tel" class="form-control" id="ophoneNumber" name="ophoneNumber" placeholder="Phone Number">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="number" class="form-control" id="oyear" name="oyear" placeholder="Year Founded">
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <label>Company Logo/Image</label>
-                                                <img id="add-image-1" src="http://placehold.it/100x100" alt="front card image" height="183" width="243" style="margin-top: 10px;" />
-                                                <input type="file" name="image[0]" id="firstImage" />
-                                            </div>
-
-                                            
-                                            
-                                            
-                                             <div class="form-group">
-                                                <label>Username *</label>
-                                                <input id="userName" name="userName" type="text" class="form-control required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Password *</label>
-                                                <input id="password" name="password" type="text" class="form-control required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Confirm Password *</label>
-                                                <input id="confirm" name="confirm" type="text" class="form-control required">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="text-center">
-                                                <div style="margin-top: 20px">
-                                                    <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </fieldset>
-                                <h1>Profile</h1>
-                                <fieldset>
-                                    <h2>Profile Information</h2>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>First name *</label>
-                                                <input id="name" name="name" type="text" class="form-control required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Last name *</label>
-                                                <input id="surname" name="surname" type="text" class="form-control required">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Email *</label>
-                                                <input id="email" name="email" type="text" class="form-control required email">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Address *</label>
-                                                <input id="address" name="address" type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
-                                <h1>Warning</h1>
-                                <fieldset>
-                                    <div class="text-center" style="margin-top: 120px">
-                                        <h2>You did it Man :-)</h2>
-                                    </div>
-                                </fieldset>
-
-                                <h1>Finish</h1>
-                                <fieldset>
-                                    <h2>Terms and Conditions</h2>
-                                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
-
-
-
-
-
-
-            <form class="m-t" id="register-form" method="post" action="/Pages/SignUp">
-                <div class="col-lg-5 ">
-                    <h2>Organization Info</h2>
-                    <p>Specific information for the organization which will be shared with all its members as a method of contact etc.</p>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="oname" id="oname" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="oemail" name="oemail" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="oaddress" name="oaddress" placeholder="Address">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="ocity" name="ocity" placeholder="City">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" id="ophoneNumber" name="ophoneNumber" placeholder="Phone Number">
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="form-control" id="oyear" name="oyear" placeholder="Year Founded">
-                    </div>
-                    <div class="col-lg-6">
-                        <label>Company Logo/Image</label>
-                        <img id="add-image-1" src="http://placehold.it/100x100" alt="front card image" height="183" width="243" style="margin-top: 10px;" />
-                        <input type="file" name="image[0]" id="firstImage" />
-                    </div>
-                </div>
-                <div class="col-lg-5 col-lg-offset-1">
-                    <h2>Required Members Items</h2>
-                    <p>Select the items which you would like to setup as required items for the members of your organization.</p>
-                    @foreach (Category c in Model)
-                    {
-                        <p> <input type="checkbox" name="pcategory" value="@c.Id"> @c.Name  </p>
-                    }
-                    <h2 class="m-t-md">Personal Log In Information</h2>
-                    <p>Personal Log on information for the administrator of the organization who will have access to invite members to the account and then keep track of all their expiration items to insure validity.</p>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="pname" id="pname" placeholder="Full Name">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="pemail" name="pemail" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" id="pphone" name="pphone" placeholder="Mobile Number">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="ppassword" name="ppassword" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="ppassword" name="ppassword" placeholder="Confirm Password">
-                    </div>
+        <h2 class="text-center">Organization Registration Form</h2>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
                     
-                </div>
-              
-                <div class="form-group col-lg-offset-4 col-lg-4 m-t-md">
-                    <input class="btn btn-primary block full-width m-b" name="commit" type="submit" value="Register">
-                </div>
+                    <div class="ibox-content">
+                        
+                        <form id="form" action="/pages/orgSignUp" class="wizard-big" method="post">
+                            <h1>User Account</h1>
+                            <fieldset>
+                                <h2>User Account Information</h2>
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <p>Personal log on information for the administrator of the organization who will have access to invite members to the organization and then keep track of all their registered certifications, classes and expired items to ensure validity.</p>
 
+                                        <div class="form-group">
+                                            <label>Full Name *</label>
+                                            <input id="name" name="name" type="text" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email *</label>
+                                            <input id="email" name="email" type="email" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Mobile Number *</label>
+                                            <input id="phone" name="phone" type="tel" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password *</label>
+                                            <input id="password" name="password" type="password" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Confirm Password *</label>
+                                            <input id="confirm" name="confirm" type="password" class="form-control required">
+                                        </div>
 
-            </form>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="text-center">
+                                            <div style="margin-top: 120px">
+                                                <i class="fa fa-sign-in fa-5x" style="font-size: 180px;color: #e5e5e5 "></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                            <h1>Organization Account</h1>
+                            <fieldset>
+                                <h2>Organization Account Information</h2>
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <p>Specific information of your organization which will be shared with all its members as a method of contact etc.</p>
+                                        <div class="form-group">
+                                            <label>Organization Name *</label>
+                                            <input id="oname" name="oname" type="text" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Email *</label>
+                                            <input id="oemail" name="oemail" type="email" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Address *</label>
+                                            <input id="oaddress" name="oaddress" type="text" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization City *</label>
+                                            <input id="ocity" name="ocity" type="text" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Organization Phone Number *</label>
+                                            <input id="ophone" name="ophone" type="tel" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Year Organization Founded *</label>
+                                            <input id="oyear" name="year" type="number" class="form-control required">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+
+                            <h1>Required Items</h1>
+                            <fieldset>
+                                <div class="text-center" style="margin-top: 120px">
+                                    <h2>Required Members Items</h2>
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <p>Select the items which you would like to setup as required items for the members of your organization.</p>
+                                            <div class="form-group">
+                                                @foreach (Category c in Model)
+                                                {
+                                                    <div class="checkbox m-r-xs">
+                                                        <input type="checkbox" id="checkbox1" name="category" value="@c.Id">
+                                                        <label for="checkbox1"> @c.Name </label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <h1>Finish</h1>
+                            <fieldset>
+                                <h2>Terms and Conditions</h2>
+                                <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
         </div>
-  
+    </div>
 </body>
+    @section Styles {
+        @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+        @Styles.Render("~/plugins/wizardStepsStyles")
+    }
 
-@section Styles {
-    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
-    @Styles.Render("~/plugins/wizardStepsStyles")
-}
+    @section Scripts {
+        @Scripts.Render("~/plugins/wizardSteps")
+        @Scripts.Render("~/plugins/iCheck")
+        @Scripts.Render("~/plugins/validate")
 
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-@section Scripts{
-@Scripts.Render("~/plugins/wizardSteps")
-@Scripts.Render("~/plugins/iCheck")
-@Scripts.Render("~/plugins/validate")
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
-    <script src="~/Scripts/site-scripts/pages-register.js"></script>
-<script type="text/javascript">
-        $(document).ready(function () {
+                $("#wizard").steps();
+                $("#form").steps({
+                    bodyTag: "fieldset",
+                    onStepChanging: function (event, currentIndex, newIndex) {
+                        // Always allow going backward even if the current step contains invalid fields!
+                        if (currentIndex > newIndex) {
+                            return true;
+                        }
 
-            $("#wizard").steps();
-            $("#form").steps({
-                bodyTag: "fieldset",
-                onStepChanging: function (event, currentIndex, newIndex) {
-                    // Always allow going backward even if the current step contains invalid fields!
-                    if (currentIndex > newIndex) {
-                        return true;
+                        //// Forbid suppressing "Warning" step if the user is to young
+                        //if (newIndex === 3 && Number($("#age").val()) < 18) {
+                        //    return false;
+                        //}
+
+                        var form = $(this);
+
+                        // Clean up if user went backward before
+                        if (currentIndex < newIndex) {
+                            // To remove error styles
+                            $(".body:eq(" + newIndex + ") label.error", form).remove();
+                            $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                        }
+
+                        // Disable validation on fields that are disabled or hidden.
+                        form.validate().settings.ignore = ":disabled,:hidden";
+
+                        // Start validation; Prevent going forward if false
+                        return form.valid();
+                    },
+                    onStepChanged: function (event, currentIndex, priorIndex) {
+                        //// Suppress (skip) "Warning" step if the user is old enough.
+                        //if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                        //    $(this).steps("next");
+                        //}
+
+                        //// Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                        //if (currentIndex === 2 && priorIndex === 3) {
+                        //    $(this).steps("previous");
+                        //}
+                    },
+                    onFinishing: function (event, currentIndex) {
+                        var form = $(this);
+
+                        // Disable validation on fields that are disabled.
+                        // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                        form.validate().settings.ignore = ":disabled";
+
+                        // Start validation; Prevent form submission if false
+                        return form.valid();
+                    },
+                    onFinished: function (event, currentIndex) {
+                        var form = $(this);
+
+                        // Submit form input
+                        form.submit();
                     }
-
-                    // Forbid suppressing "Warning" step if the user is to young
-                    if (newIndex === 3 && Number($("#age").val()) < 18) {
-                        return false;
+                }).validate({
+                    errorPlacement: function (error, element) {
+                        element.before(error);
+                    },
+                    rules: {
+                        confirm: {
+                            equalTo: "#password"
+                        }
                     }
+                });
 
-                    var form = $(this);
-
-                    // Clean up if user went backward before
-                    if (currentIndex < newIndex) {
-                        // To remove error styles
-                        $(".body:eq(" + newIndex + ") label.error", form).remove();
-                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
-                    }
-
-                    // Disable validation on fields that are disabled or hidden.
-                    form.validate().settings.ignore = ":disabled,:hidden";
-
-                    // Start validation; Prevent going forward if false
-                    return form.valid();
-                },
-                onStepChanged: function (event, currentIndex, priorIndex) {
-                    // Suppress (skip) "Warning" step if the user is old enough.
-                    if (currentIndex === 2 && Number($("#age").val()) >= 18) {
-                        $(this).steps("next");
-                    }
-
-                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
-                    if (currentIndex === 2 && priorIndex === 3) {
-                        $(this).steps("previous");
-                    }
-                },
-                onFinishing: function (event, currentIndex) {
-                    var form = $(this);
-
-                    // Disable validation on fields that are disabled.
-                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
-                    form.validate().settings.ignore = ":disabled";
-
-                    // Start validation; Prevent form submission if false
-                    return form.valid();
-                },
-                onFinished: function (event, currentIndex) {
-                    var form = $(this);
-
-                    // Submit form input
-                    form.submit();
-                }
-            }).validate({
-                errorPlacement: function (error, element) {
-                    element.before(error);
-                },
-                rules: {
-                    confirm: {
-                        equalTo: "#password"
-                    }
-                }
             });
-
-        });
-</script>
-}
+        </script>
+    }

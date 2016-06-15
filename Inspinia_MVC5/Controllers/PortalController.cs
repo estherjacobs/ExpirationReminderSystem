@@ -298,9 +298,44 @@ namespace Inspinia_MVC5.Controllers
             if (ItemsInShared == true)
             {
                 var itemsShared = mgr.GetSharedItems(orgid, userid);
+
+                var requiredItems = mgr.GetRequiredItems(orgid, userid);
+                var items = mgr.GetAllExpirationItems(userid);
+                List<ExpirationItem> extraItems = new List<ExpirationItem>();
+               
+                foreach(ExpirationItem i in items)
+                {
+                    bool exist = true;
+                    foreach(ItemShareWithCompany j in itemsShared)
+                    {
+                        if(i.Id == j.ItemId)
+                        {
+                            exist = false;
+                           
+                        }
+                        //If i.Id does not exist in j.ItemId then add it to
+                    }
+                    if(exist == true)
+                    {
+                        bool exists = true;
+                        foreach (OrgRequiredItem o in requiredItems) 
+                        {
+                            if (i.CategoryId == o.CatId)
+                            {
+                                exists = false;
+                            }
+                        }
+                        if (exists == true)
+                        {
+                            mgr.AddSharedItems(userid, orgid, i.Id);
+                        }
+                    }
+                }
+                var updateditemsShared = mgr.GetSharedItems(orgid, userid);
+
                 var results = new
                 {
-                    Items = itemsShared.Select(e => new
+                    Items = updateditemsShared.Select(e => new
                     {
                         ItemId = e.ExpirationItem.Id,
                         Name = e.ExpirationItem.Name,
@@ -356,6 +391,11 @@ namespace Inspinia_MVC5.Controllers
             
             TempData["success"] = "List of shared items was successfully updated";
             return RedirectToAction("Index");
+        }
+        public ActionResult CheckIfImage(int itemid)
+        {
+            var mgr = new UserPortalRepository();
+            return Json(mgr.CheckIfImage(itemid), JsonRequestBehavior.AllowGet);
         }
     }
 }

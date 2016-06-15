@@ -6,54 +6,51 @@
     <div class="row">
 
         <div class="col-lg-8">
-            <div class="widget-head-color-box navy-bg p-lg text-center" style="height: 425px;">
+            <div class="widget navy-bg text-center p-xl">
                 <div class="m-b-md">
-                    <h2 class="m-b-md">
+                    <h2 class="m-b-sm">
                         @Model.User.FullName
                     </h2>
-                   
-                   
+
                 </div>
-                <img src="~/Images/default.png" class="img-circle circle-border m-b-md" alt="profile">
+                <img src="~/Images/default-avator-w.png" class="m-b-md" alt="profile">
                 <div>
                     <p>Member of</p>
                 </div>
                 <div>
                     @{
-
                         if (Model.Organizations.Count() > 0)
                         {
                             <span>
-                             |   @Model.Organizations.FirstOrDefault().Organization.Name |
+                                @Model.Organizations.FirstOrDefault().Organization.Name
                             </span>
                         }
                         if (Model.Organizations.Count() > 1)
                         {
                             <span>
-                                @Model.Organizations.Skip(1).Take(1).FirstOrDefault().Organization.Name |
+                                & @Model.Organizations.Skip(1).Take(1).FirstOrDefault().Organization.Name
                             </span>
                         }
                         if (Model.Organizations.Count() > 2)
                         {
                             <span>
-                                @Model.Organizations.Skip(2).Take(1).FirstOrDefault().Organization.Name |
+                                &  @Model.Organizations.Skip(2).Take(1).FirstOrDefault().Organization.Name
                             </span>
                         }
                     }
-
-</div>
+                </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="widget lazur-bg p-xl">
                 @*<h2>
-                    @Model.User.FullName
-                </h2>*@
+                        @Model.User.FullName
+                    </h2>*@
                 <ul class="list-unstyled m-t-md">
                     <li>
                         <span class="fa fa-clock-o m-r-xs"></span>
                         <label>Member Since:</label>
-                      @Model.User.DateCreated.ToLongDateString()
+                        @Model.User.DateCreated.ToLongDateString()
                     </li>
                     <li>
                         <span class="fa fa-envelope m-r-xs"></span>
@@ -63,14 +60,14 @@
                     <li>
                         <span class="fa fa-phone m-r-xs"></span>
                         <label>Contact:</label>
-                        @{ 
+                        @{
 
                             string p = Model.User.PhoneNumber;
                             string formattedPhoneNumber = string.Format("({0}) {1}-{2}", p.Substring(0, 3), p.Substring(3, 3), p.Substring(6, 4));
                         }
-                            @formattedPhoneNumber
+                        @formattedPhoneNumber
                     </li>
-                    
+
                 </ul>
 
             </div>

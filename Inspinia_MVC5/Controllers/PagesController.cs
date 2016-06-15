@@ -83,6 +83,20 @@ namespace Inspinia_MVC5.Controllers
             var cats = mgr.GetAllCategories();
             return View(cats);
         }
+        public ActionResult OrgSignUp(string name, string email, string phone, string password, string oname, string oemail, string oaddress, string ocity, string ophone, int year, IEnumerable<int> category)
+        {
+            var mgr = new UserAuthRepository();
+            string onlyNumericNumber = Regex.Replace(phone, @"[^0-9]", "");
+            User u = mgr.AddUser(name, password, onlyNumericNumber, email);
+            Organization o = mgr.AddOrg(u.Id, oname, oaddress, oemail, ocity, ophone, year);
+            mgr.CreateInitialUserOrdRel(o.Id, u.Id);
+            foreach(int i in category)
+            {
+                mgr.CreateOrgReqItems(o.Id, i);
+            }
+            FormsAuthentication.SetAuthCookie(u.Id.ToString(), true);
+            return RedirectToAction("index", "portal");
+        }
 
         public ActionResult NotFoundError()
         {

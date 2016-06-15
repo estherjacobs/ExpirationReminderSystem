@@ -64,7 +64,7 @@
         @if (item != null)
         {
             <div class="col-lg-3">
-                <div class="widget style1 p-xl navy-bg">
+                <div class="widget style1 p-xl navy-bg" style="height: 200px;">
                     <div class="row">
                         @{int total = 0;}
                         @foreach (Course c in Model.Courses)
@@ -94,92 +94,104 @@
                     </div>
                 </div>
             </div>
-                var c1 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 1);
-                var c2 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 2);
-                var c3 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 3);
-                <div class="col-lg-3">
-                    <div class="widget style1 p-l lazur-bg">
-                        <div class="row">
-                            <div>
-                                <div class="col-xs-4">
-                                    @if (c1 != null)
-                                    {
-                                        <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
-                                    }
-                                    else
-                                    {
-                                        <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
-                                    }
-                                    @if (c2 != null)
-                                    {
-                                        <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
-                                    }
-                                    else
-                                    {
-                                        <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
-                                    }
-                                    @if (c3 != null)
-                                    {
-                                        <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
-                                    }
-                                    else
-                                    {
-                                        <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
-                                    }
-                                </div>
-                                <div class="col-xs-8 text-right">
-                                    @if (c1 != null)
-                                    {
-                                        <span> @c1.Date.ToShortDateString()</span>
-                                    }
-                                    else
-                                    {
-                                        <span>&nbsp;</span>
-                                    }
-                                    <h3 class="m-b-md">Medical</h3>
-                                    <br />
-                                    @if (c2 != null)
-                                    {
-                                        <span>@c2.Date.ToShortDateString()</span>
-                                    }
-                                    else
-                                    {
-                                        <span>&nbsp;</span>
-                                    }
+                            var c1 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 1);
+                            var c2 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 2);
+                            var c3 = Model.CoreCourses.FirstOrDefault(i => i.CatId == 3);
+                            <div class="col-lg-3">
+                                <div class="widget style1 p-l lazur-bg" style="height: 200px;">
+                                    <div class="row">
+                                        <div>
+                                            <div class="col-xs-4">
+                                                @if (c1 != null)
+                                                {
+                                                    <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
+                                                }
+                                                @if (c2 != null)
+                                                {
+                                                    <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
+                                                }
+                                                @if (c3 != null)
+                                                {
+                                                    <p class="m-b-md fa fa-check fa-3x" style="display:block"></p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="m-b-md fa fa-circle-thin fa-3x" style="display:block"></p>
+                                                }
+                                            </div>
+                                            <div class="col-xs-8 text-right">
+                                                @if (c1 != null)
+                                                {
+                                                    <span> @c1.Date.ToShortDateString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>&nbsp;</span>
+                                                }
+                                                <h3 class="m-b-md">Medical</h3>
+                                                <br />
+                                                @if (c2 != null)
+                                                {
+                                                    <span>@c2.Date.ToShortDateString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>&nbsp;</span>
+                                                }
 
-                                    <h3 class="m-b-md">Airway</h3>
-                                    <br />
-                                    @if (c3 != null)
-                                    {
-                                        <span>@c3.Date.ToShortDateString()</span>
-                                    }
-                                    else
-                                    {
-                                        <span>&nbsp;</span>
-                                    }
-                                    <h3 class="m-t-lg">Trauma</h3>
+                                                <h3 class="m-b-md">Airway</h3>
+                                                <br />
+                                                @if (c3 != null)
+                                                {
+                                                    <span>@c3.Date.ToShortDateString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>&nbsp;</span>
+                                                }
+                                                <h3 class="m-t-lg">Trauma</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                }
+                            }
         @foreach (UserOrganization j in Model.UserOrganizations)
         {
             <div class="col-lg-3">
-                <div class="widget lazur-bg p-xl">
+                <div class="widget lazur-bg p-l" style="height: 200px;">
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            @*<i class="fa fa-sitemap fa-2x"></i>*@
-                            <h2>@j.Organization.Name</h2>
+                            
+                            <h2 class="heading-responsive">@j.Organization.Name</h2>
+                            <div class="m-t-md">
+                                <div>
+                                    <i class="fa fa-phone"></i>&nbsp; @j.Organization.PhoneNumber
+                                </div>
+                            </div>
                             <div class="m-t-sm">
-                                Member Since: @j.Date.Value.ToShortDateString()
+                                <i class="fa fa-envelope"></i>&nbsp; @j.Organization.Email
                             </div>
                         </div>
                         <div class="col-md-6 text-right">
-                            <button class="m-b-md btn requiredItems" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id" style="background-color: transparent; color: #fff; border: 2px solid #fff;">Required Items</button>
-                            <button class="btn  chooseItemToShare" style="background-color: transparent; color: #fff; border: 2px solid #fff;" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id">Items to Share</button>
+                            <button class="m-t-sm btn requiredItems btn-responsive" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id" style="background-color: transparent; color: #fff; border: 2px solid #fff;">Required Items</button>
+                            <button class="m-t-sm btn  chooseItemToShare btn-responsive" style="background-color: transparent; color: #fff; border: 2px solid #fff;" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id">Items to Share</button>
+                        </div>
+                        <div class="col-md-12">
+                   
+                            <div class="m-t-sm">
+                                <i class="fa fa-map-marker"></i>&nbsp; @j.Organization.Address @j.Organization.City @j.Organization.State @j.Organization.Zip
+                            </div>
+                        
                         </div>
                     </div>
                 </div>
@@ -345,7 +357,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Issue Date</th>
+                                        <th>Date</th>
                                         <th>Notes</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
@@ -497,9 +509,9 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar required"></i></span><input type="text" class="form-control" name="courseDate" placeholder="course date" id="courseDate">
                             </div>
                         </div>
-
+          
                         <div class="form-group">
-                            <label>Notes</label>
+                            <label style="width:100%;">Notes</label>
                             <textarea placeholder="notes" class="form-control" row="4" column="9" name="courseNotes" id="courseNotes"></textarea>
                         </div>
 
@@ -614,17 +626,12 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="NEDate" id="NEDate">
                             </div>
                         </div>
-                        @*<div class="form-group">
-                                <label class="font-noraml required">Image</label>
-                                <input type="file" name="NEimage" class="required" />
-                            </div>*@<div class="form-group">
-                            <label class="font-noraml required"></label>
-                            <input type="file" name="NEimage" class="required" />
-                        </div>
+                        
                         <div class="form-group">
                             <label>Notes</label>
                             <textarea class="form-control" row="4" column="9" id="NENotes" name="NENotes"></textarea>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
                             <input class="btn btn-primary" type="submit" value="Save">
@@ -646,7 +653,6 @@
                     <h4 class="modal-title">Edit Item</h4>
                 </div>
                 <div class="modal-body">
-
                     <form class="form-signin" method="POST" action="/portal/UpdateNEItem" enctype="multipart/form-data" id="edit-neitem-form">
 
                         <div class="form-group">
@@ -821,7 +827,7 @@
                         </div>
                         <br />
                         <div class="form-group">
-                            <label style="display: block;">Notes</label>
+                            <label style="width:100%;">Notes</label>
                             <textarea class="form-control" row="4" column="9" id="EInotes" name="EInotes"></textarea>
                         </div>
                         <input type="hidden" name="EIitemid" id="EIitemid">
@@ -884,20 +890,21 @@
 
                         <div class="form-group">
                             <div class="col-lg-6 frontCard" style="display: none;">
-                                <label>Front of Card &nbsp;<span style="display: none;" class="star2">*</span></label>
+                                <label><span style="display: none;" class="star2">Front of Card &nbsp; *</span></label>
                                 <img id="add-image-1" src="http://placehold.it/100x100" alt="front card image" height="122" width="162" style="margin-top: 10px;" />
                                 <input type="file" name="image[0]" id="firstImage" />
                             </div>
 
                             <div class="col-lg-6 backCard" style="display: none;">
-                                <label>Back of Card&nbsp;<span style="display: none;" class="star3">*</span></label>
+                                <label><span style="display: none;" class="star3">Back of Card&nbsp;*</span></label>
                                 <img id="image_upload_preview2" src="http://placehold.it/100x100" alt="back card image" height="122" width="162" style="margin-top: 10px;" />
                                 <input type="file" name="image[1]" id="secondImage" />
 
                             </div>
                         </div>
-                        <div class="form-group" style="display: block">
-                            <label>Notes</label>
+                        <div class="form-group">
+
+                            <label style="width:100%">Notes</label>
                             <textarea class="form-control" row="4" column="9" name="notes"></textarea>
                         </div>
 

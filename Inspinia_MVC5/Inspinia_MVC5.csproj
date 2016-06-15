@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
+    <Compile Include="Models\MemberProfileViewModel.cs" />
     <Compile Include="Models\MemberViewModel.cs" />
     <Compile Include="Models\NoteViewModel.cs" />
     <Compile Include="Models\PortalViewModel.cs" />
@@ -339,6 +340,7 @@
     <Content Include="Images\profile-icon.png" />
     <Content Include="locales\en.json" />
     <Content Include="locales\es.json" />
+    <Content Include="Content\templates\item-row-x.html" />
     <None Include="Properties\PublishProfiles\Inspinia.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Images\a1.jpg" />
@@ -1632,6 +1634,7 @@
     <Content Include="Scripts\site-scripts\pages-register.js" />
     <Content Include="Scripts\site-scripts\pages-resetauth.js" />
     <Content Include="Scripts\site-scripts\profile-index.js" />
+    <Content Include="Scripts\site-scripts\profile-org-index.js" />
     <Content Include="Scripts\site-scripts\Scrap.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
@@ -1711,6 +1714,7 @@
     <Content Include="Views\Activity\Index.cshtml" />
     <Content Include="Views\Members\Activity.cshtml" />
     <Content Include="Views\Pages\OrgRegister.cshtml" />
+    <Content Include="Views\Members\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\site-scripts\portal-index.js" />

@@ -22,6 +22,19 @@ namespace CertificateRepository
                 db.SubmitChanges();
             }
         }
+        public void AddOrgAction(int orgid, int userid, string name, DateTime date)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                OrgAction a = new OrgAction();
+                a.UserId = userid;
+                a.OrgId = orgid;
+                a.Name = name;
+                a.Date = date;
+                db.OrgActions.InsertOnSubmit(a);
+                db.SubmitChanges();
+            }
+        }
         public User AddUser(string name, string password, string phone, string email)
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
@@ -37,8 +50,51 @@ namespace CertificateRepository
                 u.HashedPassword = PasswordHelper.HashPassword(password, u.Salt);
                 db.Users.InsertOnSubmit(u);
                 db.SubmitChanges();
-                AddAction(u.Id, "Register", DateTime.Today);
+                AddAction(u.Id, " Register", DateTime.Today);
                 return u;
+            }
+        }
+
+        public Organization AddOrg(int userid, string name, string address, string email, string city, string phone, int year)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                Organization o = new Organization();
+                o.Name = name;
+                o.Address = address;
+                o.Email = email;
+                o.City = city;
+                o.PhoneNumber = phone;
+                o.YearFounded = year;
+                db.Organizations.InsertOnSubmit(o);
+                db.SubmitChanges();
+                AddOrgAction(o.Id, userid, o.Name + " registered", DateTime.Today);
+                return o;
+            }
+        }
+
+        public void CreateInitialUserOrdRel(int orgid, int userid)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                UserOrganization l = new UserOrganization();
+                l.OrgId = orgid;
+                l.UserId = userid;
+                l.Permission = 3;
+                l.Date = DateTime.Now;
+                db.UserOrganizations.InsertOnSubmit(l);
+                db.SubmitChanges();
+            }
+        }
+        public void CreateOrgReqItems(int orgid, int catid)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                OrgRequiredItem l = new OrgRequiredItem();
+                l.OrgId = orgid;
+                l.CatId = catid;
+                db.OrgRequiredItems.InsertOnSubmit(l);
+                db.SubmitChanges();
             }
         }
 

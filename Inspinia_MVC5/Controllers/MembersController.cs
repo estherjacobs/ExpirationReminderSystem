@@ -25,16 +25,20 @@ namespace Inspinia_MVC5.Controllers
         public ActionResult Activity()
         {
             var mgr = new AdminMembersRepository();
+
+            var manager = new UserPortalRepository();
+            IEnumerable<UserOrganization> list = manager.GetRelationships(int.Parse(User.Identity.Name));
+            int orgid = list.FirstOrDefault().OrgId;
             //Just put in company Id
-            var list = mgr.GetOrgActivity(1);
-            
-            return View(list);
+            var lists = mgr.GetOrgActivity(orgid);
+
+            return View(lists);
         }
         [HttpPost]
         public void DisableUser(int userid, int orgid)
         {
             var mgr = new AdminMembersRepository();
-            
+
             mgr.DisableUser(userid, orgid, int.Parse(User.Identity.Name));
         }
         public ActionResult GetDateJoined(int userid, int orgid)
@@ -46,6 +50,7 @@ namespace Inspinia_MVC5.Controllers
         {
             var mgr = new AdminMembersRepository();
             var list = mgr.GetUserDetails(userid);
+            var permission = mgr.GetPermission(userid, orgid);
             var requiredItems = mgr.GetRequiredItems(userid, orgid);
             var extraItems = mgr.GetExtraItems(userid, orgid);
             var result = new
@@ -54,7 +59,7 @@ namespace Inspinia_MVC5.Controllers
                 FullName = list.FullName,
                 Email = list.Email,
                 PhoneNumber = list.PhoneNumber,
-                Permission = list.Permission,
+                Permission = permission,
                 RequiredItems = requiredItems.OrderBy(i => i.ExpirationDate).Select(e => new
                 {
                     Id = e.Id,
@@ -122,12 +127,12 @@ namespace Inspinia_MVC5.Controllers
         public ActionResult AddMember(string email, int permission, int companyid)
         {
             var mgr = new AdminMembersRepository();
-           
+
             Guid g = Guid.NewGuid();
             string gg = g.ToString();
             Organization o = mgr.GetOrg(companyid);
             User u = mgr.CheckIfUserExist(email);
-            if(u == null)
+            if (u == null)
             {
                 mgr.AddMember(email, permission, gg, null, o.Id);
             }
@@ -175,9 +180,9 @@ namespace Inspinia_MVC5.Controllers
             User u = mgr.AddUser(name, password, phone, email);
 
             mgr2.SetupMemberRel(token, u.Id, int.Parse(User.Identity.Name));
-            return RedirectToAction("Login","Pages");
+            return RedirectToAction("Login", "Pages");
         }
-       
+
         public ActionResult CheckIfEmailExist(string email)
         {
             var mgr = new AdminMembersRepository();
@@ -188,8 +193,13 @@ namespace Inspinia_MVC5.Controllers
         }
         public ActionResult GetPermission(int userid, int orgid)
         {
-            var mgr = new AdminMembersRepository();          
+            var mgr = new AdminMembersRepository();
             return Json(mgr.GetPermission(userid, orgid), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetMyPermission(int orgid)
+        {
+            var mgr = new AdminMembersRepository();
+            return Json(mgr.GetPermission(int.Parse(User.Identity.Name), orgid), JsonRequestBehavior.AllowGet);
         }
         public ActionResult ViewItemImage1(int itemid)
         {
@@ -200,6 +210,26 @@ namespace Inspinia_MVC5.Controllers
         {
             var mgr = new AdminMembersRepository();
             return Json(mgr.GetItemImage2(itemid), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CheckIfImage(int itemid)
+        {
+            var mgr = new AdminMembersRepository();
+            return Json(mgr.CheckIfImage(itemid), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Profile()
+        {
+            MemberProfileViewModel vm = new MemberProfileViewModel();
+            var mgr = new AdminMembersRepository();
+            vm.Organization = mgr.GetOrgForProfile(int.Parse(User.Identity.Name));
+            vm.Relationships = mgr.GetRelationships(int.Parse(User.Identity.Name));
+            return View(vm);
+        }
+        [HttpPost]
+        public ActionResult UpdateProfileOrg(string name, string email, string phone, string address, string city, string state, string zip, int year, int orgid)
+        {
+            var mgr = new AdminMembersRepository();
+            mgr.UpdateOrganization(int.Parse(User.Identity.Name), orgid, name, email, phone, address, city, state, zip, year);
+            return RedirectToAction("Profile");
         }
     }
 }

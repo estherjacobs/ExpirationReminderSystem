@@ -8,7 +8,8 @@
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
-   
+   @if (IsSectionDefined("Styles"))
+   {@RenderSection("Styles", required: false)}
     <link href="~/Content/animate.css" rel="stylesheet">
     <link href="~/Content/style.css" rel="stylesheet">
 </head>
@@ -27,6 +28,7 @@
 
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
 

@@ -490,7 +490,24 @@ namespace CertificateRepository
                     }  
                 }
                 db.SubmitChanges();
-                AddAction(userId, "updated list of items to share with organization", DateTime.Now);
+                AddAction(userId, "Updated list of items to share with organization", DateTime.Now);
+            }
+        }
+        public bool CheckIfImage(int itemid)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                var item = db.Images.FirstOrDefault(i => i.ExpirationItemId == itemid);
+                if (item == null)
+                {
+                    //There is no image with this item id 
+                    return false;
+                }
+                else
+                {
+                    //There is a image with this item id
+                    return true;
+                }
             }
         }
     }

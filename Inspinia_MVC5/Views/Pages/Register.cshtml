@@ -4,7 +4,7 @@
 
 <body class="gray-bg">
 
-    <div class="middle-box loginscreen animated fadeInDown">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
             <div>
 
@@ -20,16 +20,22 @@
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                 </div>
                 <div class="form-group">
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Mobile Number">
+                </div>
+                <div class="form-group">
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Mobile Number">
+                    <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password">
                 </div>
                 <div class="form-group">
                     <input class="btn btn-primary block full-width m-b" name="commit" type="submit" value="Register">
                 </div>
            
-                <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Login", "Pages")">Have an account? Login here</a>
+                <a class="btn btn-sm btn-white btn-block m-b" href="@Url.Action("Login", "Pages")">Have an account? Login here</a>
+                <a class="m-t"href="@Url.Action("OrgRegister", "Pages")">
+                    <small class="m-t-sm">New Organization Register Here</small>
+                </a>
             </form>
            
         </div>
