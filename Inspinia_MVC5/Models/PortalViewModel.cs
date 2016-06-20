@@ -16,5 +16,6 @@ namespace Inspinia_MVC5.Models
         public IEnumerable<Image> Images { get; set; }
         public IEnumerable<CoreCourse> CoreCourses { get; set; }
         public IEnumerable<UserOrganization> UserOrganizations { get; set; }
+        public bool InitialLogin { get; set; }
     }
 }

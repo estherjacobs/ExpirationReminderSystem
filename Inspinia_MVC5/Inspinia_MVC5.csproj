@@ -60,6 +60,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.8.2.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.8.2\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -1716,6 +1720,7 @@
     <Content Include="Views\Members\Activity.cshtml" />
     <Content Include="Views\Pages\OrgRegister.cshtml" />
     <Content Include="Views\Members\Profile.cshtml" />
+    <Content Include="WelcomeEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\site-scripts\portal-index.js" />

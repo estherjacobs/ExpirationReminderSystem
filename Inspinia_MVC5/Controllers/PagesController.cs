@@ -24,11 +24,11 @@ namespace Inspinia_MVC5.Controllers
             var mgr = new UserAuthRepository();
             string onlyNumericNumber = Regex.Replace(phone, @"[^0-9]", "");
             User u = mgr.AddUser(name, password, onlyNumericNumber, email);
-            //SMSManager SMS = new SMSManager();
-            //string message = "Welcome to Expiration Reminder App! Thanks for setting up an account with us and we look forward to helping you.";
-            //SMS.Notification(u.PhoneNumber, message);
-            var manager = new EmailManager();
-            manager.SendWelcomeEmail(name, email);
+            //EmailManager em = new EmailManager();
+            //em.SendWelcomeEmail(name, email);
+            SMSManager SMS = new SMSManager();
+            string message = "Welcome to Expiration Tracking App! Thank you for setting up an account with us and we look forward to working you.";
+            SMS.Notification(u.PhoneNumber, message);
             FormsAuthentication.SetAuthCookie(u.Id.ToString(), true);
             return RedirectToAction("index", "portal");
         }

@@ -402,7 +402,7 @@ namespace CertificateRepository
                 {
                     foreach (ItemShareWithCompany j in items)
                     {
-                        if (i.Id == j.ItemId)
+                        if (i.Id == j.ExpirationItemId)
                         {
                             eitems.Add(i);
                             break;

@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-lg-3">
-            <div class="widget style1 red-bg">
+            <div class="widget style1 red-bg" id="step3">
                 <div class="row">
                     <div class="col-xs-4">
                         <i class="fa fa-bell fa-5x"></i>
@@ -177,10 +177,12 @@
                                     <i class="fa fa-phone"></i>&nbsp; @j.Organization.PhoneNumber
                                 </div>
                             </div>
+                           
                         </div>
                         <div class="col-md-6 text-right">
                             <button class="m-t-sm btn requiredItems btn-responsive" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id" style="background-color: transparent; color: #fff; border: 2px solid #fff;">Required Items</button>
                             <button class="m-t-sm btn  chooseItemToShare btn-responsive" style="background-color: transparent; color: #fff; border: 2px solid #fff;" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id">Items to Share</button>
+                       
                         </div>
                         <div class="col-md-12">
                             <div class="m-t-sm">
@@ -333,7 +335,7 @@
                                 </table>
                             </div>
                             <div>
-                                <button class="btn btn-group-lg navy-bg alignleft additem">Add Item</button>
+                                <button class="btn btn-group-lg navy-bg alignleft additem" id="step1">Add Item</button>
                             </div>
                         </div>
                     </div>
@@ -384,7 +386,7 @@
 
                             </div>
                             <div>
-                                <button class="btn btn-group-lg navy-bg alignleft addNonExpirationitem" @*style="width: 20%;*@>Add Item</button>
+                                <button class="btn btn-group-lg navy-bg alignleft addNonExpirationitem" id="step2" @*style="width: 20%;*@>Add Item</button>
                             </div>
                         </div>
                     </div>
@@ -549,7 +551,6 @@
 
                         <div class="form-group">
                             <label style="display:block">Select Category</label>
-                            <p>If course is a core select from one of the categories below</p>
                             <select class="form-control" name="coreCategory" id="corecategory">
                                 <option type="number" value="0"></option>
                                 <option type="number" id="courseCategory" value="1">Medical</option>
@@ -820,13 +821,13 @@
                             <div class="col-lg-6">
                                 <label style="display: block;">Front of Card &nbsp;</label>
 
-                                <img id="edit-image-1" alt="front of card" height="102" width="142" style="margin-top: 10px;">
+                                <img id="edit-image-1" alt="first upload" height="102" width="142" style="margin-top: 10px;">
                                 <input type="file" name="image[0]" id="editImage1Click" />
                             </div>
 
                             <div class="col-lg-6 backGroup">
                                 <label style="display: block;">Back of Card &nbsp;</label>
-                                <img id="edit-image-2" alt="back of card" height="102" width="142" style="margin-top: 10px;">
+                                <img id="edit-image-2" alt="second upload" height="102" width="142" style="margin-top: 10px;">
                                 <input type="file" name="image[1]" id="editImage2Click" />
                             </div>
                         </div>
@@ -896,13 +897,13 @@
                         <div class="form-group">
                             <div class="col-lg-6 frontCard" @*style="display: none;"*@>
                                 <label><span style="display: none;" class="star2">Front of Card &nbsp; *</span></label>
-                                <img id="add-image-1" src="http://placehold.it/100x100" alt="front card image" height="122" width="162" style="margin-top: 10px;" />
+                                <img id="add-image-1" src="http://placehold.it/100x100" alt="first upload" height="122" width="162" style="margin-top: 10px;" />
                                 <input type="file" name="image[0]" id="firstImage" />
                             </div>
 
                             <div class="col-lg-6 backCard" style="display: none;">
                                 <label><span style="display: none;" class="star3">Back of Card&nbsp;*</span></label>
-                                <img id="image_upload_preview2" src="http://placehold.it/100x100" alt="back card image" height="122" width="162" style="margin-top: 10px;" />
+                                <img id="image_upload_preview2" src="http://placehold.it/100x100" alt="second upload" height="122" width="162" style="margin-top: 10px;" />
                                 <input type="file" name="image[1]" id="secondImage" />
 
                             </div>
@@ -961,41 +962,66 @@
         </div>
     </div>
 
-    <!--Choose Items to Share Modal-->
-    <div class="modal inmodal" id="chooseItemToShareModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated bounceInRight">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-list modal-icon"></i>
-                    <h4 class="modal-title">Choose Extra Items to Share</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-add-item" method="POST" action="/portal/UpdateItemsToShare">
-                        <ul class="todo-list m-t" id="extraItemList">
-                            @*<li>
+         <!--Choose Items to Share Modal-->
+        <div class="modal inmodal" id="chooseItemToShareModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <i class="fa fa-list modal-icon"></i>
+                        <h4 class="modal-title">Choose Extra Items to Share</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-add-item" method="POST" action="/portal/UpdateItemsToShare">
+                            <ul class="todo-list m-t" id="extraItemList">
+                               
+                                <li>
                                     <input type="checkbox" value="" name="" class="i-checks" />
-                                    <span class="m-l-xs">Buy a milk</span>
-                                    <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
-                                </li>*@
-                            <li>
-                                <input type="checkbox" value="" name="" class="i-checks" />
-                                <span class="m-l-xs"></span>
-                                <small class="label label-primary"><i class="fa fa-clock-o"></i></small>
-                            </li>
+                                    <span class="m-l-xs"></span>
+                                    <small class="label label-primary"><i class="fa fa-clock-o"></i></small>
+                                </li>
 
-                        </ul>
-                        <input type="hidden" id="item-shared-user" name="userId" />
-                        <input type="hidden" id="item-shared-org" name="orgId" />
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                            <input class="btn btn-primary" type="submit" value="Save">
-                        </div>
-                    </form>
+                            </ul>
+                            <input type="hidden" id="item-shared-user" name="userId" />
+                            <input type="hidden" id="item-shared-org" name="orgId" />
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                <input class="btn btn-primary" type="submit" value="Save">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @if (Model.InitialLogin == true)
+    {
+    <!--Modal on initial login-->
+        <div class="modal inmodal slidedown " id="tourModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: block;">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Hello there! :)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <strong>Welcome to Expiration Reminder App!</strong>
+                        </p>
+                        <p>
+                            You’ve officially taken the first step toward the pleasure of
+                            sitting back knowing your expiration dates are handled.
+                            You’ll have more accountability, and save time and frustration.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary startTour" value="Start Tour">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+   
 </div>
 
 @section Styles{
@@ -1005,6 +1031,7 @@
     @Styles.Render("~/plugins/dateRangeStyles")
     @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
     @Styles.Render("~/plugins/wizardStepsStyles")
+    @Styles.Render("~/plugins/tourStyles")
 }
 
 @section Scripts {
@@ -1021,6 +1048,7 @@
     @Scripts.Render("~/plugins/jeditable")
     @Scripts.Render("~/plugins/dataTables")
     @Scripts.Render("~/plugins/sparkline")
+    @Scripts.Render("~/plugins/tour")
     <script src="~/Scripts/site-scripts/portal-index.js" type="text/javascript"></script>
 
 }

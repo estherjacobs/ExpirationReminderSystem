@@ -12,7 +12,17 @@ namespace Inspinia_MVC5.Models
         public void Notification(string phoneNumber, string message)
         {
             string html = string.Empty;
-            string url = "https://rest.nexmo.com/sms/json?api_key=b1ee06e1&api_secret=94dc48fb49e1dae6&from=12027353717&to=" + "17322376594" + "&text=" + message;
+            string formattedPhone = string.Empty;
+
+            if(phoneNumber.Substring(0,1) != "1")
+            {
+                formattedPhone = "1" + phoneNumber;
+            }
+            else
+            {
+                formattedPhone = phoneNumber;
+            }
+            string url = "https://rest.nexmo.com/sms/json?api_key=b1ee06e1&api_secret=94dc48fb49e1dae6&from=12027353717&to=" + formattedPhone + "&text=" + message;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             WebResponse response = request.GetResponse();
             using (Stream responseStream = response.GetResponseStream())

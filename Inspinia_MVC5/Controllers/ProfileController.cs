@@ -55,11 +55,22 @@ namespace Inspinia_MVC5.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateNotification(int userid, string radio, string name, string phone, string email)
+        public ActionResult UpdateMethodNotification(int userid, string radio)
         {
             var mgr = new UserProfileRepository();
-            User u = mgr.UpdateNotification(userid, radio, name, phone, email);
-            TempData["success"] = "Your notification settings was updated successfully!";
+            User u = mgr.UpdateMethodNotification(userid, radio);
+            TempData["success"] = "Your notification method was updated successfully!";
+            SMSManager manager = new SMSManager();
+            
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateNotification(int userid, string name, string phone, string email)
+        {
+            var mgr = new UserProfileRepository();
+            User u = mgr.UpdateNotification(userid, name, phone, email);
+            TempData["success"] = "Your notification contact  info was updated successfully!";
             SMSManager manager = new SMSManager();
             //if (radio == "2" || radio == "3")
             //{

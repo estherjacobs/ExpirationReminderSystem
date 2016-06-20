@@ -79,7 +79,7 @@ namespace CertificateRepository
             }
         }
 
-        public User UpdateNotification(int userid, string radio, string name, string phone, string email)
+        public User UpdateMethodNotification(int userid, string radio)
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
@@ -99,6 +99,18 @@ namespace CertificateRepository
                     u.ViaText = true;
                     u.ViaEmail = true;
                 }
+                
+                AddAction(userid, "Update Notification Method settings", DateTime.Now);
+                db.SubmitChanges();
+                return u;
+            }
+        }
+        public User UpdateNotification(int userid, string name, string phone, string email)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                User u = db.Users.FirstOrDefault(i => i.Id == userid);
+                
                 Contact f = db.Contacts.FirstOrDefault(i => i.UserId == userid);
                 if (f == null)
                 {
@@ -115,7 +127,7 @@ namespace CertificateRepository
                     f.Email = email;
                     f.Phone = phone;
                 }
-                AddAction(userid, "Update Notification settings", DateTime.Now);
+                AddAction(userid, "Update Notification Contact settings", DateTime.Now);
                 db.SubmitChanges();
                 return u;
             }

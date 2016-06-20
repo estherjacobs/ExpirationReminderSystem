@@ -39,9 +39,6 @@ namespace CertificateRepository
     partial void InsertAddMemberToken(AddMemberToken instance);
     partial void UpdateAddMemberToken(AddMemberToken instance);
     partial void DeleteAddMemberToken(AddMemberToken instance);
-    partial void InsertCar(Car instance);
-    partial void UpdateCar(Car instance);
-    partial void DeleteCar(Car instance);
     partial void InsertCategory(Category instance);
     partial void UpdateCategory(Category instance);
     partial void DeleteCategory(Category instance);
@@ -84,9 +81,6 @@ namespace CertificateRepository
     partial void InsertPasswordToken(PasswordToken instance);
     partial void UpdatePasswordToken(PasswordToken instance);
     partial void DeletePasswordToken(PasswordToken instance);
-    partial void InsertPeople(People instance);
-    partial void UpdatePeople(People instance);
-    partial void DeletePeople(People instance);
     partial void InsertReminder(Reminder instance);
     partial void UpdateReminder(Reminder instance);
     partial void DeleteReminder(Reminder instance);
@@ -146,14 +140,6 @@ namespace CertificateRepository
 			get
 			{
 				return this.GetTable<AddMemberToken>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Car> Cars
-		{
-			get
-			{
-				return this.GetTable<Car>();
 			}
 		}
 		
@@ -266,14 +252,6 @@ namespace CertificateRepository
 			get
 			{
 				return this.GetTable<PasswordToken>();
-			}
-		}
-		
-		public System.Data.Linq.Table<People> Peoples
-		{
-			get
-			{
-				return this.GetTable<People>();
 			}
 		}
 		
@@ -948,205 +926,6 @@ namespace CertificateRepository
 						this._UserId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Cars")]
-	public partial class Car : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Make;
-		
-		private string _Model;
-		
-		private int _Year;
-		
-		private int _PersonId;
-		
-		private EntityRef<People> _People;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnMakeChanging(string value);
-    partial void OnMakeChanged();
-    partial void OnModelChanging(string value);
-    partial void OnModelChanged();
-    partial void OnYearChanging(int value);
-    partial void OnYearChanged();
-    partial void OnPersonIdChanging(int value);
-    partial void OnPersonIdChanged();
-    #endregion
-		
-		public Car()
-		{
-			this._People = default(EntityRef<People>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Make", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Make
-		{
-			get
-			{
-				return this._Make;
-			}
-			set
-			{
-				if ((this._Make != value))
-				{
-					this.OnMakeChanging(value);
-					this.SendPropertyChanging();
-					this._Make = value;
-					this.SendPropertyChanged("Make");
-					this.OnMakeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Model
-		{
-			get
-			{
-				return this._Model;
-			}
-			set
-			{
-				if ((this._Model != value))
-				{
-					this.OnModelChanging(value);
-					this.SendPropertyChanging();
-					this._Model = value;
-					this.SendPropertyChanged("Model");
-					this.OnModelChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Year", DbType="Int NOT NULL")]
-		public int Year
-		{
-			get
-			{
-				return this._Year;
-			}
-			set
-			{
-				if ((this._Year != value))
-				{
-					this.OnYearChanging(value);
-					this.SendPropertyChanging();
-					this._Year = value;
-					this.SendPropertyChanged("Year");
-					this.OnYearChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonId", DbType="Int NOT NULL")]
-		public int PersonId
-		{
-			get
-			{
-				return this._PersonId;
-			}
-			set
-			{
-				if ((this._PersonId != value))
-				{
-					if (this._People.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPersonIdChanging(value);
-					this.SendPropertyChanging();
-					this._PersonId = value;
-					this.SendPropertyChanged("PersonId");
-					this.OnPersonIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="People_Car", Storage="_People", ThisKey="PersonId", OtherKey="Id", IsForeignKey=true)]
-		public People People
-		{
-			get
-			{
-				return this._People.Entity;
-			}
-			set
-			{
-				People previousValue = this._People.Entity;
-				if (((previousValue != value) 
-							|| (this._People.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._People.Entity = null;
-						previousValue.Cars.Remove(this);
-					}
-					this._People.Entity = value;
-					if ((value != null))
-					{
-						value.Cars.Add(this);
-						this._PersonId = value.Id;
-					}
-					else
-					{
-						this._PersonId = default(int);
-					}
-					this.SendPropertyChanged("People");
 				}
 			}
 		}
@@ -2460,7 +2239,7 @@ namespace CertificateRepository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExpirationItem_ItemShareWithCompany", Storage="_ItemShareWithCompanies", ThisKey="Id", OtherKey="ItemId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExpirationItem_ItemShareWithCompany", Storage="_ItemShareWithCompanies", ThisKey="Id", OtherKey="ExpirationItemId")]
 		public EntitySet<ItemShareWithCompany> ItemShareWithCompanies
 		{
 			get
@@ -2826,7 +2605,7 @@ namespace CertificateRepository
 		
 		private int _OrgId;
 		
-		private int _ItemId;
+		private int _ExpirationItemId;
 		
 		private System.Nullable<bool> _Share;
 		
@@ -2846,8 +2625,8 @@ namespace CertificateRepository
     partial void OnUserIdChanged();
     partial void OnOrgIdChanging(int value);
     partial void OnOrgIdChanged();
-    partial void OnItemIdChanging(int value);
-    partial void OnItemIdChanged();
+    partial void OnExpirationItemIdChanging(int value);
+    partial void OnExpirationItemIdChanged();
     partial void OnShareChanging(System.Nullable<bool> value);
     partial void OnShareChanged();
     #endregion
@@ -2928,26 +2707,26 @@ namespace CertificateRepository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ItemId", DbType="Int NOT NULL")]
-		public int ItemId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpirationItemId", DbType="Int NOT NULL")]
+		public int ExpirationItemId
 		{
 			get
 			{
-				return this._ItemId;
+				return this._ExpirationItemId;
 			}
 			set
 			{
-				if ((this._ItemId != value))
+				if ((this._ExpirationItemId != value))
 				{
 					if (this._ExpirationItem.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnItemIdChanging(value);
+					this.OnExpirationItemIdChanging(value);
 					this.SendPropertyChanging();
-					this._ItemId = value;
-					this.SendPropertyChanged("ItemId");
-					this.OnItemIdChanged();
+					this._ExpirationItemId = value;
+					this.SendPropertyChanged("ExpirationItemId");
+					this.OnExpirationItemIdChanged();
 				}
 			}
 		}
@@ -2972,7 +2751,7 @@ namespace CertificateRepository
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExpirationItem_ItemShareWithCompany", Storage="_ExpirationItem", ThisKey="ItemId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ExpirationItem_ItemShareWithCompany", Storage="_ExpirationItem", ThisKey="ExpirationItemId", OtherKey="Id", IsForeignKey=true)]
 		public ExpirationItem ExpirationItem
 		{
 			get
@@ -2995,11 +2774,11 @@ namespace CertificateRepository
 					if ((value != null))
 					{
 						value.ItemShareWithCompanies.Add(this);
-						this._ItemId = value.Id;
+						this._ExpirationItemId = value.Id;
 					}
 					else
 					{
-						this._ItemId = default(int);
+						this._ExpirationItemId = default(int);
 					}
 					this.SendPropertyChanged("ExpirationItem");
 				}
@@ -4718,144 +4497,6 @@ namespace CertificateRepository
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.People")]
-	public partial class People : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _FirstName;
-		
-		private string _LastName;
-		
-		private EntitySet<Car> _Cars;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnFirstNameChanging(string value);
-    partial void OnFirstNameChanged();
-    partial void OnLastNameChanging(string value);
-    partial void OnLastNameChanged();
-    #endregion
-		
-		public People()
-		{
-			this._Cars = new EntitySet<Car>(new Action<Car>(this.attach_Cars), new Action<Car>(this.detach_Cars));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this.OnFirstNameChanging(value);
-					this.SendPropertyChanging();
-					this._FirstName = value;
-					this.SendPropertyChanged("FirstName");
-					this.OnFirstNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this.OnLastNameChanging(value);
-					this.SendPropertyChanging();
-					this._LastName = value;
-					this.SendPropertyChanged("LastName");
-					this.OnLastNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="People_Car", Storage="_Cars", ThisKey="Id", OtherKey="PersonId")]
-		public EntitySet<Car> Cars
-		{
-			get
-			{
-				return this._Cars;
-			}
-			set
-			{
-				this._Cars.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Cars(Car entity)
-		{
-			this.SendPropertyChanging();
-			entity.People = this;
-		}
-		
-		private void detach_Cars(Car entity)
-		{
-			this.SendPropertyChanging();
-			entity.People = null;
 		}
 	}
 	

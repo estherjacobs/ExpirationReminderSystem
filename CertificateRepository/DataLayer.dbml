@@ -32,16 +32,6 @@
       <Association Name="User_AddMemberToken" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Cars" Member="Cars">
-    <Type Name="Car">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Make" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Model" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Year" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="PersonId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="People_Car" Member="People" ThisKey="PersonId" OtherKey="Id" Type="People" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Category" Member="Categories">
     <Type Name="Category">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -104,7 +94,7 @@
       <Column Name="ExpirationDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="Notes" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="ExpirationItem_Image" Member="Images" ThisKey="Id" OtherKey="ExpirationItemId" Type="Image" />
-      <Association Name="ExpirationItem_ItemShareWithCompany" Member="ItemShareWithCompanies" ThisKey="Id" OtherKey="ItemId" Type="ItemShareWithCompany" />
+      <Association Name="ExpirationItem_ItemShareWithCompany" Member="ItemShareWithCompanies" ThisKey="Id" OtherKey="ExpirationItemId" Type="ItemShareWithCompany" />
       <Association Name="ExpirationItem_Reminder" Member="Reminders" ThisKey="Id" OtherKey="ExpirationItemId" Type="Reminder" />
       <Association Name="Category_ExpirationItem" Member="Category" ThisKey="CategoryId" OtherKey="Id" Type="Category" IsForeignKey="true" />
       <Association Name="User_ExpirationItem" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
@@ -125,9 +115,9 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="OrgId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpirationItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Share" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="ExpirationItem_ItemShareWithCompany" Member="ExpirationItem" ThisKey="ItemId" OtherKey="Id" Type="ExpirationItem" IsForeignKey="true" />
+      <Association Name="ExpirationItem_ItemShareWithCompany" Member="ExpirationItem" ThisKey="ExpirationItemId" OtherKey="Id" Type="ExpirationItem" IsForeignKey="true" />
       <Association Name="Organization_ItemShareWithCompany" Member="Organization" ThisKey="OrgId" OtherKey="Id" Type="Organization" IsForeignKey="true" />
       <Association Name="User_ItemShareWithCompany" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
     </Type>
@@ -204,14 +194,6 @@
       <Column Name="guid" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="User_PasswordToken" Member="User" ThisKey="userid" OtherKey="Id" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.People" Member="Peoples">
-    <Type Name="People">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="People_Car" Member="Cars" ThisKey="Id" OtherKey="PersonId" Type="Car" />
     </Type>
   </Table>
   <Table Name="dbo.Reminder" Member="Reminders">

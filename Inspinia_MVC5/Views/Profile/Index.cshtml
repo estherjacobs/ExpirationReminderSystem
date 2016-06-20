@@ -14,12 +14,12 @@
 
                 </div>
                 <img src="~/Images/default-avator-w.png" class="m-b-md" style="max-width: 100%" alt="profile">
-                
+
                 <div>
                     @{
                         if (Model.Organizations.Count() == 0)
                         {
-                          
+
                         }
                         if (Model.Organizations.Count() > 0)
                         {
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form method="post" id="update-notification-form" class="form-horizontal" action="/Profile/UpdateNotification">
+                        <form method="post" class="form-horizontal" action="/Profile/UpdateMethodNotification">
 
                             <div class="form-group" id="notification-settings">
                                 <h4 class="col-sm-2 control-label">Receive notifications</h4>
@@ -210,9 +210,17 @@
                                         <div class="radio i-checks"><label> <input type="radio" value="3" name="radio"> <i></i> Via Email and Text Message</label></div>
                                     }
                                 </div>
+                                <input type="hidden" value="@Model.User.Id" name="userid">
+                                <div class="form-group">
+                                    <div class="col-lg-offset-8 col-lg-2 text-right">
+                                        <button class="btn btn-group-lg navy-bg" type="submit">Save</button>
+                                    </div>
+                                </div>
                             </div>
+                        </form>
 
-                            <div class="hr-line-dashed"></div>
+                        <div class="hr-line-dashed"></div>
+                        <form method="post" id="update-notification-form" class="form-horizontal" action="/Profile/UpdateNotification">
                             @if (Model.Contact == null)
                             {
                                 <div class="form-group">
@@ -274,6 +282,7 @@
             </div>
         </div>
     </div>
+</div>
 
     @section Styles {
         @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")

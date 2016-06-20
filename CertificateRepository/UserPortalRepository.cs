@@ -261,12 +261,20 @@ namespace CertificateRepository
                 {
                     db.Images.DeleteOnSubmit(i);
                 }
+                
+                foreach (ItemShareWithCompany g in db.ItemShareWithCompanies.Where(j => j.ExpirationItemId == itemid))
+                {
+                    db.ItemShareWithCompanies.DeleteOnSubmit(g);
+                }
+               
                 ExpirationItem e = db.ExpirationItems.FirstOrDefault(i => i.Id == itemid);
                 db.ExpirationItems.DeleteOnSubmit(e);
                 db.SubmitChanges();
                 AddAction(e.UserId, "Delete Expiration Item " + e.Name, DateTime.Now);
             }
         }
+
+       
         public int UpdateItem(int userid, string EIname, int EIcategory, DateTime? EIissuedate, DateTime EIexpiredate, string EInotes, int EIitemid)
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
@@ -439,7 +447,7 @@ namespace CertificateRepository
                 ItemShareWithCompany i = new ItemShareWithCompany();
                 i.UserId = userid;
                 i.OrgId = orgid;
-                i.ItemId = itemid;
+                i.ExpirationItemId = itemid;
                 i.Share = false;
                 db.ItemShareWithCompanies.InsertOnSubmit(i);
                 db.SubmitChanges();
@@ -461,35 +469,36 @@ namespace CertificateRepository
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
                 var list = db.ItemShareWithCompanies.Where(x => x.UserId == userid && x.OrgId == orgid);
-                if(list.Count() < 1)
+                if (list.Count() < 1)
                 {
                     return false;
                 }
-                
+
                 else
                 {
                     return true;
                 }
             }
         }
-        public void UpdateSharedItem(List<int> item, int userId, int orgId)
+        public void UpdateSharedItem(IEnumerable<int> item, int userId, int orgId)
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
                 var list = db.ItemShareWithCompanies.Where(i => i.UserId == userId && i.OrgId == orgId);
-                foreach(ItemShareWithCompany t in list)
+                foreach (ItemShareWithCompany t in list)
                 {
                     //if there is such an item in posted list
-                    if(item.Contains(t.ItemId))
+                    if (item.Contains(t.ExpirationItemId))
                     {
                         t.Share = true;
                     }
-                    if(!item.Contains(t.ItemId))
+                    if (!item.Contains(t.ExpirationItemId))
                     {
                         t.Share = false;
-                    }  
+                    }
+                    db.SubmitChanges();
+
                 }
-                db.SubmitChanges();
                 AddAction(userId, "Updated list of items to share with organization", DateTime.Now);
             }
         }

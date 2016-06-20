@@ -11,6 +11,11 @@ namespace Inspinia_MVC5.Controllers
     [Authorize]
     public class PortalController : Controller
     {
+        public void CheckIfInitialLogin()
+        {
+           
+
+        }
         public ActionResult Index()
         {
             var mgr = new UserPortalRepository();
@@ -22,9 +27,14 @@ namespace Inspinia_MVC5.Controllers
             vm.CoreCourses = mgr.GetAllCoreCourses(int.Parse(User.Identity.Name));
             vm.Reminders = mgr.GetAllReminders(int.Parse(User.Identity.Name));
             vm.UserOrganizations = mgr.GetAllUserRelationships(int.Parse(User.Identity.Name));
-            //vm.Images = mgr.GetAllImages(int.Parse(User.Identity.Name));
-            //SharedViewModel svm = new SharedViewModel();
-            //svm.Permission = mgr.GetPermission(int.Parse(User.Identity.Name));
+            if (Request.Cookies["tour"].Value == User.Identity.Name)
+            {
+                vm.InitialLogin = false;
+            }
+            else
+            {
+                vm.InitialLogin = true;
+            }
             return View(vm);
         }
 
@@ -308,7 +318,7 @@ namespace Inspinia_MVC5.Controllers
                     bool exist = true;
                     foreach(ItemShareWithCompany j in itemsShared)
                     {
-                        if(i.Id == j.ItemId)
+                        if(i.Id == j.ExpirationItemId)
                         {
                             exist = false;
                            
@@ -383,12 +393,10 @@ namespace Inspinia_MVC5.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult UpdateItemsToShare(List<int> item, int userId, int orgId)
+        public ActionResult UpdateItemsToShare(IEnumerable<int> item, int userId, int orgId)
         {
             var mgr = new UserPortalRepository();
-            
-                mgr.UpdateSharedItem(item, userId, orgId);
-            
+            mgr.UpdateSharedItem(item, userId, orgId);
             TempData["success"] = "List of shared items was successfully updated";
             return RedirectToAction("Index");
         }
@@ -396,6 +404,11 @@ namespace Inspinia_MVC5.Controllers
         {
             var mgr = new UserPortalRepository();
             return Json(mgr.CheckIfImage(itemid), JsonRequestBehavior.AllowGet);
+        }
+        public void CreateCookieForModal()
+        {
+            var cookie = new HttpCookie("tour", User.Identity.Name);
+            Response.Cookies.Add(cookie);
         }
     }
 }
