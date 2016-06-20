@@ -223,6 +223,7 @@
                         $.get("/portal/EditImageOne", { itemid: itemid }, function (path) {
                             var filePath = '/Images/' + path
                             $("#edit-image-1").attr('src', filePath)
+                            $(".editImageGroup").show();
                             $(".backGroup").hide();
                         });
                     } else {

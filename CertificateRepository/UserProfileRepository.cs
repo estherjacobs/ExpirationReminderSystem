@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Linq;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +29,7 @@ namespace CertificateRepository
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
                 var loadOptions = new DataLoadOptions();
-               
+
                 loadOptions.LoadWith<User>(p => p.Courses);
                 loadOptions.LoadWith<User>(p => p.ExpirationItems);
                 loadOptions.LoadWith<User>(p => p.Contacts);
@@ -77,7 +79,7 @@ namespace CertificateRepository
             }
         }
 
-        public void UpdateNotification(int userid, string radio, string name, string phone, string email)
+        public User UpdateNotification(int userid, string radio, string name, string phone, string email)
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
@@ -115,8 +117,23 @@ namespace CertificateRepository
                 }
                 AddAction(userid, "Update Notification settings", DateTime.Now);
                 db.SubmitChanges();
+                return u;
             }
         }
+
+        private void SendText(string phoneNumber, string fullName)
+        {
+            string html = string.Empty;
+            string url = "https://rest.nexmo.com/sms/json?api_key=b1ee06e1&api_secret=94dc48fb49e1dae6&from=12027353717&to=" + "17322376594" + "&text=" + "This is a confirmation that you have updated your notification settings to allow sms reminders.";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            WebResponse response = request.GetResponse();
+            using (Stream responseStream = response.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+                html = reader.ReadToEnd();
+            }
+        }
+
         public bool CheckPassword(int userid, string password)
         {
             using (DataLayerDataContext db = new DataLayerDataContext())

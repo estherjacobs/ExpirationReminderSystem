@@ -13,7 +13,6 @@
                     <div class="col-xs-8 text-right">
                         <span>Today's Date</span>
                         <h2 class="font-bold">@DateTime.Now.ToShortDateString()</h2>
-
                     </div>
                 </div>
             </div>
@@ -64,17 +63,17 @@
         @if (item != null)
         {
             <div class="col-lg-3">
-                <div class="widget style1 p-xl navy-bg" style="height: 200px;">
-                    <div class="row">
+                <div class="widget style1 p-l navy-bg" style="height: 200px;">
+                    <div class="row m-r-sm m-l-sm">
                         @{int total = 0;}
                         @foreach (Course c in Model.Courses)
                         {
-                            if (c.Date > item.IssueDate && c.Date < item.ExpirationDate)
+                            if (c.Date >= item.IssueDate && c.Date <= item.ExpirationDate)
                             {
                                 total += c.Credits;
                             }
                         }
-                        <div class="m-b-md m-t-sm">
+                        <div class="m-b-md m-t-md">
                             <h4>Percentage of EMT credits completed for this semester</h4>
                             <h1>@total/24</h1>
                         </div>
@@ -130,7 +129,7 @@
                                             <div class="col-xs-8 text-right">
                                                 @if (c1 != null)
                                                 {
-                                                    <span> @c1.Date.ToShortDateString()</span>
+                                                    <span>class on  @c1.Date.ToShortDateString()</span>
                                                 }
                                                 else
                                                 {
@@ -140,7 +139,7 @@
                                                 <br />
                                                 @if (c2 != null)
                                                 {
-                                                    <span>@c2.Date.ToShortDateString()</span>
+                                                    <span>class on  @c2.Date.ToShortDateString()</span>
                                                 }
                                                 else
                                                 {
@@ -151,7 +150,7 @@
                                                 <br />
                                                 @if (c3 != null)
                                                 {
-                                                    <span>@c3.Date.ToShortDateString()</span>
+                                                    <span>class on @c3.Date.ToShortDateString()</span>
                                                 }
                                                 else
                                                 {
@@ -171,15 +170,12 @@
                 <div class="widget lazur-bg p-l" style="height: 200px;">
                     <div class="row">
                         <div class="col-md-6 text-left">
-                            
+
                             <h2 class="heading-responsive">@j.Organization.Name</h2>
                             <div class="m-t-md">
                                 <div>
                                     <i class="fa fa-phone"></i>&nbsp; @j.Organization.PhoneNumber
                                 </div>
-                            </div>
-                            <div class="m-t-sm">
-                                <i class="fa fa-envelope"></i>&nbsp; @j.Organization.Email
                             </div>
                         </div>
                         <div class="col-md-6 text-right">
@@ -187,11 +183,12 @@
                             <button class="m-t-sm btn  chooseItemToShare btn-responsive" style="background-color: transparent; color: #fff; border: 2px solid #fff;" data-userid="@int.Parse(User.Identity.Name)" data-orgid="@j.Organization.Id">Items to Share</button>
                         </div>
                         <div class="col-md-12">
-                   
+                            <div class="m-t-sm">
+                                <i class="fa fa-envelope"></i>&nbsp; @j.Organization.Email
+                            </div>
                             <div class="m-t-sm">
                                 <i class="fa fa-map-marker"></i>&nbsp; @j.Organization.Address @j.Organization.City @j.Organization.State @j.Organization.Zip
                             </div>
-                        
                         </div>
                     </div>
                 </div>
@@ -223,37 +220,39 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Item Name</th>
-                                        <th>Category</th>
-                                        <th>Date of Reminder</th>
-                                        <th>Item Expiration Date</th>
-                                        <th style="width: 30px;" class="alignright"></th>
-                                    </tr>
-                                    @{ int totalCounter = 1;}
-                                </thead>
-                                <tbody>
-                                    @foreach (var r in Model.Reminders.OrderBy(i => i.Date).Take(4))
-                                    {
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
                                         <tr>
-                                            <td>@totalCounter</td>
-                                            <td>@r.ExpirationItem.Name</td>
-                                            <td>@r.ExpirationItem.Category.Name</td>
-                                            <td>@r.Date.ToLongDateString()</td>
-                                            <td>@r.ExpirationItem.ExpirationDate.ToLongDateString()</td>
-                                            @if (r.Date <= DateTime.Now.AddDays(10))
-                                            {
-                                                <td><span class="label label-warning">Reminding Soon</span></td>
-                                            }
-                                            <td></td>
+                                            <th>#</th>
+                                            <th>Item Name</th>
+                                            <th>Category</th>
+                                            <th>Date of Reminder</th>
+                                            <th>Item Expiration Date</th>
+                                            <th style="width: 30px;" class="alignright"></th>
                                         </tr>
-                                        totalCounter++;
-                                    }
-                                </tbody>
-                            </table>
+                                        @{ int totalCounter = 1;}
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var r in Model.Reminders.OrderBy(i => i.Date).Take(2))
+                                        {
+                                            <tr>
+                                                <td>@totalCounter</td>
+                                                <td>@r.ExpirationItem.Name</td>
+                                                <td>@r.ExpirationItem.Category.Name</td>
+                                                <td>@r.Date.ToLongDateString()</td>
+                                                <td>@r.ExpirationItem.ExpirationDate.ToLongDateString()</td>
+                                                @if (r.Date <= DateTime.Now.AddDays(10))
+                                                {
+                                                    <td><span class="label label-warning">Reminding Soon</span></td>
+                                                }
+                                                <td></td>
+                                            </tr>
+                                            totalCounter++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -269,68 +268,70 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-                            <table class="table table-hover" id="expirationItemTable">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Issue Date</th>
-                                        <th>Expiration Date</th>
-                                        <th>Status</th>
-                                        <th>Reminder</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{int counter = 1;}
-                                    @foreach (ExpirationItem e in Model.ExpirationItems)
-                                    {
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="expirationItemTable">
+                                    <thead>
                                         <tr>
-                                            <td>@counter</td>
-                                            <td>@e.Name</td>
-                                            <td>@e.Category.Name</td>
-                                            @if (e.IssueDate != null)
-                                            {
-                                                <td>@e.IssueDate.Value.ToShortDateString()</td>
-                                            }
-                                            @if (e.IssueDate == null)
-                                            {
-                                                <td></td>
-                                            }
-
-                                            <td>@e.ExpirationDate.ToShortDateString()</td>
-
-                                            @if (e.ExpirationDate > DateTime.Now.AddDays(30))
-                                            {
-                                                <td class="text-navy">Current</td>
-                                            }
-                                            else if (e.ExpirationDate > DateTime.Now || e.ExpirationDate > DateTime.Now.AddDays(30))
-                                            {
-                                                <td class="text-warning">Expiring</td>
-                                                <td></td>
-                                            }
-                                            else
-                                            {
-                                                <td class="text-danger">Expired</td>
-                                                <td></td>
-                                            }
-                                            @if (e.ExpirationDate > DateTime.Now.AddDays(30))
-                                            {
-                                                <td>
-                                                    Yes
-                                                    &nbsp; &nbsp; &nbsp;<span class="col-lg-offset-1 alignright fa fa-plus addReminder" data-itemid="@e.Id"></span>
-                                                </td>
-                                            }
-
-                                            <td class="aligncenter edit-expirationitem" data-itemid="@e.Id" data-name="@e.Name" data-category="@e.CategoryId" data-issuedate="@(e.IssueDate == null ? " " : e.IssueDate.Value.ToShortDateString()) " data-expiredate="@e.ExpirationDate.Date.ToShortDateString()" data-notes="@e.Notes">&nbsp; &nbsp;<span class="fa fa-edit"></span></td>
-                                            <td class="delete-eitem" data-itemid="@e.Id"><span class="fa fa-trash"></span></td>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Issue Date</th>
+                                            <th>Expiration Date</th>
+                                            <th>Status</th>
+                                            <th>Reminder</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
                                         </tr>
-                                        counter++;
-                                    }
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @{int counter = 1;}
+                                        @foreach (ExpirationItem e in Model.ExpirationItems)
+                                        {
+                                            <tr>
+                                                <td>@counter</td>
+                                                <td>@e.Name</td>
+                                                <td>@e.Category.Name</td>
+                                                @if (e.IssueDate != null)
+                                                {
+                                                    <td>@e.IssueDate.Value.ToShortDateString()</td>
+                                                }
+                                                @if (e.IssueDate == null)
+                                                {
+                                                    <td></td>
+                                                }
+
+                                                <td>@e.ExpirationDate.ToShortDateString()</td>
+
+                                                @if (e.ExpirationDate > DateTime.Now.AddDays(30))
+                                                {
+                                                    <td class="text-navy">Current</td>
+                                                }
+                                                else if (e.ExpirationDate > DateTime.Now || e.ExpirationDate > DateTime.Now.AddDays(30))
+                                                {
+                                                    <td class="text-warning">Expiring</td>
+                                                    <td></td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="text-danger">Expired</td>
+                                                    <td></td>
+                                                }
+                                                @if (e.ExpirationDate > DateTime.Now.AddDays(30))
+                                                {
+                                                    <td>
+                                                        Yes
+                                                        &nbsp; &nbsp; &nbsp;<span class="col-lg-offset-1 alignright fa fa-plus addReminder" data-itemid="@e.Id"></span>
+                                                    </td>
+                                                }
+
+                                                <td class="aligncenter edit-expirationitem" data-itemid="@e.Id" data-name="@e.Name" data-category="@e.CategoryId" data-issuedate="@(e.IssueDate == null ? " " : e.IssueDate.Value.ToShortDateString()) " data-expiredate="@e.ExpirationDate.Date.ToShortDateString()" data-notes="@e.Notes">&nbsp; &nbsp;<span class="fa fa-edit"></span></td>
+                                                <td class="delete-eitem" data-itemid="@e.Id"><span class="fa fa-trash"></span></td>
+                                            </tr>
+                                            counter++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                             <div>
                                 <button class="btn btn-group-lg navy-bg alignleft additem">Add Item</button>
                             </div>
@@ -351,35 +352,37 @@
                             </div>
                         </div>
                         <div class="ibox-content">
-
-                            <table class="table table-hover" id="NETable">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Date</th>
-                                        <th>Notes</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{int number = 1;}
-                                    @foreach (NonExpirationItem e in Model.NonExpirationItems)
-                                    {
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="NETable">
+                                    <thead>
                                         <tr>
-                                            <td>@number</td>
-                                            <td>@e.Name</td>
-                                            <td>@e.Date.ToShortDateString()</td>
-                                            <td>@e.Notes.Truncate(60)</td>
-
-                                            <td class="edit-neitem-modal" data-notes="@e.Notes" data-date="@e.Date.Date.ToShortDateString()" data-name="@e.Name" data-itemid="@e.Id"><span class="fa fa-edit aligncenter"></span></td>
-                                            <td class="deleteNEItem" data-itemid="@e.Id"><span class="fa fa-trash"></span></td>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Date</th>
+                                            <th>Notes</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
                                         </tr>
-                                        number++;
-                                    }
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @{int number = 1;}
+                                        @foreach (NonExpirationItem e in Model.NonExpirationItems)
+                                        {
+                                            <tr>
+                                                <td>@number</td>
+                                                <td>@e.Name</td>
+                                                <td>@e.Date.ToShortDateString()</td>
+                                                <td>@e.Notes.Truncate(60)</td>
+
+                                                <td class="edit-neitem-modal" data-notes="@e.Notes" data-date="@e.Date.Date.ToShortDateString()" data-name="@e.Name" data-itemid="@e.Id"><span class="fa fa-edit aligncenter"></span></td>
+                                                <td class="deleteNEItem" data-itemid="@e.Id"><span class="fa fa-trash"></span></td>
+                                            </tr>
+                                            number++;
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
                             <div>
                                 <button class="btn btn-group-lg navy-bg alignleft addNonExpirationitem" @*style="width: 20%;*@>Add Item</button>
                             </div>
@@ -402,71 +405,73 @@
                                 </div>
                             </div>
                             <div class="ibox-content">
-
-                                <table class="table table-hover" id="courseTable">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Core Category</th>
-                                            <th>Class Date</th>
-                                            <th>Credits</th>
-                                            <th>Notes</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                            <th style="width: 30px;" class="alignright"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{int num = 1; }
-                                        @foreach (Course c in Model.Courses)
-                                        {
-
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="courseTable">
+                                        <thead>
                                             <tr>
-                                                <td>@num</td>
-                                                <td>@c.Name</td>
-                                                <td></td>
-                                                <td>@c.Date.ToShortDateString()</td>
-                                                <td>@c.Credits</td>
-                                                <td>@c.Notes.Truncate(60)</td>
-                                                <td class="edit-course" data-credits="@c.Credits" data-notes="@c.Notes" data-date="@c.Date.Date.ToShortDateString()" data-name="@c.Name" data-itemid="@c.Id"><span class="fa fa-edit aligncenter"></span></td>
-                                                <td class="deleteCourse" data-itemid="@c.Id"><span class="fa fa-trash"></span></td>
-                                                @if (c.Date < item.IssueDate || c.Date > item.ExpirationDate)
-                                                {
-                                                    <td><span class="label label-info">Not Included</span></td>
-                                                }
-                                                else
-                                                {
-                                                    <td></td>
-                                                }
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Core Category</th>
+                                                <th>Class Date</th>
+                                                <th>Credits</th>
+                                                <th>Notes</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                                <th style="width: 30px;" class="alignright"></th>
                                             </tr>
-                                            num++;
-                                        }
-                                        @foreach (CoreCourse c in Model.CoreCourses)
-                                        {
+                                        </thead>
+                                        <tbody>
+                                            @{int num = 1; }
+                                            @foreach (Course c in Model.Courses)
+                                            {
 
-                                            <tr>
-                                                <td>@num</td>
-                                                <td>@c.Name</td>
-                                                <td>@c.CourseCategory.Name</td>
-                                                <td>@c.Date.ToShortDateString()</td>
-                                                <td></td>
-                                                <td>@c.Notes.Truncate(60)</td>
-                                                <td class="edit-core-course" data-coursecat="@c.CourseCategory.Id" data-notes="@c.Notes" data-date="@c.Date.Date.ToShortDateString()" data-name="@c.Name" data-itemid="@c.Id"><span class="fa fa-edit aligncenter"></span></td>
-                                                <td class="deleteCoreCourse" data-itemid="@c.Id"><span class="fa fa-trash"></span></td>
-                                                @if (c.Date < item.IssueDate || c.Date > item.ExpirationDate)
-                                                {
-                                                    <td><span class="label label-info">Not Included</span></td>
-                                                }
-                                                else
-                                                {
+                                                <tr>
+                                                    <td>@num</td>
+                                                    <td>@c.Name</td>
                                                     <td></td>
-                                                }
-                                            </tr>
-                                            num++;
-                                        }
-                                    </tbody>
-                                </table>
+                                                    <td>@c.Date.ToShortDateString()</td>
+                                                    <td>@c.Credits</td>
+                                                    <td>@c.Notes.Truncate(60)</td>
+                                                    <td class="edit-course" data-credits="@c.Credits" data-notes="@c.Notes" data-date="@c.Date.Date.ToShortDateString()" data-name="@c.Name" data-itemid="@c.Id"><span class="fa fa-edit aligncenter"></span></td>
+                                                    <td class="deleteCourse" data-itemid="@c.Id"><span class="fa fa-trash"></span></td>
+                                                    @if (c.Date < item.IssueDate || c.Date > item.ExpirationDate)
+                                                    {
+                                                        <td><span class="label label-info">Not Included</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                </tr>
+                                                num++;
+                                            }
+                                            @foreach (CoreCourse c in Model.CoreCourses)
+                                            {
+
+                                                <tr>
+                                                    <td>@num</td>
+                                                    <td>@c.Name</td>
+                                                    <td>@c.CourseCategory.Name</td>
+                                                    <td>@c.Date.ToShortDateString()</td>
+                                                    <td></td>
+                                                    <td>@c.Notes.Truncate(60)</td>
+                                                    <td class="edit-core-course" data-coursecat="@c.CourseCategory.Id" data-notes="@c.Notes" data-date="@c.Date.Date.ToShortDateString()" data-name="@c.Name" data-itemid="@c.Id"><span class="fa fa-edit aligncenter"></span></td>
+                                                    <td class="deleteCoreCourse" data-itemid="@c.Id"><span class="fa fa-trash"></span></td>
+                                                    @if (c.Date < item.IssueDate || c.Date > item.ExpirationDate)
+                                                    {
+                                                        <td><span class="label label-info">Not Included</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                </tr>
+                                                num++;
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
                                 <div>
                                     <button class="btn btn-group-lg navy-bg alignleft addCourseitem">Add Course</button>
                                 </div>
@@ -477,7 +482,7 @@
                         </div>
                     </div>
                 </div>
-                                            }
+                                                }
         </div>
     </div>
     <!--Add Course-->
@@ -509,7 +514,7 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar required"></i></span><input type="text" class="form-control" name="courseDate" placeholder="course date" id="courseDate">
                             </div>
                         </div>
-          
+
                         <div class="form-group">
                             <label style="width:100%;">Notes</label>
                             <textarea placeholder="notes" class="form-control" row="4" column="9" name="courseNotes" id="courseNotes"></textarea>
@@ -626,7 +631,7 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="NEDate" id="NEDate">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label>Notes</label>
                             <textarea class="form-control" row="4" column="9" id="NENotes" name="NENotes"></textarea>
@@ -889,7 +894,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-lg-6 frontCard" style="display: none;">
+                            <div class="col-lg-6 frontCard" @*style="display: none;"*@>
                                 <label><span style="display: none;" class="star2">Front of Card &nbsp; *</span></label>
                                 <img id="add-image-1" src="http://placehold.it/100x100" alt="front card image" height="122" width="162" style="margin-top: 10px;" />
                                 <input type="file" name="image[0]" id="firstImage" />
@@ -924,7 +929,7 @@
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-calendar-o modal-icon"></i>
+                    <i class="fa fa-list modal-icon"></i>
                     <h4 class="modal-title">List of Required Items</h4>
                 </div>
                 <div class="modal-body">
@@ -962,7 +967,7 @@
             <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <i class="fa fa-calendar-o modal-icon"></i>
+                    <i class="fa fa-list modal-icon"></i>
                     <h4 class="modal-title">Choose Extra Items to Share</h4>
                 </div>
                 <div class="modal-body">

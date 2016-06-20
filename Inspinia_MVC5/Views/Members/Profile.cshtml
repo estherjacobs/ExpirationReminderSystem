@@ -5,166 +5,161 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-
-                <div class="col-lg-8">
-                    <div class="widget lazur-bg text-center p-xl">
-                        <div class="">
-                            <h2 class="m-b-sm">
-                                @Model.Organization.Name
-                            </h2>
-                            <div class="m-t-sm">
-                                <p>Orgnization Founded in @Model.Organization.YearFounded</p>
-                            </div>
-                           
-
-                        </div>
-                        @*<img src="~/Images/default-avator-w.png" class="m-b-md" alt="profile">*@
-                        <span class="fa fa-sitemap m-t-sm m-b-sm" style="font-size:12em; color: white;"></span>
-                        <div>
-                            <div>
-                                <h3><span class="font-bold">Member Since:</span></h3> 
-                                <p class="m-t-sm">@Model.Organization.Date.Value.ToLongDateString() </p>
-
-                            </div>
-                            <div class="">
-                                @*<spam class="font-bold">Members: </spam>
-                                    @foreach (UserOrganization u in Model.Relationships)
-                                    {
-                                        <span> @u.User.FullName . </span>
-                                    }*@
-                            </div>
-                        </div>
+        <div class="col-lg-8">
+            <div class="widget lazur-bg text-center p-xl">
+                <div class="">
+                    <h2 class="m-b-sm">
+                        @Model.Organization.Name
+                    </h2>
+                    <div class="m-t-sm">
+                        <p>Orgnization founded in @Model.Organization.YearFounded</p>
                     </div>
+
+
                 </div>
-                <div class="col-lg-4">
-                    <div class="widget yellow-bg p-xl">
-                        @*<h2>
-                                @Model.User.FullName
-                            </h2>*@
-                        <ul class="list-unstyled m-t-md">
-
-                            <li>
-                                <span class="fa fa-envelope m-r-xs"></span>
-                                <label>Email:</label>
-                                @Model.Organization.Email
-                            </li>
-                            <li>
-                                <span class="fa fa-phone m-r-xs"></span>
-                                <label>Contact:</label>
-                                @{
-                                    string p = Model.Organization.PhoneNumber;
-                                    string formattedPhoneNumber = string.Format("({0}) {1}-{2}", p.Substring(0, 3), p.Substring(3, 3), p.Substring(6, 4));
-                                }
-                                @formattedPhoneNumber
-                            </li>
-                            <li>
-                                <span class="fa fa-map-marker m-r-xs"></span>
-                                <label>Address:</label>
-                                @Model.Organization.Address @Model.Organization.City @Model.Organization.State
-                            </li>
-
-                        </ul>
+                @*<img src="~/Images/default-avator-w.png" class="m-b-md" alt="profile">*@
+                <span class="fa fa-sitemap m-t-sm m-b-sm" style="font-size:12em; color: white; max-width:100%"></span>
+                <div>
+                    <div>
+                        <h3><span class="font-bold">Organization Account Since:</span></h3>
+                        <p class="m-t-sm">@Model.Organization.Date.Value.ToLongDateString() </p>
 
                     </div>
-                    <div class="widget navy-bg p-lg text-center">
-                        <div class="">
-                            <i class="fa fa-users fa-4x"></i>
-                            @if (Model.Relationships.Count() > 0)
+                    <div class="">
+                        @*<spam class="font-bold">Members: </spam>
+                            @foreach (UserOrganization u in Model.Relationships)
                             {
-                                <h1 class="m-xs">@Model.Relationships.Count()</h1>
-                            }
-
-                            <h3 class="font-bold no-margins">
-                                Members
-                            </h3>
-                            <small>Number of relationships with organizations</small>
-                        </div>
+                                <span> @u.User.FullName . </span>
+                            }*@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Account Settings</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <form class="form-horizontal" id="update-profile-org-form" action="/members/UpdateProfileOrg" method="post">
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Name</label>
-                                <div class="col-lg-8">
-                                    <input type="text" name="name" id="name" placeholder="organization name" value="@Model.Organization.Name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Email</label>
-                                <div class="col-lg-8"><input type="email" placeholder="organization email" id="email" value="@Model.Organization.Email" name="email" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Phone Number</label>
-                                <div class="col-lg-8"><input type="tel" name="phone" placeholder="phone number" id="phone" value="@Model.Organization.PhoneNumber" class="form-control"></div>
-                            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="widget yellow-bg p-xl">
+                @*<h2>
+                        @Model.User.FullName
+                    </h2>*@
+                <ul class="list-unstyled m-t-md">
 
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Address</label>
-                                <div class="col-lg-8"><input type="text" name="address" placeholder="phone number" id="address" value="@Model.Organization.Address" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">City</label>
-                                <div class="col-lg-8"><input type="text" name="city" placeholder="phone number" id="city" value="@Model.Organization.City" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">State</label>
-                                <div class="col-lg-8"><input type="text" name="state" placeholder="phone number" id="state" value="@Model.Organization.State" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Zip Code</label>
-                                <div class="col-lg-8"><input type="text" name="zip" placeholder="phone number" id="zip" value="@Model.Organization.Zip" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">Year Founded</label>
-                                <div class="col-lg-8"><input type="number" name="year" placeholder="phone number" id="year" value="@Model.Organization.YearFounded" class="form-control"></div>
-                            </div>
-                            <input type="hidden" value="@Model.Organization.Id" name="orgid" id="orgid">
-                            <div class="form-group">
-                                <div class="col-lg-offset-8 col-lg-2 text-right">
-                                    <input class="btn btn-primary account-submit" name="commit" type="submit" value="Update">
-                                </div>
-                            </div>
-                        </form>
+                    <li>
+                        <span class="fa fa-envelope m-r-xs"></span>
+                        <label>Email:</label>
+                        @Model.Organization.Email
+                    </li>
+                    <li>
+                        <span class="fa fa-phone m-r-xs"></span>
+                        <label>Contact:</label>
+                        @{
+                            string p = Model.Organization.PhoneNumber;
+                            string formattedPhoneNumber = string.Format("({0}) {1}-{2}", p.Substring(0, 3), p.Substring(3, 3), p.Substring(6, 4));
+                        }
+                        @formattedPhoneNumber
+                    </li>
+                    <li>
+                        <span class="fa fa-map-marker m-r-xs"></span>
+                        <label>Address:</label>
+                        @Model.Organization.Address, @Model.Organization.City, @Model.Organization.State
+                    </li>
+
+                </ul>
+
+            </div>
+            <div class="widget navy-bg p-lg text-center">
+                <div class="">
+                    <i class="fa fa-users fa-4x"></i>
+                    @if (Model.Relationships.Count() > 0)
+                    {
+                        <h1 class="m-xs">@Model.Relationships.Count()</h1>
+                    }
+
+                    <h3 class="font-bold no-margins">
+                        Members
+                    </h3>
+                    <small>Number of relationships with organizations</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Account Settings</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
                     </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" id="update-profile-org-form" action="/members/UpdateProfileOrg" method="post">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name</label>
+                            <div class="col-lg-8">
+                                <input type="text" name="name" id="name" placeholder="organization name" value="@Model.Organization.Name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-8"><input type="email" placeholder="organization email" id="email" value="@Model.Organization.Email" name="email" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Phone Number</label>
+                            <div class="col-lg-8"><input type="tel" name="phone" placeholder="phone number" id="phone" value="@Model.Organization.PhoneNumber" class="form-control"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Address</label>
+                            <div class="col-lg-8"><input type="text" name="address" placeholder="phone number" id="address" value="@Model.Organization.Address" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">City</label>
+                            <div class="col-lg-8"><input type="text" name="city" placeholder="phone number" id="city" value="@Model.Organization.City" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">State</label>
+                            <div class="col-lg-8"><input type="text" name="state" placeholder="phone number" id="state" value="@Model.Organization.State" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Zip Code</label>
+                            <div class="col-lg-8"><input type="text" name="zip" placeholder="phone number" id="zip" value="@Model.Organization.Zip" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Year Founded</label>
+                            <div class="col-lg-8"><input type="number" name="year" placeholder="phone number" id="year" value="@Model.Organization.YearFounded" class="form-control"></div>
+                        </div>
+                        <input type="hidden" value="@Model.Organization.Id" name="orgid" id="orgid">
+                        <div class="form-group">
+                            <div class="col-lg-offset-8 col-lg-2 text-right">
+                                <input class="btn btn-primary account-submit" name="commit" type="submit" value="Update">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    @section Styles {
-        @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+@section Styles {
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
 
-    }
-    @section Scripts {
-        @Scripts.Render("~/plugins/iCheck")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/iCheck")
 
-        <script src="~/Scripts/site-scripts/Notification-Shared.js"></script>
-        <script src="~/Scripts/site-scripts/profile-org-index.js"></script>
-        <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
-        <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+    <script src="~/Scripts/site-scripts/Notification-Shared.js"></script>
+    <script src="~/Scripts/site-scripts/profile-org-index.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-                $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green',
-                });
-
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
             });
-        </script>
-    }
+
+        });
+    </script>
+}

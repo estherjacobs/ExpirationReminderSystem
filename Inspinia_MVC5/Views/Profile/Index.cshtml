@@ -6,21 +6,26 @@
     <div class="row">
 
         <div class="col-lg-8">
-            <div class="widget navy-bg text-center p-xl">
+            <div class="widget navy-bg text-center p-xl" style="height:400px;">
                 <div class="m-b-md">
                     <h2 class="m-b-sm">
                         @Model.User.FullName
                     </h2>
 
                 </div>
-                <img src="~/Images/default-avator-w.png" class="m-b-md" alt="profile">
-                <div>
-                    <p>Member of</p>
-                </div>
+                <img src="~/Images/default-avator-w.png" class="m-b-md" style="max-width: 100%" alt="profile">
+                
                 <div>
                     @{
+                        if (Model.Organizations.Count() == 0)
+                        {
+                          
+                        }
                         if (Model.Organizations.Count() > 0)
                         {
+                            <div>
+                                <p><strong>Member of</strong></p>
+                            </div>
                             <span>
                                 @Model.Organizations.FirstOrDefault().Organization.Name
                             </span>

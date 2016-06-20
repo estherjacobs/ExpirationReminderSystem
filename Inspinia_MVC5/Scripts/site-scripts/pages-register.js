@@ -22,17 +22,20 @@
                         }
                     }
                 },
+                phone: {
+                    required: true,
+                    phoneUS: true
+                },
                 password: {
                     required: true,
                     minlength: 6
                 },
                 cpassword: {
-                    equalTo: "#password"
-                },
-                phone: {
                     required: true,
-                    phoneUS: true
+                    minlength: 6,
+                    equalTo: "#password"
                 }
+               
             },
             messages: {
                 name: {
@@ -44,16 +47,18 @@
                     range: "Email is not valid",
                     remote: "An account with this email already exists"
                 },
+                phone: {
+                    required: "Please enter your mobile phone number",
+                    phoneUS: "Please enter a valid US number"
+                },
                 password: {
                     required: "Please create a password",
                     minlength: "Password must have a minimum of 6 characters"
                 },
                 cpassword: {
+                    required: "Please confirm the password",
+                    minlength: "Password must have a minimum of 6 characters",
                     equalTo: "Does not match"
-                },
-                phone: {
-                    required: "Please enter your mobile phone number",
-                    phoneUS: "Please enter a valid US number"
                 }
             }
         })

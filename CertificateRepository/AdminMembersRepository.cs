@@ -508,5 +508,20 @@ namespace CertificateRepository
             }
 
         }
+        public bool CheckIfAdminAnywhere(User u)
+        {
+            using (DataLayerDataContext db = new DataLayerDataContext())
+            {
+                UserOrganization i = db.UserOrganizations.FirstOrDefault(j => j.UserId == u.Id && j.Permission != 1);
+                if(i == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
     }
 }

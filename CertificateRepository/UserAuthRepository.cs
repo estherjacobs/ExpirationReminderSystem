@@ -55,7 +55,7 @@ namespace CertificateRepository
             }
         }
 
-        public Organization AddOrg(int userid, string name, string address, string email, string city, string phone, int year)
+        public Organization AddOrg(int userid, string name, string address, string email, string city, string state, string zip, string phone, int year)
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
@@ -64,8 +64,11 @@ namespace CertificateRepository
                 o.Address = address;
                 o.Email = email;
                 o.City = city;
+                o.City = state;
+                o.City = zip;
                 o.PhoneNumber = phone;
                 o.YearFounded = year;
+                o.Date = DateTime.Now;
                 db.Organizations.InsertOnSubmit(o);
                 db.SubmitChanges();
                 AddOrgAction(o.Id, userid, o.Name + " registered", DateTime.Today);

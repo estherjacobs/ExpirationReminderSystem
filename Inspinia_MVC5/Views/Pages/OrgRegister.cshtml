@@ -9,7 +9,7 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div>
 
-            <h1 class="logo-name text-center">Logo Here</h1>
+            <h1 class="text-center">Logo Here</h1>
 
         </div>
         <h2 class="text-center">Organization Registration Form</h2>
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="text-center">
-                                            <div style="margin-top: 120px">
+                                            <div>
                                                 <i class="fa fa-sign-in fa-5x" style="font-size: 180px;color: #e5e5e5 "></i>
                                             </div>
                                         </div>
@@ -64,29 +64,37 @@
                                 <h2>Organization Account Information</h2>
                                 <div class="row">
                                     <div class="col-lg-9">
-                                        <p>Specific information of your organization which will be shared with all its members as a method of contact etc.</p>
+                                        <p>Specific information of your organization which will be shared with all its members as method of contact etc.</p>
                                         <div class="form-group">
                                             <label>Organization Name *</label>
                                             <input id="oname" name="oname" type="text" class="form-control required">
                                         </div>
                                         <div class="form-group">
-                                            <label>Organization Email *</label>
+                                            <label>Email *</label>
                                             <input id="oemail" name="oemail" type="email" class="form-control required">
                                         </div>
                                         <div class="form-group">
-                                            <label>Organization Address *</label>
+                                            <label>Address *</label>
                                             <input id="oaddress" name="oaddress" type="text" class="form-control required">
                                         </div>
                                         <div class="form-group">
-                                            <label>Organization City *</label>
+                                            <label>City *</label>
                                             <input id="ocity" name="ocity" type="text" class="form-control required">
                                         </div>
                                         <div class="form-group">
-                                            <label>Organization Phone Number *</label>
+                                            <label>State *</label>
+                                            <input id="ostate" name="ostate" type="text" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Zip Code *</label>
+                                            <input id="ozip" name="ozip" type="text" class="form-control required">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone Number *</label>
                                             <input id="ophone" name="ophone" type="tel" class="form-control required">
                                         </div>
                                         <div class="form-group">
-                                            <label>Year Organization Founded *</label>
+                                            <label>Year Founded *</label>
                                             <input id="oyear" name="year" type="number" class="form-control required">
                                         </div>
                                     </div>
@@ -96,10 +104,10 @@
 
                             <h1>Required Items</h1>
                             <fieldset>
-                                <div class="text-center" style="margin-top: 120px">
+                                <div class="text-center" style="margin-top: 60px">
                                     <h2>Required Members Items</h2>
                                     <div class="row">
-                                        <div class="col-lg-9">
+                                        <div class="col-lg-12">
                                             <p>Select the items which you would like to setup as required items for the members of your organization.</p>
                                             <div class="form-group">
                                                 @foreach (Category c in Model)

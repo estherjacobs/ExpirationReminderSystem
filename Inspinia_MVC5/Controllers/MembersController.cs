@@ -138,6 +138,15 @@ namespace Inspinia_MVC5.Controllers
             }
             else
             {
+                if(permission == 2 || permission == 3)
+                {
+                    bool IsAdmin = mgr.CheckIfAdminAnywhere(u);
+                    if (IsAdmin)
+                    {
+                        TempData["error"] = "The user you invited to join the organization is an administrator elsewhere and cannot become a admin of your organization as well";
+                        return RedirectToAction("Index");
+                    }
+                }
                 mgr.AddAction(int.Parse(User.Identity.Name), "Received invite to join organization " + o.Name, DateTime.Now);
                 mgr.AddMember(email, permission, gg, u.Id, o.Id);
             }
@@ -173,7 +182,7 @@ namespace Inspinia_MVC5.Controllers
             }
         }
         [HttpPost]
-        public ActionResult SignUp(string name, string email, string password, string phone, string token, int permission)
+        public ActionResult SignUp(string name, string email, string password, string cpassword, string phone, string token, int permission)
         {
             var mgr = new UserAuthRepository();
             var mgr2 = new AdminMembersRepository();
@@ -229,6 +238,7 @@ namespace Inspinia_MVC5.Controllers
         {
             var mgr = new AdminMembersRepository();
             mgr.UpdateOrganization(int.Parse(User.Identity.Name), orgid, name, email, phone, address, city, state, zip, year);
+            TempData["success"] = "Your organization account was updated successfully!";
             return RedirectToAction("Profile");
         }
     }

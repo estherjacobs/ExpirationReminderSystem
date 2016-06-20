@@ -102,7 +102,7 @@
                                                         {
                                                             <tr id="@u.Id">
                                                                 <td class="client-avatar"><img alt="image" src="~/Images/default.png"> </td>
-                                                                <td><a data-toggle="tab" href="#contact-1" class="client-link">@u.FullName</a></td>
+                                                                <td>@u.FullName</td>
                                                                 <td>@u.Email</td>
                                                                 <td class="contact-type"><i class="fa fa-phone"> </i></td>
                                                                 @{ 
@@ -160,8 +160,9 @@
                                 <div class="col-lg-4 text-center m-t-md">
                                     <h2 class="member-name"></h2>
                                     <div class="m-b-sm">
-                                        <img alt="image" class="img-circle" src="~/Images/default.png"
-                                             style="width: 82px">
+                                        @*<img alt="image" class="img-circle" src="/Images/profile-icon-sm.png"
+                                             style="width: 82px">*@
+                                        <span class="fa fa-inbox" style="font-size:7em;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-8 m-t-md">
@@ -197,15 +198,37 @@
                                     
                                     <h3><strong>Required Expiration Items</strong></h3>
                                     <table class="table table-hover m-b-md" id="itemTable"></table>
+                                        @*<tr>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Expiration Date</th>
+                                            <th></th>
+                                        </tr>*@
                                     <hr />
                                     <h3><strong>Other Expiration Items</strong></h3>
                                     <table class="table table-hover m-b-md" id="itemChosenTable"></table>
+                                    @*<tr>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Expiration Date</th>
+                                        <th></th>
+                                    </tr>*@
                                     <hr />
                                     <h3><strong>Courses</strong></h3>
                                     <table class="table table-hover m-b-md" id="courseTable"></table>
+                                    @*<tr>
+                                        <th>Name</th>
+                                        <th>Credits</th>
+                                        <th>Date</th>
+                                    </tr>*@
                                     <hr />
                                     <h3><strong>Core Courses</strong></h3>
                                     <table class="table table-hover m-b-md" id="coreCourseTable"></table>
+                                    @*<tr>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Expiration Date</th>
+                                    </tr>*@
                                     <hr />
 
                                 </div>
@@ -282,12 +305,12 @@
 
                 <div class="form-group" id="bothImages">
                     <div class="col-lg-6 firstImage">
-                        <label style="display: block;">Front of Card &nbsp;</label>
+                        @*<label style="display: block;">Front of Card &nbsp;</label>*@
                         <img id="edit-image-1" alt="no image" height="153" width="213" style="margin-top: 10px;">
                     </div>
 
                     <div class="col-lg-6 m-b-md secondImage">
-                        <label style="display: block;">Back of Card &nbsp;</label>
+                        @*<label style="display: block;">Back of Card &nbsp;</label>*@
                         <img id="edit-image-2" alt="no image" height="153" width="213" style="margin-top: 10px;">
                     </div>
                 </div>

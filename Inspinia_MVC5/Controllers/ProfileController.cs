@@ -21,7 +21,7 @@ namespace Inspinia_MVC5.Controllers
             vm.Organizations = mgr.GetOrganization(int.Parse(User.Identity.Name));
             Contact c = mgr.GetContact(int.Parse(User.Identity.Name));
 
-            if(c != null)
+            if (c != null)
             {
                 vm.Contact = c;
             }
@@ -31,7 +31,7 @@ namespace Inspinia_MVC5.Controllers
         public ActionResult CheckPassword(string password)
         {
             var mgr = new UserProfileRepository();
-   
+
             return Json(mgr.CheckPassword(int.Parse(User.Identity.Name), password));
         }
 
@@ -58,8 +58,14 @@ namespace Inspinia_MVC5.Controllers
         public ActionResult UpdateNotification(int userid, string radio, string name, string phone, string email)
         {
             var mgr = new UserProfileRepository();
-            mgr.UpdateNotification(userid, radio, name, phone, email);
+            User u = mgr.UpdateNotification(userid, radio, name, phone, email);
             TempData["success"] = "Your notification settings was updated successfully!";
+            SMSManager manager = new SMSManager();
+            //if (radio == "2" || radio == "3")
+            //{
+            //    string message = "This notification is to confirm that you have updated your notification settings to enable SMS reminders.";
+            //    manager.Notification(u.PhoneNumber, message);
+            //}
             return RedirectToAction("Index");
         }
     }

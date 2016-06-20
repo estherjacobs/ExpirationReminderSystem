@@ -24,6 +24,11 @@ namespace Inspinia_MVC5.Controllers
             var mgr = new UserAuthRepository();
             string onlyNumericNumber = Regex.Replace(phone, @"[^0-9]", "");
             User u = mgr.AddUser(name, password, onlyNumericNumber, email);
+            //SMSManager SMS = new SMSManager();
+            //string message = "Welcome to Expiration Reminder App! Thanks for setting up an account with us and we look forward to helping you.";
+            //SMS.Notification(u.PhoneNumber, message);
+            var manager = new EmailManager();
+            manager.SendWelcomeEmail(name, email);
             FormsAuthentication.SetAuthCookie(u.Id.ToString(), true);
             return RedirectToAction("index", "portal");
         }
@@ -83,12 +88,15 @@ namespace Inspinia_MVC5.Controllers
             var cats = mgr.GetAllCategories();
             return View(cats);
         }
-        public ActionResult OrgSignUp(string name, string email, string phone, string password, string oname, string oemail, string oaddress, string ocity, string ophone, int year, IEnumerable<int> category)
+        public ActionResult OrgSignUp(string name, string email, string phone, string password, string oname, string oemail, string oaddress, string ocity, string ostate, string ozip, string ophone, int year, IEnumerable<int> category)
         {
             var mgr = new UserAuthRepository();
             string onlyNumericNumber = Regex.Replace(phone, @"[^0-9]", "");
             User u = mgr.AddUser(name, password, onlyNumericNumber, email);
-            Organization o = mgr.AddOrg(u.Id, oname, oaddress, oemail, ocity, ophone, year);
+            //SMSManager SMS = new SMSManager();
+            //string message = "Welcome to Expiration Reminder App! Thanks for setting up a new organization account with us and we look forward to working with you.";
+            //SMS.Notification(u.PhoneNumber, message);
+            Organization o = mgr.AddOrg(u.Id, oname, oaddress, oemail, ocity, ostate, ozip, ophone, year);
             mgr.CreateInitialUserOrdRel(o.Id, u.Id);
             foreach(int i in category)
             {

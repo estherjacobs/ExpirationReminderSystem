@@ -231,7 +231,17 @@ $(".form-add-member").validate({
         },
         permission: {
             required: true,
-            range: [1, 2]
+            range: [1, 2],
+            remote: {
+                url: '/members/CheckIfEmailExist',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    password: function () {
+                        return $('#email').val();
+                    }
+                }
+            }
         }
     },
     messages: {
@@ -241,7 +251,7 @@ $(".form-add-member").validate({
         },
         permission: {
             required: "Select a permission status.",
-            remote: "Select a permission status."
+            range: "Select a permission status."
         }
     }
 });
