@@ -32,7 +32,7 @@
                 <a href="@Url.Action("Index", "Portal")" ><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.portal">Dashboard</span></a>
             </li>
 
-            <li class="@Html.IsSelected(controller: "Profile")" id="step4">
+            <li class="@Html.IsSelected(controller: "Profile")" id="step3">
                 <a href="@Url.Action("Index", "Profile" )" ><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.profile">Profile</span> </a>
             </li>
             @{
@@ -57,7 +57,7 @@
 
             }
           
-            <li class="@Html.IsSelected(controller: "Activity")" id="step5">
+            <li class="@Html.IsSelected(controller: "Activity")" id="step4">
                 <a href="@Url.Action("Index", "Activity" )" ><i class="fa fa-list"></i> <span class="nav-label" data-i18n="nav.profile">Activity</span> </a>
             </li>
         </ul>

@@ -50,7 +50,7 @@ namespace CertificateRepository
                 u.HashedPassword = PasswordHelper.HashPassword(password, u.Salt);
                 db.Users.InsertOnSubmit(u);
                 db.SubmitChanges();
-                AddAction(u.Id, " Register", DateTime.Today);
+                AddAction(u.Id, " Register", DateTime.Now);
                 return u;
             }
         }
@@ -71,7 +71,7 @@ namespace CertificateRepository
                 o.Date = DateTime.Now;
                 db.Organizations.InsertOnSubmit(o);
                 db.SubmitChanges();
-                AddOrgAction(o.Id, userid, o.Name + " registered", DateTime.Today);
+                AddOrgAction(o.Id, userid, o.Name + " registered", DateTime.Now);
                 return o;
             }
         }

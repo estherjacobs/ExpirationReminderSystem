@@ -216,7 +216,7 @@ namespace CertificateRepository
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
-                UserOrganization uo = db.UserOrganizations.FirstOrDefault(i => i.UserId == userid);
+                UserOrganization uo = db.UserOrganizations.FirstOrDefault(i => i.UserId == userid && i.Permission != 1);
                 return db.Organizations.FirstOrDefault(i => i.Id == uo.OrgId);
             }
         }

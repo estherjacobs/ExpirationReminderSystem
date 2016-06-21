@@ -115,11 +115,6 @@
                     }
                     if (MyPer == 3) {
                         $(".disableUser").prop('disabled', false);
-                        //$(".disableUser").attr({
-                        //    "data-toggle": "tooltip",
-                        //    "data-placement": "bottom",
-                        //    "title": "You can't disable a super administrator"
-                        //});
                 
                     }
                 });
