@@ -83,8 +83,9 @@ namespace Inspinia_MVC5.Models
             var toAddress = new MailAddress(email, "To new member");
             const string fromPassword = "Esther110";
             string subject = "Invitation to create user";
-            string body = "Hi, you have been invited by " + o.Name + " to become a member of their organization at Expiration Tracking App. Follow this link to setup your account. http://localhost:58893/members/link?token=" + token;
-            var smtp = new SmtpClient
+            string body = "Hi, you have been invited by " + o.Name + " to become a member of their organization at Expiration Tracking App. Follow this link to setup your account. http://certs.lakewoodfirstaid.org/members/link?token=" + token;
+            
+                        var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
                 Port = 587,

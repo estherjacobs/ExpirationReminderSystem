@@ -75,7 +75,7 @@
             },
             reminder: {
                 required: true,
-                range: [1, 30]
+                range: [1, 50]
             },
             issuedate: {
                 required: {

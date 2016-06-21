@@ -51,17 +51,17 @@
                     required: "Please enter a address"
                 },
                 city: {
-                    required: "Please enter a address"
+                    required: "Please enter a city"
                 },
                 state: {
-                    required: "Please enter a address"
+                    required: "Please enter a state"
                 },
                 zip: {
-                    required: "Please enter a address",
+                    required: "Please enter a zip",
                     minlength: "Please enter a valid zip code"
                 },
                 year: {
-                    required: "Please enter a address"
+                    required: "Please enter a year"
                 },
             }
         })
