@@ -78,6 +78,7 @@
     //$(".stooltip").hide();
     $(".viewMember").on('click', function () {
         var userid = $(this).data('id');
+        
         var orgid = $("#orgId").val();
         $("#courseTable").empty()
         $("#itemTable").empty()
@@ -183,7 +184,6 @@
             var userid = $("#specific-userid").val();
             var name = $("#member-name").val();
             var orgid = $("#orgId").val();
-
             swal({
                 title: "Are you sure?",
                 text: "You would like to disable this member from your organization",

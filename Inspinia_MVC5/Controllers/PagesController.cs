@@ -27,7 +27,7 @@ namespace Inspinia_MVC5.Controllers
             //EmailManager em = new EmailManager();
             //em.SendWelcomeEmail(name, email);
             SMSManager SMS = new SMSManager();
-            string message = "Welcome to Expiration Tracking App! Thank you for setting up an account with us and we look forward to working you.";
+            string message = "Welcome to Expiration Tracking App! You've officially take the first step torward  the pleasure of sitting back knowing your expiration dates are handled. - Happy Tracking ;)";
             SMS.Notification(u.PhoneNumber, message);
             FormsAuthentication.SetAuthCookie(u.Id.ToString(), true);
             return RedirectToAction("index", "portal");
