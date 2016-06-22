@@ -27,9 +27,7 @@ namespace CertificateRepository
             {
                 var loadOptions = new DataLoadOptions();
                 loadOptions.LoadWith<ExpirationItem>(p => p.Category);
-                //loadOptions.LoadWith<ExpirationItem>(p => p.Images);
                 loadOptions.LoadWith<ExpirationItem>(p => p.Reminders);
-                //loadOptions.LoadWith<ExpirationItem>(p => p.User);
                 db.LoadOptions = loadOptions;
                 return db.ExpirationItems.Where(j => j.UserId == userid).OrderBy(i => i.ExpirationDate).ToList();
             }
@@ -45,7 +43,6 @@ namespace CertificateRepository
                 loadOptions.LoadWith<ExpirationItem>(p => p.Images);
                 db.LoadOptions = loadOptions;
                 return db.Reminders.Where(i => i.UserId == userid && i.Date > DateTime.Now).OrderByDescending(i => i.Date).ToList();
-                //return db.Reminders.Where(i => i.UserId == userid)
             }
         }
         public IEnumerable<Course> GetAllCourses(int userid)
@@ -67,13 +64,7 @@ namespace CertificateRepository
                 return db.CoreCourses.Where(i => i.UserId == userid).ToList();
             }
         }
-        //public IEnumerable<Image> GetAllImages(int userid)
-        //{
-        //    using (DataLayerDataContext db = new DataLayerDataContext())
-        //    {
-        //        return db.Images.Where(i => i.UserId == userid).ToList();
-        //    }
-        //}
+      
         public IEnumerable<Category> GetAllCategories()
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
@@ -92,11 +83,6 @@ namespace CertificateRepository
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
-                //var loadOptions = new DataLoadOptions();
-                //loadOptions.LoadWith<ExpirationItem>(p => p.Category);
-                //loadOptions.LoadWith<ExpirationItem>(p => p.Images);
-
-                //db.LoadOptions = loadOptions;
                 db.DeferredLoadingEnabled = false;
                 return db.ExpirationItems.FirstOrDefault(i => i.Id == itemid);
             }
@@ -106,9 +92,7 @@ namespace CertificateRepository
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
-                //var loadOptions = new DataLoadOptions();
-                //loadOptions.LoadWith<NonExpirationItem>(p => p.User);
-                //db.LoadOptions = loadOptions;
+
                 return db.NonExpirationItems.FirstOrDefault(i => i.Id == itemid);
             }
         }
@@ -487,7 +471,6 @@ namespace CertificateRepository
                 var list = db.ItemShareWithCompanies.Where(i => i.UserId == userId && i.OrgId == orgId);
                 foreach (ItemShareWithCompany t in list)
                 {
-                    //if there is such an item in posted list
                     if (item.Contains(t.ExpirationItemId))
                     {
                         t.Share = true;

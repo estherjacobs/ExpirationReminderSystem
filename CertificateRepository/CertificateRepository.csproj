@@ -49,7 +49,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataLayer.dbml</DependentUpon>
     </Compile>
-    <Compile Include="NoteRepository.cs" />
     <Compile Include="OrgRegisterRepository.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

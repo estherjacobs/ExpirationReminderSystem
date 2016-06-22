@@ -82,7 +82,7 @@ namespace Inspinia_MVC5.Models
             var fromAddress = new MailAddress("expirationtracking@gmail.com", "Expiration Tracking App");
             var toAddress = new MailAddress(email, "To new member");
             const string fromPassword = "Esther110";
-            string subject = "Invitation to create user";
+            string subject = "Invitation to join " + o.Name + " at Expiration Tracking App";
             string body = "Hi, you have been invited by " + o.Name + " to become a member of their organization at Expiration Tracking App. Follow this link to setup your account. http://certs.lakewoodfirstaid.org/members/link?token=" + token;
             
                         var smtp = new SmtpClient

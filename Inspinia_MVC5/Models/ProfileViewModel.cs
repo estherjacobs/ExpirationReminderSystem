@@ -6,7 +6,7 @@ using CertificateRepository;
 
 namespace Inspinia_MVC5.Models
 {
-    public class ProfileViewModel : SharedViewModel
+    public class ProfileViewModel
     {
         public User User { get; set; }
         public Contact Contact { get; set; }

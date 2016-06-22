@@ -13,14 +13,7 @@
                 content: "Add new expiration items here. View a list with the details of each expiration item, change and update and delete expiration items.",
                 placement: "top",
                 backdrop: true,
-            },
-                //{
-                //    element: "#step2",
-                //    title: "Add Non Expiration Item",
-                //    content: "If one has a need, add non-expiration items. He will not receive any reminders for these items listed in the system.",
-                //    placement: "top",
-                //    backdrop: true,
-                //},
+                },
                 {
                     element: "#step2",
                     title: "Quick glance status",

@@ -133,6 +133,7 @@ namespace CertificateRepository
             }
         }
 
+        //Think I can delete this
         private void SendText(string phoneNumber, string fullName)
         {
             string html = string.Empty;

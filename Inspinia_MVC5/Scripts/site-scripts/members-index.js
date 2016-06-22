@@ -75,7 +75,7 @@
     });
 
     $(".disableUser").prop('disabled', true);
-    //$(".stooltip").hide();
+
     $(".viewMember").on('click', function () {
         var userid = $(this).data('id');
         
@@ -84,7 +84,7 @@
         $("#itemTable").empty()
         $("#itemChosenTable").empty()
         $("#coreCourseTable").empty()
-        //$(this).closest('tr').remove();
+
         var orgid = $("#orgId").val();
         $.get('/members/getUserDetails', { userid: userid, orgid: orgid }, function (User) {
             $("#member-first").text(User.FullName),
@@ -135,8 +135,7 @@
                     $("#member-date").text(date)
                 }
             });
-           
-            //$(".disableUser").prop('disabled', false);
+       
         });
     });
     function addCourseToTable(Course) {
@@ -146,23 +145,7 @@
     }
     function addItemToTable(RequiredItem) {
         var ExpirationItemId = RequiredItem.Id;
-        //var request = $.ajax({
-        //    url: '/members/checkifimage',
-        //    async: false,
-        //    type: 'POST',
-        //    dataType: 'JSON',
-        //    success: function (data) {
-        //        if (data) {
-        //            var row = new EJS({ url: '/content/templates/item-row.html' })
-        //                 .render(RequiredItem);
-        //            $("#itemTable").append($(row));
-        //        } else {
-        //            var row = new EJS({ url: '/content/templates/item-row-x.html' })
-        //                 .render(RequiredItem);
-        //            $("#itemTable").append($(row));
-        //        }
-        //    }
-        //})
+       
 
 
         var row = new EJS({ url: '/content/templates/item-row.html' })

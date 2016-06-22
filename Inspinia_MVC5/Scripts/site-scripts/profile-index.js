@@ -108,11 +108,6 @@
                 }
             }
         });
-
-
-        //$(".close").on('click', function () {
-        //    $("#error-div").hide();
-        //});
     });
 
    

@@ -133,10 +133,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
-    <Compile Include="Controllers\ClassesController.cs" />
-    <Compile Include="Controllers\DashboardsController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
-    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PortalController.cs" />
@@ -148,14 +145,12 @@
     <Compile Include="Models\ActivityViewModel.cs" />
     <Compile Include="Models\MemberProfileViewModel.cs" />
     <Compile Include="Models\MemberViewModel.cs" />
-    <Compile Include="Models\NoteViewModel.cs" />
     <Compile Include="Models\PortalViewModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\EmailManager.cs" />
     <Compile Include="Models\ScaffoldingContext.cs" />
     <Compile Include="Models\ScaffoldingController.cs" />
     <Compile Include="Models\code for site.cs" />
-    <Compile Include="Models\SharedViewModel.cs" />
     <Compile Include="Models\SMSManager.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -1633,14 +1628,12 @@
     <Content Include="Scripts\plugins\velocity\velocity.ui.min.js" />
     <Content Include="Scripts\plugins\video\responsible-video.js" />
     <Content Include="Scripts\site-scripts\members-index.js" />
-    <Content Include="Scripts\site-scripts\notes-index.js" />
     <Content Include="Scripts\site-scripts\Notification-Shared.js" />
     <Content Include="Scripts\site-scripts\pages-login.js" />
     <Content Include="Scripts\site-scripts\pages-register.js" />
     <Content Include="Scripts\site-scripts\pages-resetauth.js" />
     <Content Include="Scripts\site-scripts\profile-index.js" />
     <Content Include="Scripts\site-scripts\profile-org-index.js" />
-    <Content Include="Scripts\site-scripts\Scrap.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Web.config">
@@ -1659,7 +1652,6 @@
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Shared\_TopNavbar.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Widgets\Index.cshtml" />
     <Content Include="Views\Pages\SearchResults.cshtml" />
     <Content Include="Views\Pages\LockScreen.cshtml" />
     <Content Include="Views\Pages\Invoice.cshtml" />
@@ -1668,33 +1660,18 @@
     <Content Include="Views\Pages\NotFoundError.cshtml" />
     <Content Include="Views\Pages\InternalServerError.cshtml" />
     <Content Include="Views\Pages\EmptyPage.cshtml" />
-    <Content Include="Views\UIElements\Typography.cshtml" />
-    <Content Include="Views\UIElements\Icons.cshtml" />
-    <Content Include="Views\UIElements\DraggablePanels.cshtml" />
-    <Content Include="Views\UIElements\Buttons.cshtml" />
-    <Content Include="Views\UIElements\Video.cshtml" />
-    <Content Include="Views\UIElements\TablesPanels.cshtml" />
-    <Content Include="Views\UIElements\NotificationsTooltips.cshtml" />
-    <Content Include="Views\UIElements\BadgesLabelsProgress.cshtml" />
-    <Content Include="Views\Tables\StaticTables.cshtml" />
-    <Content Include="Views\Tables\DataTables.cshtml" />
-    <Content Include="Views\Tables\jqGrid.cshtml" />
     <Content Include="Scripts\plugins\justified-gallery\README.md" />
     <Content Include="Views\Shared\_SkinConfig.cshtml" />
     <Content Include="Views\Pages\InvoicePrint.cshtml" />
     <Content Include="Views\Shared\_Layout_2.cshtml" />
     <Content Include="Views\Shared\_TopNavbar2.cshtml" />
-    <Content Include="Views\Pages\Login_2.cshtml" />
     <Content Include="Views\Pages\ForgotPassword.cshtml" />
     <Content Include="Scripts\plugins\diff_match_patch\COPYING" />
     <Content Include="Views\Shared\_Layout_3.cshtml" />
     <Content Include="Views\Shared\_RightSidebar.cshtml" />
     <Content Include="Views\Shared\_Layout_4.cshtml" />
     <Content Include="Views\Shared\_NavigationOffCanvas.cshtml" />
-    <Content Include="Views\UIElements\Tabs.cshtml" />
-    <Content Include="Views\Tables\FooTables.cshtml" />
     <Content Include="Scripts\plugins\chartist\chartist.min.js.map" />
-    <Content Include="Views\UIElements\ResizeablePanels.cshtml" />
     <Content Include="Views\Portal\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Dashboards\Dashboard_1.cshtml" />
@@ -1702,20 +1679,14 @@
     <Content Include="Views\Dashboards\Dashboard_3.cshtml" />
     <Content Include="Views\Dashboards\Dashboard_4_1.cshtml" />
     <Content Include="Views\Dashboards\Dashboard_5.cshtml" />
-    <Content Include="Views\Pages\Test.cshtml" />
-    <Content Include="Views\Portal\Scrap.cshtml" />
     <Content Include="Views\Shared\_Layout_Pages.cshtml" />
     <Content Include="Views\Pages\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Pages\ResetAuth.cshtml" />
     <Content Include="Views\Pages\InvalidToken.cshtml" />
-    <Content Include="Views\Organization\Index.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
-    <Content Include="Views\Notes\Index.cshtml" />
-    <Content Include="Views\Classes\Index.cshtml" />
     <Content Include="Views\Members\InvalidToken.cshtml" />
     <Content Include="Views\Members\success.cshtml" />
     <Content Include="Views\Members\link.cshtml" />
-    <Content Include="Views\Members\GetUserDetails.cshtml" />
     <Content Include="Views\Activity\Index.cshtml" />
     <Content Include="Views\Members\Activity.cshtml" />
     <Content Include="Views\Pages\OrgRegister.cshtml" />
@@ -1735,9 +1706,6 @@
       <Project>{4ca4be31-2510-4777-9fb3-9a2511c4be3b}</Project>
       <Name>CertificateRepository</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\site-scripts\ScrapJS.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\site-scripts\shared-layout.js" />

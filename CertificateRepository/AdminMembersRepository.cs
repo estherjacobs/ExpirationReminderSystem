@@ -26,8 +26,6 @@ namespace CertificateRepository
                         }
                     }
                 }
-                //var query = db.Users.Where(i => i.Id == organizations.Contains(i.))
-                //db.DeferredLoadingEnabled = false;
                 return list;
             }
         }
@@ -35,10 +33,8 @@ namespace CertificateRepository
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
-                //db.DeferredLoadingEnabled = false;
                 return db.UserOrganizations.Where(i => i.OrgId == orgid).ToList();
             }
-
         }
         public int GetStatus(int companyid, int userid)
         {
@@ -59,8 +55,6 @@ namespace CertificateRepository
                     {
                         eitems.Add(e);
                     }
-
-                    //eitems.Add(expirationItems.FirstOrDefault(i => i.CategoryId == o.Id));
                 }
                 if (eitems.Count < 3)
                 {
@@ -79,7 +73,6 @@ namespace CertificateRepository
                             return 3;
                         }
                     }
-
                 }
                 return 2;
             }
@@ -172,7 +165,6 @@ namespace CertificateRepository
                 loadOptions.LoadWith<OrgRequiredItem>(p => p.Organization);
                 loadOptions.LoadWith<OrgRequiredItem>(p => p.Category);
                 db.LoadOptions = loadOptions;
-                //UserOrganization u = db.UserOrganizations.FirstOrDefault(i => i.UserId == userid);
                 return db.OrgRequiredItems.ToList();
             }
         }
@@ -224,7 +216,6 @@ namespace CertificateRepository
         {
             using (DataLayerDataContext db = new DataLayerDataContext())
             {
-                //db.DeferredLoadingEnabled = false;
                 return db.Courses.Where(i => i.UserId == userid);
             }
         }

@@ -50,7 +50,6 @@ namespace Inspinia_MVC5.Controllers
             User u = mgr.GetUser(email, password);
             if (u == null)
             {
-                // ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "text", "myFunction()", true);
                 return View(true);
             }
             else
@@ -67,15 +66,15 @@ namespace Inspinia_MVC5.Controllers
             return RedirectToAction("Login");
         }
 
-        public ActionResult LockScreen()
-        {
-            return View();
-        }
+        //public ActionResult LockScreen()
+        //{
+        //    return View();
+        //}
 
-        public ActionResult Login_2()
-        {
-            return View();
-        }
+        //public ActionResult Login_2()
+        //{
+        //    return View();
+        //}
 
         public ActionResult Register()
         {
@@ -106,20 +105,20 @@ namespace Inspinia_MVC5.Controllers
             return RedirectToAction("index", "portal");
         }
 
-        public ActionResult NotFoundError()
-        {
-            return View();
-        }
+        //public ActionResult NotFoundError()
+        //{
+        //    return View();
+        //}
 
-        public ActionResult InternalServerError()
-        {
-            return View();
-        }
+        //public ActionResult InternalServerError()
+        //{
+        //    return View();
+        //}
 
-        public ActionResult EmptyPage()
-        {
-            return View();
-        }
+        //public ActionResult EmptyPage()
+        //{
+        //    return View();
+        //}
 
         public ActionResult ForgotPassword()
         {
